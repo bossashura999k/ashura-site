@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashura's ChatBox - Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="logo"><i class="fa-solid fa-user"></i></div>
+    <div class="title">Welcome Back</div>
+    <div class="field">
+      <input type="text" id="username" required placeholder=" ">
+      <label>Username</label>
+      <i class="fa-solid fa-user icon"></i>
+    </div>
+    <div class="field">
+      <input type="password" id="password" required placeholder=" ">
+      <label>Password</label>
+      <i class="fa-solid fa-lock icon"></i>
+    </div>
+    <div class="options">
+      <label><input type="checkbox"> Remember me</label>
+      <a href="#" id="forgotLink">Forgot?</a>
+    </div>
+    <button class="btn" id="loginBtn">Login</button>
+    <div class="footer">
+      Don't have an account?
+      <a href="#" id="createAccountLink">Create account</a>
+    </div>
+  </div>
+
+  <script>
+    const BACKEND_URL = 'https://ashura-chatbox-backend.onrender.com'; // ← update if needed
+
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ username, password })
+        });
+        const data = await response.json();
+        if (data.success) {
+          // Set username cookie (non‑HttpOnly, 1 day)
+          document.cookie = `username=${encodeURIComponent(username)}; path=/; max-age=86400; SameSite=None; Secure`;
+          window.location.href = 'chat.html';
+        } else {
+          alert('Invalid credentials');
+        }
+      } catch (err) {
+        alert('Login failed. Please check your connection.');
+      }
+    });
+
+    document.getElementById('forgotLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Contact the admin for password recovery.');
+    });
+
+    document.getElementById('createAccountLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      const phone = '2347081472383';
+      const message = 'Hello Ashura, I want to Create an Account';
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      let countdown = 3;
+      const alertCountdown = () => {
+        alert(`Redirecting to WhatsApp in ${countdown} second${countdown !== 1 ? 's' : ''}...`);
+        countdown--;
+        if (countdown >= 0) {
+          setTimeout(alertCountdown, 1000);
+        } else {
+          window.location.href = url;
+        }
+      };
+      alertCountdown();
+    });
+  </script>
+</body>
+</html>

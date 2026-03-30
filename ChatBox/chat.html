@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Ashura's ChatBox</title>
+  <link rel="stylesheet" href="chat-styles.css">
+  <style>
+    /* Loading overlay while verifying */
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 1.2rem;
+      z-index: 1000;
+    }
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .user-info {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.5);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+<div id="loading">Checking authentication...</div>
+
+<div class="chat-container" style="display: none;">
+  <div class="chat-header">
+    <h1>✨ Ashura's ChatBox</h1>
+    <p>Your AI companion – ask anything</p>
+  </div>
+  <div class="messages" id="chatMessages"></div>
+  <div class="input-area">
+    <input type="text" id="messageInput" placeholder="Type your message..." autofocus>
+    <button id="sendBtn">Send</button>
+  </div>
+  <p style="text-align: center; font-size: 12px; color: #ccc;">&copy; Ashura's Corporation</p>
+  <button id="logoutBtn" class="logout-btn">Logout</button>
+  <div id="userInfo" class="user-info"></div>
+</div>
+
+<script>
+  const BACKEND_URL = 'https://ashura-chatbox-backend.onrender.com'; // ← update if needed
+
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+  }
+
+  function setCookie(name, value, days = 1) {
+    const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=None; Secure`;
+  }
+
+  async function verifyAuth() {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/verify`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (response.status === 401) {
+        window.location.href = 'index.html';
+        return false;
+      }
+      const data = await response.json();
+      return data.authenticated === true;
+    } catch (err) {
+      console.error('Verification error', err);
+      window.location.href = 'index.html';
+      return false;
+    }
+  }
+
+  (async function() {
+    const authenticated = await verifyAuth();
+    if (!authenticated) return;
+
+    document.getElementById('loading').style.display = 'none';
+    document.querySelector('.chat-container').style.display = 'flex';
+
+    let username = getCookie('username');
+    if (!username) username = 'User';
+
+    document.getElementById('userInfo').innerHTML = `Logged in as: <strong>${username}</strong>`;
+
+    const ownerName = 'Ashura IZZI';
+    const systemPrompt = `You are a helpful, friendly assistant created by ${ownerName}. You are chatting with ${username}, who is the owner and creator of this ChatBox. Always address ${username} by name in a respectful and warm manner. You have a cheerful and slightly playful personality, but you are also very knowledgeable and ready to help with any question. Remember that ${username} is your boss, so be polite and eager to assist.`;
+
+    let conversation = [
+      { role: "system", content: systemPrompt }
+    ];
+
+    const chatDiv = document.getElementById('chatMessages');
+    const input = document.getElementById('messageInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    function addMessageToUI(role, content) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${role === 'user' ? 'user-message' : 'bot-message'}`;
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.textContent = content;
+      messageDiv.appendChild(bubble);
+      chatDiv.appendChild(messageDiv);
+      chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+
+    function showTyping() {
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'message bot-message';
+      typingDiv.id = 'typingIndicator';
+      typingDiv.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span></div>`;
+      chatDiv.appendChild(typingDiv);
+      chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+
+    function removeTyping() {
+      const typing = document.getElementById('typingIndicator');
+      if (typing) typing.remove();
+    }
+
+    async function sendMessage() {
+      const message = input.value.trim();
+      if (!message) return;
+
+      conversation.push({ role: "user", content: message });
+
+      input.disabled = true;
+      sendBtn.disabled = true;
+
+      addMessageToUI('user', message);
+      input.value = '';
+      showTyping();
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ messages: conversation })
+        });
+        const data = await response.json();
+        removeTyping();
+        if (data.reply) {
+          conversation.push({ role: "assistant", content: data.reply });
+          addMessageToUI('bot', data.reply);
+        } else {
+          addMessageToUI('bot', '⚠️ Error: ' + (data.error || 'Unknown error'));
+        }
+      } catch (err) {
+        removeTyping();
+        addMessageToUI('bot', '❌ Connection error. Is the server running?');
+      } finally {
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
+      }
+    }
+
+    function addWelcomeMessage() {
+      const welcome = `Hello ${username}! I'm your AI assistant. How can I help you today?`;
+      addMessageToUI('bot', welcome);
+      conversation.push({ role: "assistant", content: welcome });
+    }
+
+    async function logout() {
+      try {
+        await fetch(`${BACKEND_URL}/api/logout`, {
+          method: 'POST',
+          credentials: 'include'
+        });
+      } catch (e) {
+        console.error('Logout error', e);
+      }
+      document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      window.location.href = 'index.html';
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+    logoutBtn.addEventListener('click', logout);
+
+    addWelcomeMessage();
+  })();
+</script>
+</body>
+</html>

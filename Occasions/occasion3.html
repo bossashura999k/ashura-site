@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday 🎉</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 420px;
+      margin: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      margin: 15px auto;
+      border: 4px solid #ffdd57;
+    }
+
+    button {
+      background: #ffdd57;
+      color: #000;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -10px;
+      font-size: 1.5rem;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZWHMD2C8S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZZWHMD2C8S');
+  </script>
+  <!-- TikTok Pixel Code Start -->
+  <script>
+  !function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+  var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+  ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+
+  ttq.load('D687LIBC77U1CE9DB64G');
+  ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  <!-- TikTok Pixel Code End -->
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🎂 Happy Birthday 🎂</h1>
+  <p>The birthday legend</p>
+
+  <!-- STATIC IMAGE (MUST BE INSIDE PROJECT ROOT) -->
+  <img src="../Pics/file.png" alt="Birthday Legend">
+
+  <button id="bdayBtn">🎉 Happy Birthday</button>
+  <div id="message"></div>
+</div>
+
+<script>
+  const btn = document.getElementById("bdayBtn");
+  const msg = document.getElementById("message");
+
+  btn.addEventListener("click", () => {
+    msg.textContent = "🥳 Another year stronger. Another level unlocked.";
+    launchConfetti();
+    playBeep();
+  });
+
+  function launchConfetti() {
+    for (let i = 0; i < 30; i++) {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.textContent = ["🎉", "🎂", "✨", "🥳"][Math.floor(Math.random() * 4)];
+      c.style.left = Math.random() * 100 + "vw";
+      c.style.animationDuration = (Math.random() * 2 + 2) + "s";
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 4000);
+    }
+  }
+
+  function playBeep() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    osc.frequency.value = 880;
+    osc.connect(ctx.destination);
+    osc.start();
+    setTimeout(() => osc.stop(), 200);
+  }
+</script>
+
+</body>
+</html>

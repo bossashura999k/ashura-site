@@ -1,0 +1,58 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "category": "bags",
+      "name": "Classic Leather Tote",
+      "price": 35000,
+      "image": "images/207980951-1-silvermet.jpeg",
+      "descriptionShort": "Professional & Spacious",
+      "description": "A timeless leather tote bag, perfect for work and everyday elegance. Crafted from premium leather with ample space."
+    },
+    {
+      "id": 2,
+      "category": "bags",
+      "name": "Sling Crossbody",
+      "price": 18000,
+      "image": "images/208481497-1-black.jpeg",
+      "descriptionShort": "Compact & Secure",
+      "description": "Stylish crossbody bag with secure zipper and adjustable strap. Ideal for casual outings."
+    },
+    {
+      "id": 3,
+      "category": "bags",
+      "name": "Urban Backpack",
+      "price": 28500,
+      "image": "images/208995850-1-white.jpeg",
+      "descriptionShort": "Modern Everyday Carry",
+      "description": "A sleek, durable backpack with padded laptop compartment and multiple pockets."
+    },
+    {
+      "id": 4,
+      "category": "gadgets",
+      "name": "Dell Alienware m18",
+      "price": 7550000,
+      "image": "images/pic.jpeg",
+      "descriptionShort": "Extreme Performance",
+      "description": "High-end gaming laptop with Intel Core i9, RTX 4090, and 18-inch display."
+    },
+    {
+      "id": 5,
+      "category": "gadgets",
+      "name": "HP EliteBook G8",
+      "price": 1220000,
+      "image": "images/pic2.jpeg",
+      "descriptionShort": "Business Professional",
+      "description": "Lightweight business laptop with powerful security features and long battery life."
+    },
+    {
+      "id": 6,
+      "category": "gadgets",
+      "name": "iPhone 17 Pro Max",
+      "price": 2530500,
+      "image": "images/pic3.jpeg",
+      "descriptionShort": "Gold • 1TB Storage",
+      "description": "Latest iPhone with A17 chip, Pro camera system, and stunning display."
+    }
+  ]
+}
