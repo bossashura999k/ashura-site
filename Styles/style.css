@@ -1,0 +1,15 @@
+body {
+    font-family: Arial;
+    background: aqua;
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 1px;   
+}
+
+h1 {
+    display: block;
+    color: blue;
+}
+

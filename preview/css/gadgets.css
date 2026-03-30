@@ -1,0 +1,10 @@
+:root {
+    --accent: #ff8a65;
+    --accent-hover: #e57358;
+}
+body {
+    background: linear-gradient(180deg, #071028, #08394f);
+}
+.logo {
+    background: linear-gradient(135deg, var(--accent) 0%, #b3471b 100%);
+}

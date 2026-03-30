@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium gadgets – cutting-edge tech at best prices.">
+    <title>Mr Izzi – Premium Gadgets</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/gadgets.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">
+                <div class="logo">IZ</div>
+                <div>
+                    <h1>Mr Izzi — Premium Gadgets</h1>
+                    <p class="muted">Cutting-edge. Reliable. Best prices.</p>
+                </div>
+            </div>
+            <div class="cart-summary">
+                <button id="cartBtn" class="btn btn-ghost" aria-label="Shopping cart">
+                    🛒 <span id="cartCount">0</span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-card">
+                    <h2>Tech Innovation Awaits</h2>
+                    <p class="muted">Explore the latest in technology with our carefully selected gadgets, designed to enhance your digital lifestyle.</p>
+                    <div class="cta">
+                        <button id="contactBtn" class="btn btn-primary">Contact for Tech</button>
+                        <a href="index.html" class="btn btn-ghost">Back to Home</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="products-container" class="grid">
+                <div class="loading">Loading products...</div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal (same structure as bags) -->
+    <div id="productModal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="modalName">
+        <div class="modal-card">
+            <div class="modal-pic">
+                <img id="modalImg" alt="Product image">
+            </div>
+            <div class="modal-meta">
+                <div>
+                    <h3 id="modalName">Product Name</h3>
+                    <p id="modalDesc" class="muted">Product description</p>
+                    <div class="price" id="modalPrice">₦0</div>
+                </div>
+                <div class="modal-actions">
+                    <button id="modalAddToCart" class="btn btn-primary">Add to Cart</button>
+                    <button id="closeModal" class="btn btn-ghost">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

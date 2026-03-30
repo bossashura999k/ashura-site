@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Choose between premium bags and cutting-edge gadgets at Mrs Nathaniel's store.">
+    <title>Mrs Nathaniel – Bags & Gadgets</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* landing-specific styles (minimal, could be in common but kept separate for clarity) */
+        .hero-landing {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .option-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            overflow: hidden;
+            width: 300px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+        }
+        .option-header {
+            padding: 1.5rem;
+            text-align: center;
+            color: white;
+        }
+        .bags-header { background: linear-gradient(135deg, #ff7e5f, #feb47b); }
+        .gadgets-header { background: linear-gradient(135deg, #4776E6, #8E54E9); }
+        .option-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+        .option-content { padding: 1.5rem; }
+        .btn { display: inline-block; margin-top: 1rem; }
+        .countdown { margin-top: 2rem; font-size: 0.9rem; color: var(--muted); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-landing">
+            <h1>Mrs Nathaniel — Premium Collection</h1>
+            <p class="lead">Elegant bags & cutting-edge gadgets. Choose your style.</p>
+        </div>
+
+        <div class="options">
+            <div class="option-card">
+                <div class="option-header bags-header">
+                    <div class="option-icon">👜</div>
+                    <h2>Bags Collection</h2>
+                    <p>Timeless designs</p>
+                </div>
+                <div class="option-content">
+                    <p>Discover handcrafted bags that blend elegance with functionality.</p>
+                    <a href="bags.html" class="btn btn-primary" style="background: #ff7e5f;">Explore Bags</a>
+                </div>
+            </div>
+            <div class="option-card">
+                <div class="option-header gadgets-header">
+                    <div class="option-icon">📱</div>
+                    <h2>Gadgets</h2>
+                    <p>Innovative tech</p>
+                </div>
+                <div class="option-content">
+                    <p>Latest smartphones, laptops, and accessories for your digital life.</p>
+                    <a href="gadgets.html" class="btn btn-primary" style="background: #4776E6;">Explore Gadgets</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="countdown">
+            <p>You will be redirected to <strong>Bags Collection</strong> in <span id="countdown">10</span> seconds.</p>
+            <button id="cancelRedirect" class="btn btn-ghost" style="margin-top: 0.5rem;">Stay Here</button>
+        </div>
+    </div>
+
+    <script>
+        let countdown = 10;
+        const countdownEl = document.getElementById('countdown');
+        const cancelBtn = document.getElementById('cancelRedirect');
+        let interval;
+
+        function startRedirect() {
+            interval = setInterval(() => {
+                countdown--;
+                countdownEl.textContent = countdown;
+                if (countdown <= 0) {
+                    clearInterval(interval);
+                    window.location.href = 'bags.html';
+                }
+            }, 1000);
+        }
+
+        cancelBtn.addEventListener('click', () => {
+            clearInterval(interval);
+            countdownEl.textContent = 'Redirect cancelled';
+            cancelBtn.disabled = true;
+        });
+
+        startRedirect();
+    </script>
+</body>
+</html>

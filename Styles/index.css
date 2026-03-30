@@ -1,0 +1,74 @@
+:root{
+    --bg-a: #081226;
+    --bg-b: #06304a;
+    --accent: #00d4ff;
+    --card-bg: rgba(255,255,255,0.04);
+}
+
+@font-face {
+    font-family: charm;
+    src: url("../Fonts/Valentine Charming.ttf");
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0;
+    font-family: Inter, Arial, charm, sans-serif;
+    background: linear-gradient(180deg,var(--bg-a),var(--bg-b));
+    color: var(--accent);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 20px;
+}
+
+#header{
+    font-family: charm, Inter, Arial, sans-serif;
+    font-weight:700;
+    color: var(--accent);
+    font-size: clamp(36px, 8vw, 120px);
+    margin: 12px 0 20px 0;
+    text-shadow: 6px 6px 12px rgba(0,0,0,0.5);
+    letter-spacing: 1px;
+}
+
+.lead{color:rgba(255,255,255,0.85);font-weight:600;margin-bottom:12px}
+
+.grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+    width:min(1100px,100%);
+}
+
+.card-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px 18px;
+    background: rgba(255,255,255,0.03);
+    color: #eaf8ff;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:700;
+    font-size:18px;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    border:1px solid rgba(255,255,255,0.04);
+}
+
+.card-link:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(2,6,23,0.6);background:rgba(255,255,255,0.05)}
+
+#copy{margin-top:20px;color:rgba(255,255,255,0.7);font-size:15px}
+
+#animate{max-width:480px;width:90%;height:auto;animation:fadeIn 1s ease}
+
+#animate-div{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;background-color:#050505;z-index:9999;animation:fadeOut 1s ease 2s forwards}
+
+@keyframes fadeIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+@keyframes fadeOut{to{opacity:0;visibility:hidden}}
+
+@media (max-width:420px){
+    .card-link{font-size:15px;padding:12px}
+}
+

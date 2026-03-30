@@ -1,0 +1,100 @@
+.btn {
+    padding: 8px 15px 7px 15px;
+    color: #ffffff;
+    background-color: #000000;
+    border: none;
+    border-radius: 20px;
+}    
+
+.btn:active {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.btn:hover {
+    background: #00ffff;
+    font-size: 40px;
+}
+
+@font-face {
+    font-family: bold;
+    src: url("../Fonts/THEBOLDFONT-FREEVERSION.ttf");
+}
+
+#copy {
+    font-size: 25px;
+}
+
+.a {
+    font-size: 35px;
+    font-family: bold;
+}
+
+body {
+    background-image: url("../Pics/perfect_bg.png");
+    background-size: cover;
+}
+.c {
+    background-image: url("../Pics/bg\(8\).png");
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+}
+
+.b {
+    background-image: url("../Pics/bg\(11\).png");
+    background-size: cover;
+    background-position: center;
+    color: #00ffff;
+    background-size: cover;
+    text-shadow: 5px 5px 20px #ffd700;
+}
+
+.e {
+   display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: monkey;
+    color: #00ffff;
+    background: linear-gradient(red, #00ffff);
+    background-size: cover;    
+    background-position: center;
+    text-shadow: 5px 5px 20px #ffd700;
+}
+
+@font-face {
+    font-family: monkey;
+    src: url("../Fonts/HappyMonkey-Regular.ttf");
+}
+
+
+#g {
+    width: 500px;
+    border-radius: 100%;
+    border: 10px solid #ffd700;
+}
+
+#h {
+     background-image: url("../Pics/bg\(16\).png");
+    background-size: cover;    
+    background-position: center;
+    color: #00ffff;
+}
+
+.gifts {
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 500px;
+    height: 500px;
+    background-image: url("../Gifs/gift.gif");
+    background-size: cover;
+}
+
+.gifts:hover {
+    background-image: url("../Gifs/beers.gif");
+}
+
+
+
+
+

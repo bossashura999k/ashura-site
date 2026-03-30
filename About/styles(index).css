@@ -1,0 +1,207 @@
+/* style.css */
+:root {
+  --export-primary: #00d4ff;
+  --export-accent: #a855f7;
+  --export-surface: rgba(255, 255, 255, 0.02);
+  --export-border: rgba(255, 255, 255, 0.08);
+  --radius: 12px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+  background:
+    radial-gradient(900px 500px at -10% -10%, color-mix(in oklab, var(--export-primary) 18%, transparent), transparent 70%),
+    radial-gradient(900px 500px at 110% 8%, color-mix(in oklab, var(--export-accent) 16%, transparent), transparent 72%);
+}
+
+.export-bg-orb {
+  position: fixed;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  animation: exportFloat 14s ease-in-out infinite;
+}
+.export-bg-orb.a {
+  top: -10rem;
+  left: -10rem;
+  background: var(--export-primary);
+}
+.export-bg-orb.b {
+  right: -10rem;
+  top: 22%;
+  background: var(--export-accent);
+  animation-delay: -6s;
+}
+
+.export-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Typewriter */
+.export-hero-title {
+  background-image: linear-gradient(
+    110deg,
+    color-mix(in oklab, var(--export-primary) 70%, white) 0%,
+    color-mix(in oklab, white 96%, transparent) 34%,
+    color-mix(in oklab, var(--export-accent) 72%, white) 68%,
+    color-mix(in oklab, var(--export-primary) 70%, white) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: exportFadeInUp 980ms cubic-bezier(0.22, 1, 0.36, 1) both, exportTextShimmer 6.4s linear infinite;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.export-section-title {
+  position: relative;
+  text-wrap: balance;
+}
+.export-section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -12px;
+  width: 68px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--export-primary), var(--export-accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: exportLineIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 320ms forwards;
+}
+.export-section-title.export-section-title--center::after {
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+}
+
+/* Cards */
+.export-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.export-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    color-mix(in oklab, var(--export-primary) 20%, transparent) 30%,
+    color-mix(in oklab, var(--export-accent) 24%, transparent) 55%,
+    transparent 88%
+  );
+  opacity: 0;
+  transform: translateX(-18%) rotate(2deg);
+  transition: opacity 360ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+.export-card:hover::before {
+  opacity: 0.85;
+  transform: translateX(6%) rotate(2deg);
+}
+.export-card:hover {
+  transform: translateY(-8px) scale(1.012);
+  box-shadow: 0 30px 64px -28px rgba(0, 0, 0, 0.55);
+}
+
+/* Project modal */
+[data-export-project-modal="true"] [data-export-modal-body] {
+  display: flex;
+  flex-direction: column;
+}
+[data-export-project-modal="true"] [data-export-modal-actions] {
+  position: static !important;
+  margin-top: auto;
+}
+
+/* Reveal animation */
+.export-reveal {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-distance, 18px), 0);
+  transition:
+    opacity var(--reveal-duration, 620ms) var(--reveal-easing, cubic-bezier(0.22, 1, 0.36, 1)),
+    transform var(--reveal-duration, 620ms) var(--reveal-easing, cubic-bezier(0.22, 1, 0.36, 1));
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
+}
+.export-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Keyframes */
+@keyframes exportFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -36px, 0) scale(1.11); }
+}
+@keyframes exportTextShimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 220% 50%; }
+}
+@keyframes exportLineIn {
+  to { transform: scaleX(1); }
+}
+@keyframes exportFadeInUp {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* Back to top button */
+.back-to-top.visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Timeline custom */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 32px;
+  top: 3rem;
+  bottom: -2rem;
+  width: 2px;
+  background: linear-gradient(180deg, var(--export-primary), var(--export-accent));
+  border-radius: 2px;
+}
+.timeline-item:last-child::before {
+  display: none;
+}
+.timeline-date {
+  box-shadow: 0 4px 10px rgba(56,189,248,0.3);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .timeline-item {
+    padding-left: 3.5rem !important;
+  }
+  .timeline-item::before {
+    left: 1.5rem;
+  }
+  .timeline-date {
+    width: 3rem;
+    font-size: 0.75rem;
+  }
+}
