@@ -13,6 +13,7 @@ body {
   background: url("https://images.pexels.com/photos/41953/earth-blue-planet-globe-planet-41953.jpeg")
     no-repeat center/cover;
   overflow: hidden;
+  font-family: Arial;
 }
 
 .container {
@@ -220,4 +221,8 @@ body {
 .footer a {
   color: #fff;
   font-weight: 600;
+}
+
+label {
+  font-weight: bold;
 }
