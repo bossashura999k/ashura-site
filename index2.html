@@ -59,32 +59,36 @@
         "teaches": "Penetration testing, Linux commands, cybersecurity tools"
     }
     </script>
+
+    <style>
+    </style>
     </head>
     <body>
-        <!-- NEW: Sticky navigation bar with smooth internal links -->
-        <nav class="primary-navbar" aria-label="Main navigation bar">
-            <div class="nav-container">
-                <ul class="nav-menu">
-                    <li><a href="#home-intro" class="nav-link-item">🏠 Home</a></li>
-                    <li><a href="#distros-section" class="nav-link-item">📦 Distros</a></li>
-                    <li><a href="#kali-details" class="nav-link-item">🐉 Kali Overview</a></li>
-                    <li><a href="#history" class="nav-link-item">📜 History</a></li>
-                    <li><a href="#who-uses" class="nav-link-item">👥 Who Uses</a></li>
-                    <li><a href="#features" class="nav-link-item">⚡ Features</a></li>
-                    <li><a href="#installation" class="nav-link-item">🛠️ Installation</a></li>
-                    <li><a href="index.html" class="nav-link-item">🏡 Homepage</a></li>
-                </ul>
-            </div>
-        </nav>
+        <!-- HAMBURGER MENU (top-right, click toggles navbar) -->
+        <div class="hamburger-wrapper">
+            <button class="hamburger-btn" id="hamburgerToggleBtn" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+        </div>
+        <div class="mobile-nav-panel" id="mobileNavPanel">
+            <ul class="mobile-nav-list">
+                <li><a href="#home-intro" class="nav-menu-link"><span class="nav-icon">🏠</span> Home / Intro</a></li>
+                <li><a href="#distros-section" class="nav-menu-link"><span class="nav-icon">📦</span> Linux Distros</a></li>
+                <li><a href="#kali-details" class="nav-menu-link"><span class="nav-icon">🐉</span> Kali Overview</a></li>
+                <li><a href="#history" class="nav-menu-link"><span class="nav-icon">📜</span> History</a></li>
+                <li><a href="#who-uses" class="nav-menu-link"><span class="nav-icon">👥</span> Who Uses Kali</a></li>
+                <li><a href="#features" class="nav-menu-link"><span class="nav-icon">⚡</span> Features</a></li>
+                <li><a href="#installation" class="nav-menu-link"><span class="nav-icon">🛠️</span> Installation</a></li>
+                <li><a href="index.html" class="nav-menu-link"><span class="nav-icon">🏡</span> Main Homepage</a></li>
+            </ul>
+        </div>
+        <div class="menu-overlay" id="menuOverlay"></div>
 
         <header role="banner">
             <h1>Hello, Welcome to Ashura's Intro to Kali Linux</h1>
         </header>
 
         <main>
-            <!-- Existing nav element is kept for structural integrity but we also add IDs to sections -->
             <nav id="top-nav" aria-label="Main content structure">
-                <!-- INTRO SECTION with ID for navigation -->
+                <!-- INTRO SECTION -->
                 <section class="intro" id="home-intro">
                     <h2>Linux</h2>
                     <div class="text">
@@ -93,7 +97,7 @@
                         <p>There are different distributions (Distros) of Linux, they include:</p>
                     </div>
                     
-                    <!-- DISTROS SECTION with explicit ID for navbar -->
+                    <!-- DISTROS SECTION (target for navbar) -->
                     <div class="distro-list" id="distros-section">
                         <div class="distro-item">
                             <h3>Debian</h3>
@@ -118,7 +122,7 @@
                     </div>
                 </section>
 
-                <!-- Main Kali details article with ID for overview -->
+                <!-- Main Kali details article -->
                 <article class="kali-details" id="kali-details">
                     <div class="text">
                         <p>Kali Linux is a distribution (Distro) of Linux (or to be more specific, Debian) with tools meant for Penetration Testing.</p>
@@ -139,7 +143,7 @@
 
                     <hr>
 
-                    <!-- HISTORY SECTION with ID -->
+                    <!-- HISTORY SECTION -->
                     <section class="history-section" id="history">
                         <h2 class="section-title">A Brief History</h2>
                         <ul>
@@ -151,7 +155,7 @@
 
                     <hr>
 
-                    <!-- WHO USES SECTION with ID -->
+                    <!-- WHO USES SECTION -->
                     <section class="audience-section" id="who-uses">
                         <h2 class="section-title">Who Uses Kali Linux</h2>
                         <p class="lead">Kali is used by a wide range of professionals:</p>
@@ -168,7 +172,7 @@
 
                     <hr>
 
-                    <!-- FEATURES SECTION with ID -->
+                    <!-- FEATURES SECTION -->
                     <section class="features-section" id="features">
                         <h2 class="section-title">Why Kali Linux is Special</h2>
                         <ul>
@@ -224,7 +228,7 @@
                         <img src="Pics/a.png" width="100%" alt="Kali Linux desktop interface" loading="lazy">
                     </div>
 
-                    <!-- INSTALLATION SECTION with ID -->
+                    <!-- INSTALLATION SECTION -->
                     <section class="installation-section" id="installation">
                         <h2 class="section-title">Installation Methods</h2>
                         <div class="text">
@@ -259,5 +263,7 @@
             <p class="note">(Kali can be installed on any PC via Dual-Boot or WSL, on some mobile phones, and even on a USB flash drive)</p>
             <p id="copy">&lt;&lt;&copy; Ashura &gt;&gt;</p>
         </footer>
+
+        <script src="script/script.js"></script>
     </body>
 </html>
