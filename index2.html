@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Learn Kali Linux | Ethical Hacking & Penetration Testing Tutorials</title>
     <meta name="description" content="Complete introduction to Kali Linux: history, tools, installation methods, and ethical hacking basics. Perfect for beginners in cybersecurity.">
     <meta name="keywords" content="Kali Linux, learn Kali Linux, ethical hacking, penetration testing, cybersecurity, Linux distros">
@@ -61,13 +61,31 @@
     </script>
     </head>
     <body>
+        <!-- NEW: Sticky navigation bar with smooth internal links -->
+        <nav class="primary-navbar" aria-label="Main navigation bar">
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="#home-intro" class="nav-link-item">🏠 Home</a></li>
+                    <li><a href="#distros-section" class="nav-link-item">📦 Distros</a></li>
+                    <li><a href="#kali-details" class="nav-link-item">🐉 Kali Overview</a></li>
+                    <li><a href="#history" class="nav-link-item">📜 History</a></li>
+                    <li><a href="#who-uses" class="nav-link-item">👥 Who Uses</a></li>
+                    <li><a href="#features" class="nav-link-item">⚡ Features</a></li>
+                    <li><a href="#installation" class="nav-link-item">🛠️ Installation</a></li>
+                    <li><a href="index.html" class="nav-link-item">🏡 Homepage</a></li>
+                </ul>
+            </div>
+        </nav>
+
         <header role="banner">
             <h1>Hello, Welcome to Ashura's Intro to Kali Linux</h1>
         </header>
 
         <main>
-            <nav id="top-nav" aria-label="Main navigation">
-                <section class="intro">
+            <!-- Existing nav element is kept for structural integrity but we also add IDs to sections -->
+            <nav id="top-nav" aria-label="Main content structure">
+                <!-- INTRO SECTION with ID for navigation -->
+                <section class="intro" id="home-intro">
                     <h2>Linux</h2>
                     <div class="text">
                         <p>Here you are going to get answer to all your questions regarding Linux (especially Kali Linux)</p>
@@ -75,8 +93,8 @@
                         <p>There are different distributions (Distros) of Linux, they include:</p>
                     </div>
                     
-                    <!-- FIXED: Proper list structure -->
-                    <div class="distro-list">
+                    <!-- DISTROS SECTION with explicit ID for navbar -->
+                    <div class="distro-list" id="distros-section">
                         <div class="distro-item">
                             <h3>Debian</h3>
                             <div class="debian">
@@ -100,7 +118,8 @@
                     </div>
                 </section>
 
-                <article class="kali-details">
+                <!-- Main Kali details article with ID for overview -->
+                <article class="kali-details" id="kali-details">
                     <div class="text">
                         <p>Kali Linux is a distribution (Distro) of Linux (or to be more specific, Debian) with tools meant for Penetration Testing.</p>
                         <p>Kali Linux is a Debian-based Linux distribution created and maintained by Offensive Security, designed specifically for penetration testing, digital forensics, and cybersecurity research. It is not a general-purpose desktop operating system — it is a specialized toolkit loaded with over 600 pre-installed security tools for tasks such as:</p>
@@ -120,7 +139,8 @@
 
                     <hr>
 
-                    <section class="history-section">
+                    <!-- HISTORY SECTION with ID -->
+                    <section class="history-section" id="history">
                         <h2 class="section-title">A Brief History</h2>
                         <ul>
                             <li><strong>Origins:</strong> Kali Linux is the successor to BackTrack Linux, a popular security-focused OS used in the early 2000s.</li>
@@ -131,7 +151,8 @@
 
                     <hr>
 
-                    <section class="audience-section">
+                    <!-- WHO USES SECTION with ID -->
+                    <section class="audience-section" id="who-uses">
                         <h2 class="section-title">Who Uses Kali Linux</h2>
                         <p class="lead">Kali is used by a wide range of professionals:</p>
                         <ul>
@@ -147,7 +168,8 @@
 
                     <hr>
 
-                    <section class="features-section">
+                    <!-- FEATURES SECTION with ID -->
+                    <section class="features-section" id="features">
                         <h2 class="section-title">Why Kali Linux is Special</h2>
                         <ul>
                             <li><strong>Pre-installed tools:</strong> No need to hunt down and configure dozens of security tools — they are ready to use.</li>
@@ -202,7 +224,8 @@
                         <img src="Pics/a.png" width="100%" alt="Kali Linux desktop interface" loading="lazy">
                     </div>
 
-                    <section class="installation-section">
+                    <!-- INSTALLATION SECTION with ID -->
+                    <section class="installation-section" id="installation">
                         <h2 class="section-title">Installation Methods</h2>
                         <div class="text">
                             <p>Kali Linux can be installed almost anywhere nowadays. Check it out:</p>
