@@ -39,7 +39,6 @@ ashura.site/
 | Feature | Description |
 |---|---|
 | 🤖 AI Chatbox | GROQ-powered conversational assistant (Node.js backend on Render) |
-| 💳 Payments | Paystack integration for payment flows |
 | 💬 WhatsApp | Direct WhatsApp contact button |
 | 📊 Analytics | Google Analytics for visitor tracking |
 | 🔒 HTTPS Enforced | Apache-level HTTP → HTTPS redirect with canonical domain |
