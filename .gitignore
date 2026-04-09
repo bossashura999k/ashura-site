@@ -2,3 +2,4 @@
 .htaccess.backup
 temp/
 .secret.gpg
+*.zip
