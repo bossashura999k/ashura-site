@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=720, initial-scale=1.0">
+<title>Cosmic Kitten – TecnoBG6</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 720px;
+    height: 1612px;
+    overflow: hidden;
+    background: #060d1a;
+    font-family: sans-serif;
+  }
+
+  /* ── SCENE WRAPPER ── */
+  .scene {
+    position: relative;
+    width: 720px;
+    height: 1612px;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, #0d2240 0%, #07121f 50%, #030810 100%);
+    overflow: hidden;
+  }
+
+  /* ── STARS ── */
+  .stars {
+    position: absolute;
+    inset: 0;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+    opacity: var(--op, 0.6);
+  }
+  @keyframes twinkle {
+    from { opacity: var(--op, 0.4); transform: scale(1); }
+    to   { opacity: 1; transform: scale(1.4); }
+  }
+
+  /* ── GROUND GLOW ── */
+  .ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 420px;
+    background: radial-gradient(ellipse 90% 50% at 50% 100%,
+      rgba(60,180,220,0.18) 0%,
+      rgba(30,90,160,0.08) 50%,
+      transparent 100%);
+  }
+
+  /* ── CAT CONTAINER ── */
+  .cat-wrap {
+    position: absolute;
+    bottom: 210px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    height: 700px;
+    animation: float 5s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(-18px); }
+  }
+
+  /* ── BODY GLOW (behind cat) ── */
+  .cat-glow {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(80,200,240,0.20) 0%, transparent 70%);
+    filter: blur(30px);
+  }
+
+  /* ── SVG KITTEN ── */
+  .cat-svg {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 460px;
+    filter:
+      drop-shadow(0 0 28px rgba(80,210,240,0.55))
+      drop-shadow(0 0 8px rgba(255,180,120,0.35));
+  }
+
+  /* ── COLLAR HEART PULSE ── */
+  @keyframes heartPulse {
+    0%,100% { opacity: 1; filter: drop-shadow(0 0 6px #3af) drop-shadow(0 0 14px #3af); }
+    50%      { opacity: 0.55; filter: drop-shadow(0 0 2px #3af); }
+  }
+  .heart-charm { animation: heartPulse 2s ease-in-out infinite; }
+
+  /* ── EYE SHIMMER ── */
+  @keyframes eyeShimmer {
+    0%,100% { opacity: 0.9; }
+    50%      { opacity: 0.4; }
+  }
+  .eye-highlight { animation: eyeShimmer 3s ease-in-out infinite; }
+
+  /* ── SPARKLE CORNER ── */
+  .sparkle {
+    position: absolute;
+    bottom: 80px;
+    right: 60px;
+    width: 36px; height: 36px;
+    animation: sparkleRotate 4s linear infinite;
+    opacity: 0.85;
+  }
+  @keyframes sparkleRotate {
+    from { transform: rotate(0deg) scale(1); opacity: 0.85; }
+    50%  { transform: rotate(180deg) scale(1.3); opacity: 1; }
+    to   { transform: rotate(360deg) scale(1); opacity: 0.85; }
+  }
+</style>
+</head>
+<body>
+<div class="scene">
+
+  <!-- STARS -->
+  <div class="stars" id="stars"></div>
+
+  <!-- GROUND GLOW -->
+  <div class="ground"></div>
+
+  <!-- KITTEN -->
+  <div class="cat-wrap">
+    <div class="cat-glow"></div>
+
+    <svg class="cat-svg" viewBox="0 0 460 620" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Fur gradient – body -->
+        <radialGradient id="bodyGrad" cx="50%" cy="45%" r="52%">
+          <stop offset="0%"   stop-color="#3a5878"/>
+          <stop offset="45%"  stop-color="#1e3550"/>
+          <stop offset="100%" stop-color="#0c1e34"/>
+        </radialGradient>
+        <!-- Rim light (warm peach) -->
+        <radialGradient id="rimLight" cx="85%" cy="30%" r="60%">
+          <stop offset="0%"   stop-color="rgba(255,190,130,0.55)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <!-- Teal rim light left -->
+        <radialGradient id="tealLight" cx="15%" cy="60%" r="55%">
+          <stop offset="0%"   stop-color="rgba(60,210,240,0.40)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <!-- Eye iris -->
+        <radialGradient id="eyeGrad" cx="40%" cy="35%" r="55%">
+          <stop offset="0%"   stop-color="#a0f0e0"/>
+          <stop offset="45%"  stop-color="#30c8b0"/>
+          <stop offset="100%" stop-color="#0a7060"/>
+        </radialGradient>
+        <!-- Ear inner -->
+        <radialGradient id="earInner" cx="50%" cy="80%" r="60%">
+          <stop offset="0%"  stop-color="rgba(255,160,160,0.7)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <!-- Fur noise filter -->
+        <filter id="fur" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" seed="3" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <!-- Soft glow filter -->
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- ═══ TAIL ═══ -->
+      <path d="M 310 560 Q 410 500 430 430 Q 450 360 390 340 Q 360 330 350 360 Q 370 380 360 410 Q 340 460 290 520 Z"
+            fill="url(#bodyGrad)" filter="url(#fur)"/>
+      <!-- Tail rim warm -->
+      <path d="M 330 555 Q 415 495 435 428 Q 455 355 395 338"
+            stroke="rgba(255,180,110,0.45)" stroke-width="18" fill="none" stroke-linecap="round"
+            filter="url(#glow)"/>
+      <!-- Tail rim teal -->
+      <path d="M 315 558 Q 408 498 428 432 Q 445 365 386 342"
+            stroke="rgba(60,210,240,0.30)" stroke-width="10" fill="none" stroke-linecap="round"/>
+
+      <!-- ═══ BODY ═══ -->
+      <!-- Main body -->
+      <ellipse cx="230" cy="480" rx="158" ry="150" fill="url(#bodyGrad)" filter="url(#fur)"/>
+      <!-- Warm rim -->
+      <ellipse cx="230" cy="480" rx="158" ry="150" fill="url(#rimLight)"/>
+      <!-- Teal rim -->
+      <ellipse cx="230" cy="480" rx="158" ry="150" fill="url(#tealLight)"/>
+
+      <!-- Chest lighter fur -->
+      <ellipse cx="230" cy="510" rx="90" ry="85"
+               fill="rgba(70,120,160,0.35)" filter="url(#fur)"/>
+
+      <!-- ═══ FRONT PAWS ═══ -->
+      <!-- Left paw -->
+      <ellipse cx="170" cy="600" rx="55" ry="30" fill="url(#bodyGrad)" filter="url(#fur)"/>
+      <ellipse cx="170" cy="600" rx="55" ry="30" fill="url(#tealLight)"/>
+      <!-- Right paw -->
+      <ellipse cx="295" cy="600" rx="55" ry="30" fill="url(#bodyGrad)" filter="url(#fur)"/>
+      <ellipse cx="295" cy="600" rx="55" ry="30" fill="url(#rimLight)"/>
+
+      <!-- ═══ HEAD ═══ -->
+      <!-- Head base -->
+      <ellipse cx="230" cy="280" rx="165" ry="150" fill="url(#bodyGrad)" filter="url(#fur)"/>
+      <ellipse cx="230" cy="280" rx="165" ry="150" fill="url(#rimLight)"/>
+      <ellipse cx="230" cy="280" rx="165" ry="150" fill="url(#tealLight)"/>
+
+      <!-- ═══ EARS ═══ -->
+      <!-- Left ear outer -->
+      <polygon points="80,200 60,80 160,160" fill="url(#bodyGrad)" filter="url(#fur)"/>
+      <polygon points="80,200 60,80 160,160" fill="url(#rimLight)"/>
+      <!-- Left ear inner -->
+      <polygon points="90,190 78,105 148,168" fill="url(#earInner)"/>
+
+      <!-- Right ear outer -->
+      <polygon points="380,200 400,80 300,160" fill="url(#bodyGrad)" filter="url(#fur)"/>
+      <polygon points="380,200 400,80 300,160" fill="url(#tealLight)"/>
+      <!-- Right ear inner -->
+      <polygon points="370,190 382,105 312,168" fill="url(#earInner)"/>
+
+      <!-- ═══ FACE FUR DETAIL ═══ -->
+      <!-- Forehead stripe -->
+      <path d="M 210 160 Q 230 175 250 160" stroke="rgba(20,50,80,0.4)" stroke-width="6"
+            fill="none" stroke-linecap="round"/>
+      <path d="M 205 178 Q 230 193 255 178" stroke="rgba(20,50,80,0.3)" stroke-width="4"
+            fill="none" stroke-linecap="round"/>
+
+      <!-- ═══ EYES ═══ -->
+      <!-- Left eye white/sclera -->
+      <ellipse cx="170" cy="285" rx="52" ry="46" fill="#d0f5ee"/>
+      <!-- Left iris -->
+      <ellipse cx="170" cy="285" rx="45" ry="40" fill="url(#eyeGrad)"/>
+      <!-- Left pupil -->
+      <ellipse cx="170" cy="285" rx="20" ry="26" fill="#060e18"/>
+      <!-- Left eye highlight -->
+      <ellipse class="eye-highlight" cx="183" cy="272" rx="8" ry="7" fill="white" opacity="0.85"/>
+      <ellipse class="eye-highlight" cx="160" cy="294" rx="4" ry="3" fill="rgba(255,255,255,0.5)"/>
+      <!-- Left eye glow ring -->
+      <ellipse cx="170" cy="285" rx="48" ry="43" fill="none"
+               stroke="rgba(80,240,210,0.35)" stroke-width="3" filter="url(#glow)"/>
+
+      <!-- Right eye white/sclera -->
+      <ellipse cx="295" cy="285" rx="52" ry="46" fill="#d0f5ee"/>
+      <!-- Right iris -->
+      <ellipse cx="295" cy="285" rx="45" ry="40" fill="url(#eyeGrad)"/>
+      <!-- Right pupil -->
+      <ellipse cx="295" cy="285" rx="20" ry="26" fill="#060e18"/>
+      <!-- Right eye highlight -->
+      <ellipse class="eye-highlight" cx="308" cy="272" rx="8" ry="7" fill="white" opacity="0.85"/>
+      <ellipse class="eye-highlight" cx="285" cy="294" rx="4" ry="3" fill="rgba(255,255,255,0.5)"/>
+      <!-- Right eye glow ring -->
+      <ellipse cx="295" cy="285" rx="48" ry="43" fill="none"
+               stroke="rgba(80,240,210,0.35)" stroke-width="3" filter="url(#glow)"/>
+
+      <!-- ═══ NOSE ═══ -->
+      <path d="M 220 340 Q 230 348 240 340 L 234 333 Q 230 330 226 333 Z"
+            fill="#b06070"/>
+
+      <!-- ═══ MOUTH ═══ -->
+      <path d="M 215 354 Q 230 366 245 354" stroke="#7a4050" stroke-width="3"
+            fill="none" stroke-linecap="round"/>
+      <!-- Subtle frown (grumpy expression) -->
+      <path d="M 205 358 Q 212 352 220 356" stroke="#7a4050" stroke-width="2"
+            fill="none" stroke-linecap="round"/>
+      <path d="M 240 356 Q 248 352 255 358" stroke="#7a4050" stroke-width="2"
+            fill="none" stroke-linecap="round"/>
+
+      <!-- ═══ WHISKERS ═══ -->
+      <line x1="80"  y1="345" x2="185" y2="350" stroke="rgba(200,230,240,0.55)" stroke-width="1.5"/>
+      <line x1="85"  y1="360" x2="182" y2="360" stroke="rgba(200,230,240,0.55)" stroke-width="1.5"/>
+      <line x1="88"  y1="375" x2="182" y2="368" stroke="rgba(200,230,240,0.55)" stroke-width="1.5"/>
+      <line x1="275" y1="350" x2="380" y2="345" stroke="rgba(200,230,240,0.55)" stroke-width="1.5"/>
+      <line x1="278" y1="360" x2="375" y2="360" stroke="rgba(200,230,240,0.55)" stroke-width="1.5"/>
+      <line x1="278" y1="368" x2="372" y2="375" stroke="rgba(200,230,240,0.55)" stroke-width="1.5"/>
+
+      <!-- ═══ COLLAR ═══ -->
+      <path d="M 138 395 Q 230 425 322 395" stroke="#1a3a5a" stroke-width="12"
+            fill="none" stroke-linecap="round"/>
+      <path d="M 138 395 Q 230 425 322 395" stroke="rgba(80,180,240,0.5)" stroke-width="3"
+            fill="none" stroke-linecap="round"/>
+
+      <!-- Heart charm -->
+      <g class="heart-charm" transform="translate(230,425)">
+        <!-- Charm disc -->
+        <circle cx="0" cy="0" r="16" fill="#061828" stroke="#3af" stroke-width="2"/>
+        <!-- Heart path -->
+        <path d="M 0 6 C 0 6 -11 -2 -11 -7 C -11 -13 -5 -14 0 -8 C 5 -14 11 -13 11 -7 C 11 -2 0 6 0 6 Z"
+              fill="none" stroke="#3af" stroke-width="2.5" stroke-linejoin="round"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- CORNER SPARKLE -->
+  <svg class="sparkle" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 0 L19.8 16.2 L36 18 L19.8 19.8 L18 36 L16.2 19.8 L0 18 L16.2 16.2 Z"
+          fill="white" filter="url(#glow)"/>
+  </svg>
+
+  <!-- Extra small sparkles scattered -->
+  <svg style="position:absolute;top:120px;left:80px;width:18px;opacity:0.7;animation:sparkleRotate 6s linear infinite"
+       viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 0 L19.8 16.2 L36 18 L19.8 19.8 L18 36 L16.2 19.8 L0 18 L16.2 16.2 Z" fill="white"/>
+  </svg>
+
+</div>
+
+<script>
+// Generate stars
+const starsEl = document.getElementById('stars');
+const starData = [
+  // [x%, y%, size, dur, op]
+  [8,5,3,2.5,0.9],[15,12,2,3.2,0.7],[25,8,1.5,4,0.5],[38,3,2.5,2.8,0.8],
+  [50,6,1.5,3.5,0.6],[62,4,3,2.2,0.9],[72,9,2,4.5,0.7],[85,5,1.5,3,0.5],
+  [92,13,2.5,2.7,0.8],[5,20,2,3.8,0.6],[12,28,1.5,2.5,0.9],[20,22,3,4.2,0.5],
+  [30,17,2,3,0.7],[45,25,1.5,2.3,0.8],[55,15,2.5,4.8,0.6],[65,22,2,3.3,0.9],
+  [75,18,1.5,2.6,0.5],[88,25,3,3.7,0.7],[95,18,2,2.9,0.8],[3,35,1.5,4,0.5],
+  [10,40,2.5,3.1,0.8],[18,35,2,2.4,0.9],[28,30,1.5,3.9,0.6],[40,38,2,2.7,0.7],
+  [58,32,1.5,4.3,0.5],[70,37,2.5,3.2,0.8],[80,30,2,2.5,0.9],[90,35,1.5,3.6,0.6],
+  [7,50,2,4.1,0.7],[22,48,1.5,2.8,0.9],[35,52,2.5,3.4,0.5],[50,45,2,2.6,0.8],
+  [63,50,1.5,4.7,0.6],[78,48,2,3,0.9],[93,52,2.5,2.3,0.7],
+  // Bokeh glows
+  [20,10,8,5,0.12],[55,8,10,6,0.10],[78,15,7,4.5,0.13],[40,28,9,5.5,0.11],[90,22,6,4,0.09],
+];
+starData.forEach(([x, y, s, dur, op]) => {
+  const el = document.createElement('div');
+  el.className = 'star';
+  el.style.cssText = `
+    left:${x}%; top:${y}%; width:${s}px; height:${s}px;
+    --dur:${dur}s; --op:${op};
+    animation-delay:${(Math.random()*3).toFixed(2)}s;
+    ${s > 5 ? 'background:radial-gradient(circle,rgba(180,230,255,0.5),transparent);filter:blur(3px);border-radius:50%' : ''}
+  `;
+  starsEl.appendChild(el);
+});
+</script>
+</body>
+</html>
