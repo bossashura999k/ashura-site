@@ -7,8 +7,16 @@ export interface ChessUser {
 }
 
 export const USERS: ChessUser[] = [
-  { username: "white", password: "white123", color: "white" },
-  { username: "black", password: "black123", color: "black" },
+  {
+    username: process.env.WHITE_USERNAME ?? "white",
+    password: process.env.CHESS_PASSWORD ?? "white123",
+    color: "white",
+  },
+  {
+    username: process.env.BLACK_USERNAME ?? "black",
+    password: process.env.CHESS_PASSWORD ?? "black123",
+    color: "black",
+  },
 ];
 
 export function findUser(
