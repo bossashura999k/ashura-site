@@ -23,7 +23,8 @@ router.post("/auth/login", (req, res) => {
   const token = createSession(user.username);
   res.cookie(SESSION_COOKIE, token, {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "none",
+    secure: true,
     maxAge: COOKIE_MAX_AGE,
     path: "/",
   });
