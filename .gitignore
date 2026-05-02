@@ -3,3 +3,6 @@
 temp/
 .secret.gpg
 *.zip
+chess/node_modules
+chess/apps/web/dist
+chess/apps/server/dist
