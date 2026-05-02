@@ -6,3 +6,4 @@ temp/
 chess/node_modules
 chess/apps/web/dist
 chess/apps/server/dist
+.env
