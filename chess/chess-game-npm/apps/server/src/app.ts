@@ -40,7 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const distPath = path.join(__dirname, "..", "..", "apps", "web", "dist");
+const distPath = path.join(__dirname, "..", "..", "..", "apps", "web", "dist");
 
 app.use(express.static(distPath));
 app.use("/api", router);                     // API routes first
