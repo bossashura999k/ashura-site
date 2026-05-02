@@ -44,7 +44,7 @@ const distPath = path.join(__dirname, "..", "..", "apps", "web", "dist");
 
 app.use(express.static(distPath));
 app.use("/api", router);                     // API routes first
-app.get("/*", (_req: Request, res: Response) => {   // then SPA fallback
+app.use((_req: Request, res: Response) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 // ------------------------------------------------
