@@ -36,19 +36,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ---- NEW: Serve built frontend static files ----
+// ... after cookieParser etc.
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const distPath = path.join(__dirname, "..", "..", "apps", "web", "dist");
 
 app.use(express.static(distPath));
-
-// Fallback to index.html for any non‑API request (SPA routing)
-app.get("*", (_req: Request, res: Response) => {
+app.use("/api", router);                     // API routes first
+app.get("/*", (_req: Request, res: Response) => {   // then SPA fallback
   res.sendFile(path.join(distPath, "index.html"));
 });
-
-// API routes (after static files so API takes precedence over wildcards)
-app.use("/api", router);
 // ------------------------------------------------
 
 export default app;
