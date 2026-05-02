@@ -8,7 +8,7 @@ const host = process.env.HOST ?? "localhost";
 const apiTarget = process.env.VITE_API_URL ?? process.env.API_URL ?? "http://localhost:8080";
 
 export default defineConfig({
-  base: "/chess/",
+  base: "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
