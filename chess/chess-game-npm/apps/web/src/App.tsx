@@ -39,10 +39,19 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+function RedirectToRoot() {
+  const [, setLocation] = useLocation();
+  useEffect(() => {
+    setLocation("/");
+  }, [setLocation]);
+  return null;
+}
+
 function Router() {
   return (
     <Switch>
       <Route path="/login" component={Login} />
+      <Route path="/index.html" component={RedirectToRoot} />
       <Route path="/">
         <AuthGuard>
           <Game />
