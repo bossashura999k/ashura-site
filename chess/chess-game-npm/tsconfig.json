@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./apps/web" },
+    { "path": "./apps/server" },
+    { "path": "./packages/api-client-react" },
+    { "path": "./packages/api-zod" }
+  ]
+}

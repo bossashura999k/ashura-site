@@ -1,0 +1,22 @@
+{
+  "name": "chess-game",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Online two-player chess game (npm workspaces).",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n SERVER,WEB -c blue,green \"npm run dev --workspace apps/server\" \"npm run dev --workspace apps/web\"",
+    "dev:server": "npm run dev --workspace apps/server",
+    "dev:web": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspace apps/web && npm run build --workspace apps/server",
+    "start": "npm run start --workspace apps/server",
+    "typecheck": "tsc -b"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "~5.9.2"
+  }
+}
