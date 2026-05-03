@@ -29,7 +29,7 @@ export default function Board({ game, userColor }: { game: GameState, userColor:
     setPromotionSquare(null);
   }, [game.fen]);
 
-  const isMyTurn = game.status === "active" && game.turn === userColor;
+  const isMyTurn = (game.status === "active" || game.status === "check") && game.turn === userColor;
   const board = chess.board();
   
   // Flip board for black
