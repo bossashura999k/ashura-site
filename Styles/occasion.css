@@ -1,56 +1,212 @@
+:root {
+  --bg-a: #081226;
+  --bg-b: #06304a;
+  --accent: #00d4ff;
+  --card-bg: rgba(255, 255, 255, 0.04);
+}
+
+@font-face {
+  font-family: bold;
+  src: url("../Fonts/THEBOLDFONT-FREEVERSION.ttf");
+}
+
+@font-face {
+  font-family: monkey;
+  src: url("../Fonts/HappyMonkey-Regular.ttf");
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+html, body { height: 100%; }
+
 body {
-  background-image: url("../Pics/perfect_bg.png");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  font-family: Inter, Arial, sans-serif;
+  background: linear-gradient(180deg, var(--bg-a), var(--bg-b));
+  color: var(--accent);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 32px 20px;
+  gap: 16px;
 }
 
+/* ── Header ── */
+.a {
+  font-size: clamp(36px, 8vw, 90px);
+  font-family: bold, Inter, Arial, sans-serif;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+/* ── Occasion list ── */
+.occasions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: min(600px, 100%);
+}
+
+.occasions-list h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(18px, 4vw, 26px);
+  font-family: monkey, Inter, Arial, sans-serif;
+  color: rgba(255, 255, 255, 0.9);
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 14px 18px;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.occasions-list h1:hover {
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-3px);
+}
+
+.occasions-list h1 span {
+  color: var(--accent);
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+/* ── Button ── */
+.btn {
+  margin-left: auto;
+  padding: 7px 18px;
+  background: var(--accent);
+  color: #081226;
+  border: none;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: #ffffff;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  background: #00a3c4;
+}
+
+/* ── Back link ── */
+.back {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+
+.back a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.back a:hover {
+  text-decoration: underline;
+}
+
+/* ── Occasion flier (occasion4.html etc.) ── */
 .occasion-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  animation: fadeUp 0.8s ease both;
+  animation: fadeIn 0.8s ease both;
 }
 
 .occasion-label {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #00ffff;
-  opacity: 0.9;
+  color: var(--accent);
+  opacity: 0.8;
 }
 
 .occasion-flier {
   width: 100%;
   max-width: 380px;
   border-radius: 16px;
-  box-shadow:
-    0 0 0 1px rgba(0, 255, 255, 0.15),
-    0 8px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
   object-fit: contain;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .occasion-flier:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow:
-    0 0 0 1px rgba(0, 255, 255, 0.35),
-    0 16px 48px rgba(0, 0, 0, 0.6);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(2, 6, 23, 0.6);
+  border-color: rgba(0, 212, 255, 0.35);
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Legacy classes (keep for other occasion pages) ── */
+#copy  { font-size: 25px; }
+
+.c {
+  background-image: url("../Pics/bg(8).png");
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+}
+
+.b {
+  background-image: url("../Pics/bg(11).png");
+  background-size: cover;
+  background-position: center;
+  color: var(--accent);
+  text-shadow: 5px 5px 20px #ffd700;
+}
+
+.e {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: monkey;
+  color: var(--accent);
+  background: linear-gradient(red, var(--accent));
+  background-size: cover;
+  background-position: center;
+  text-shadow: 5px 5px 20px #ffd700;
+}
+
+#g {
+  width: 500px;
+  border-radius: 100%;
+  border: 10px solid #ffd700;
+}
+
+.gifts {
+  margin: 0 auto;
+  margin-top: 100px;
+  width: 500px;
+  height: 500px;
+  background-image: url("../Gifs/gift.gif");
+  background-size: cover;
+}
+
+.gifts:hover {
+  background-image: url("../Gifs/beers.gif");
+}
+
+@media (max-width: 420px) {
+  .occasions-list h1 { font-size: 15px; padding: 12px; }
+  .btn { font-size: 13px; padding: 6px 14px; }
 }
