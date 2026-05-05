@@ -50,7 +50,7 @@ ashura.site/
 ## 🧰 Tech Stack
 
 **Frontend**
-- HTML5, CSS3, Vanilla JavaScript
+- HTML5, CSS3, Vanilla JavaScript, ReactJS
 - No frontend frameworks — hand-rolled everything
 
 **Backend (Chatbox)**
