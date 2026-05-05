@@ -15,65 +15,63 @@
     </script>
 
     <style>
-      *, *::before, *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+      :root {
+        --bg-a: #081226;
+        --bg-b: #06304a;
+        --accent: #00d4ff;
       }
+
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { height: 100%; }
 
       body {
-        background-color: #0a0f1e;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 2rem;
-        font-family: Georgia, serif;
-      }
-
-      .occasion-item {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: linear-gradient(180deg, var(--bg-a), var(--bg-b));
+        color: var(--accent);
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
-        animation: fadeUp 0.8s ease both;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 32px 20px;
       }
 
       .occasion-label {
         font-size: 0.75rem;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: #00d4c8;
+        color: var(--accent);
         opacity: 0.8;
+        margin-bottom: 1rem;
+      }
+
+      .occasion-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: fadeIn 0.8s ease both;
       }
 
       .occasion-flier {
         width: 100%;
         max-width: 380px;
         border-radius: 16px;
-        box-shadow:
-          0 0 0 1px rgba(0, 212, 200, 0.15),
-          0 8px 40px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(0, 212, 255, 0.15);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
         object-fit: contain;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
       }
 
       .occasion-flier:hover {
-        transform: translateY(-4px) scale(1.01);
-        box-shadow:
-          0 0 0 1px rgba(0, 212, 200, 0.35),
-          0 16px 48px rgba(0, 0, 0, 0.7);
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(2, 6, 23, 0.6);
+        border-color: rgba(0, 212, 255, 0.35);
       }
 
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(24px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to   { opacity: 1; transform: none; }
       }
     </style>
   </head>
