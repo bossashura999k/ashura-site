@@ -1,34 +1,91 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <header>Occasion 4.</header>
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZWHMD2C8S"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-ZZWHMD2C8S');
-        </script>
-        <!-- TikTok Pixel Code Start -->
-        <script>
-        !function (w, d, t) {
-        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-        var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-        ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Occasion 4 — Flexisaf Internship</title>
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZWHMD2C8S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-ZZWHMD2C8S');
+    </script>
 
-        ttq.load('D687LIBC77U1CE9DB64G');
-        ttq.page();
-        }(window, document, 'ttq');
-        </script>
-        <!-- TikTok Pixel Code End -->
-    </head>
-    <body>
-        <h1>Null</h1>
-        <p>Back to <a href="../index.html">Homepage</a></p>
-    </body>
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
+      body {
+        background-color: #0a0f1e;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 2rem;
+        font-family: Georgia, serif;
+      }
 
+      .occasion-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        animation: fadeUp 0.8s ease both;
+      }
+
+      .occasion-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #00d4c8;
+        opacity: 0.8;
+      }
+
+      .occasion-flier {
+        width: 100%;
+        max-width: 380px;
+        border-radius: 16px;
+        box-shadow:
+          0 0 0 1px rgba(0, 212, 200, 0.15),
+          0 8px 40px rgba(0, 0, 0, 0.6);
+        object-fit: contain;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .occasion-flier:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow:
+          0 0 0 1px rgba(0, 212, 200, 0.35),
+          0 16px 48px rgba(0, 0, 0, 0.7);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="occasion-item">
+      <span class="occasion-label">Occasion 4</span>
+      <img
+        src="../Pics/Z.png"
+        alt="Flexisaf Internship Program - Obire Oviemena Israel"
+        class="occasion-flier"
+      />
+    </div>
+  </body>
 </html>
