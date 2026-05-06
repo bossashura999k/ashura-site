@@ -15,8 +15,14 @@ const TOKEN_ABI = [
   "function decimals() view returns (uint8)"
 ];
 
+// Donation contract on Celo Mainnet
+const DONATION_CONTRACT_ADDRESS = "0xa88190691AfFc083C59bBdC73690308eF8b065d0";
+const DONATION_ABI = [
+  "function logDonation(uint256 amount, string calldata message) external"
+];
+
 // ─────────────────────────────────────────────
-let provider, signer, token, userAddress;
+let provider, signer, token, donationContract, userAddress;
 
 const isMiniPay = () => window.ethereum && window.ethereum.isMiniPay;
 
@@ -72,7 +78,8 @@ async function connectWallet() {
 
     provider    = new ethers.BrowserProvider(window.ethereum);
     signer      = await provider.getSigner();
-    token       = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, signer);
+    token            = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, signer);
+    donationContract = new ethers.Contract(DONATION_CONTRACT_ADDRESS, DONATION_ABI, signer);
     userAddress = await signer.getAddress();
 
     connectSection.classList.add("hidden");
@@ -161,6 +168,15 @@ donateBtn.addEventListener("click", async () => {
 
     const receipt = await tx.wait();
     const hash    = receipt.hash || tx.hash;
+
+    // Log donation onchain via our contract
+    const message = document.getElementById("donateMessage").value.trim();
+    try {
+      const logTx = await donationContract.logDonation(amountWei, message);
+      await logTx.wait();
+    } catch {
+      // Non-critical — donation still went through even if logging fails
+    }
 
     showStatus("success", `✓ Donation of $${amount} ${TOKEN_SYMBOL} sent! Thank you 🙏
       <br/><a class="tx-link" href="https://celoscan.io/tx/${hash}" target="_blank" rel="noopener">View on Celoscan ↗</a>`);
