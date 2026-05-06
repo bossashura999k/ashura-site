@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Support Ashura · Donate with USDT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="glow"></div>
+<div class="page">
+  <div class="card">
+    <!-- Header -->
+    <div class="card-header">
+      <div class="avatar">A</div>
+      <div class="header-text">
+        <h1>Support Ashura</h1>
+        <p>Frontend Developer · ashura.site</p>
+      </div>
+      <div class="celo-badge">
+        <div class="celo-dot"></div>
+        Celo
+      </div>
+    </div>
+    <!-- Body -->
+    <div class="card-body">
+      <!-- Wallet Section -->
+      <div class="wallet-section">
+        <div class="label">Your Wallet</div>
+        <!-- MiniPay auto-connect notice -->
+        <div class="minipay-note hidden" id="minipayNote">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          MiniPay detected · wallet auto-connected
+        </div>
+        <!-- Browser fallback warning -->
+        <div class="browser-warning" id="browserWarning">
+          ℹ️ This app is designed for <strong style="color:var(--celo)">MiniPay</strong>. You can still connect a browser wallet (MetaMask, etc.), but make sure you're on the <strong style="color:var(--text)">Celo network</strong> (Chain ID: 42220).
+        </div>
+        <!-- Not connected state -->
+        <div id="connectSection">
+          <button id="connectBtn">Connect Wallet</button>
+        </div>
+        <!-- Connected state -->
+        <div class="wallet-status hidden" id="walletInfo">
+          <span class="wallet-address" id="walletAddress">0x…</span>
+          <span class="balance-pill" id="balancePill">— USDT</span>
+        </div>
+      </div>
+      <!-- Amount Section (hidden until connected) -->
+      <div class="hidden" id="donateSection">
+        <hr class="divider" />
+        <div class="amount-section">
+          <div class="label">Donation Amount</div>
+          <div class="preset-grid">
+            <button class="preset-btn" data-amount="1">$1</button>
+            <button class="preset-btn active" data-amount="2">$2</button>
+            <button class="preset-btn" data-amount="5">$5</button>
+            <button class="preset-btn" data-amount="10">$10</button>
+          </div>
+          <div class="custom-input-wrap">
+            <input type="number" id="customAmount" placeholder="Custom amount" min="0.01" step="0.01" value="2" />
+            <span class="input-currency">USDT</span>
+          </div>
+        </div>
+        <div class="message-section">
+          <div class="label">Leave a note <span style="color:var(--muted);text-transform:none;letter-spacing:0">(optional)</span></div>
+          <textarea id="donateMessage" rows="2" placeholder="Say something nice… or don't 👀"></textarea>
+        </div>
+        <button id="donateBtn">
+          <span id="donateBtnText">Send Donation</span>
+          <div class="spinner hidden" id="donateBtnSpinner"></div>
+        </button>
+        <div class="status-box" id="statusBox"></div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="card-footer">
+      <span class="footer-note">Payments via USDT stablecoin</span>
+      <span class="powered-by">Built on <span>Celo</span></span>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
