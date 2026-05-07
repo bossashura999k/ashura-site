@@ -1,3 +1,5 @@
+const message = "Hello Ashura!"
+console.log(`${message} \n Activated donate script!`);
 // ─────────────────────────────────────────────
 //  CONFIG
 // ─────────────────────────────────────────────
