@@ -7,12 +7,12 @@ const CELO_CHAIN_ID     = 42220;
 const CELO_CHAIN_ID_HEX = "0xa4ec";
 
 // USDT on Celo Mainnet
-const TOKEN_ADDRESS = "0x617f3112bf5397D0467D315cC709EF968D9ba546";
-const TOKEN_SYMBOL  = "USDT";
+const TOKEN_ADDRESS  = "0x617f3112bf5397D0467D315cC709EF968D9ba546";
+const TOKEN_SYMBOL   = "USDT";
+const TOKEN_DECIMALS = 6; // USDT uses 6 decimals — hardcoded to avoid RPC failures
 const TOKEN_ABI = [
   "function transfer(address to, uint256 amount) returns (bool)",
-  "function balanceOf(address account) view returns (uint256)",
-  "function decimals() view returns (uint8)"
+  "function balanceOf(address account) view returns (uint256)"
 ];
 
 // Donation contract on Celo Mainnet
@@ -120,9 +120,8 @@ async function switchToCelo() {
 
 async function refreshBalance() {
   try {
-    const decimals = await token.decimals();
     const raw = await token.balanceOf(userAddress);
-    const bal = ethers.formatUnits(raw, decimals);
+    const bal = ethers.formatUnits(raw, TOKEN_DECIMALS);
     balancePill.textContent = `${parseFloat(bal).toFixed(2)} ${TOKEN_SYMBOL}`;
   } catch {
     balancePill.textContent = `— ${TOKEN_SYMBOL}`;
@@ -160,8 +159,7 @@ donateBtn.addEventListener("click", async () => {
   showStatus("pending", "Waiting for confirmation in your wallet…");
 
   try {
-    const decimals  = await token.decimals();
-    const amountWei = ethers.parseUnits(amount.toString(), decimals);
+    const amountWei = ethers.parseUnits(amount.toString(), TOKEN_DECIMALS);
     const tx        = await token.transfer(RECIPIENT, amountWei);
 
     showStatus("pending", "Transaction submitted. Waiting for block…");
