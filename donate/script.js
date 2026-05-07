@@ -9,7 +9,7 @@ const CELO_CHAIN_ID     = 42220;
 const CELO_CHAIN_ID_HEX = "0xa4ec";
 
 // USDT on Celo Mainnet
-const TOKEN_ADDRESS  = "0x617f3112bf5397D0467D315cC709EF968D9ba546";
+const TOKEN_ADDRESS = "0x48065fbbe25f71c9282ddf5e1cd6d6a887483d5e";
 const TOKEN_SYMBOL   = "USDT";
 const TOKEN_DECIMALS = 6; // USDT uses 6 decimals — hardcoded to avoid RPC failures
 const TOKEN_ABI = [
