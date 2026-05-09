@@ -100,13 +100,13 @@ export default function Login() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1 p-3 bg-background rounded-md shadow-sm">
                 <div className="font-serif font-bold text-center border-b pb-1 mb-2">White Player</div>
-                <div className="flex justify-between"><span className="text-muted-foreground">User:</span> <span className="font-mono font-bold">Ask Ashura<a href="wa.link/nq2nm1">here</a></span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">Pass:</span> <span className="font-mono font-bold">Ask Ashura<a href="wa.link/nq2nm1">here</a></span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">User:</span> <span className="font-mono font-bold">Ask Ashura</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Pass:</span> <span className="font-mono font-bold">Ask Ashura</span></div>
               </div>
               <div className="space-y-1 p-3 bg-background rounded-md shadow-sm border-t-2 border-t-foreground">
                 <div className="font-serif font-bold text-center border-b pb-1 mb-2">Black Player</div>
-                <div className="flex justify-between"><span className="text-muted-foreground">User:</span> <span className="font-mono font-bold">Ask Ashura<a href="wa.link/nq2nm1">here</a></span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">Pass:</span> <span className="font-mono font-bold">Ask Ashura <a href="wa.link/nq2nm1">here</a></span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">User:</span> <span className="font-mono font-bold">Ask Ashura</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Pass:</span> <span className="font-mono font-bold">Ask Ashura</span></div>
               </div>
             </div>
           </div>
