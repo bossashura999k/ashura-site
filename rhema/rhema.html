@@ -3,14 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Rhema-Senpai Rara // Character File</title>
-<link rel="stylesheet" href="styles.css">
+<title>Rhema-Senpai Rara // Character File — with Portrait</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
-
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div class="bg-glow"></div>
-
 <div class="container">
 
   <div class="file-header">
@@ -25,7 +23,7 @@
     <div class="corner bl"></div>
     <div class="corner br"></div>
 
-    <!-- TOP -->
+    <!-- TOP SECTION -->
     <div class="card-top">
       <div class="avatar-panel">
         <div class="avatar-ring">
@@ -43,7 +41,12 @@
             </defs>
           </svg>
           <div class="avatar-inner">
-            <span class="avatar-initial">R</span>
+            <!-- REPLACED the 'R' text with an actual portrait image -->
+            <img class="avatar-img" 
+                 src="rhema.jpg"
+                 alt="Rhema-Senpai Rara portrait" 
+                 title="Rhema // official portrait (customizable)">
+            <!-- 💡 replace 'src' with your own image URL for the final look -->
           </div>
         </div>
         <div class="status-dot">
@@ -94,7 +97,7 @@
       </div>
     </div>
 
-    <!-- QUOTE -->
+    <!-- ICARUS QUOTE (no changes) -->
     <div class="quote-section">
       <div class="quote-mark">"</div>
       <p class="quote-text">
@@ -104,7 +107,7 @@
       <div class="quote-source">— Rhema on Icarus · May 11, 2026</div>
     </div>
 
-    <!-- TRAITS / STATS -->
+    <!-- STAT BARS -->
     <div class="traits-section">
       <div class="section-label">Attribute Analysis</div>
       <div class="stat-bars" id="statBars">
@@ -130,8 +133,8 @@
         </div>
         <div class="stat-row">
           <span class="stat-name">Tolerance of IZZI</span>
-          <div class="stat-track"><div class="stat-fill accent" data-val="42"></div></div>
-          <span class="stat-val" style="color:var(--accent)">42</span>
+          <div class="stat-track"><div class="stat-fill accent" data-val="35"></div></div>
+          <span class="stat-val" style="color:var(--accent)">35</span>
         </div>
       </div>
     </div>
@@ -162,9 +165,8 @@
       <span class="footer-mono">Σ <span>MAY 2026</span></span>
     </div>
   </div>
-  <script src="script.js"></script>
 </div>
 
-
+<script src="script.js"></script>
 </body>
 </html>
