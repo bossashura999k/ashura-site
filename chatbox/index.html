@@ -61,7 +61,7 @@
           if (data.success) {
             // Set username cookie (non‑HttpOnly, 1 day)
             document.cookie = `username=${encodeURIComponent(username)}; path=/; max-age=86400; SameSite=None; Secure`;
-            window.location.href = 'chat.html';
+            window.location.href = 'chat';
           } else {
             alert('Invalid credentials');
           }
