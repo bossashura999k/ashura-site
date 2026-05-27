@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Ashura's ChatBox – AI Assistant Chat</title>
     <meta name="description" content="Chat with Ashura's AI assistant. Ask anything about web development, Linux, or general knowledge.">
-    <link rel="canonical" href="https://ashura.site/ChatBox/chat.html">
+    <link rel="canonical" href="https://ashura.site/ChatBox/chat">
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="chat-styles.css">
     <style>
@@ -55,14 +55,14 @@
           credentials: 'include',
         });
         if (response.status === 401) {
-          window.location.href = 'index.html';
+          window.location.href = 'index';
           return false;
         }
         const data = await response.json();
         return data.authenticated === true;
       } catch (err) {
         console.error('Verification error', err);
-        window.location.href = 'index.html';
+        window.location.href = 'index';
         return false;
       }
     }
@@ -174,7 +174,7 @@
           console.error('Logout error', e);
         }
         document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        window.location.href = 'index.html';
+        window.location.href = 'index';
       }
 
       sendBtn.addEventListener('click', sendMessage);
