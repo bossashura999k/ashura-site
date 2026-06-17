@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,8 @@ app.get('/api/healthz', (req, res) => {
     message: 'No worries Ashura, I\'m working 💪' 
   });
 });
+
+app.use(cors());
 
 // Serve static files (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)));
