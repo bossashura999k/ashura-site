@@ -76,16 +76,36 @@ router.get('/eth-logs', async (req, res) => {
     }
 
     try {
-      const url = `${CRYPTOAPIS_BASE}/blockchain-data/bitcoin/mainnet/addresses/${walletAddress}/transactions?limit=1000`;
+      // Build URL with limit
+      const url = `${CRYPTOAPIS_BASE}/blockchain-data/bitcoin/mainnet/addresses/${encodeURIComponent(walletAddress)}/transactions?limit=1000`;
+      
       const resp = await fetch(url, {
         headers: { 'X-API-Key': CRYPTOAPIS_KEY }
       });
-      if (!resp.ok) throw new Error(`Cryptoapis HTTP ${resp.status}`);
-      const data = await resp.json();
-      if (data.response && data.response.statusCode >= 400) {
-        throw new Error(data.response.message || 'Cryptoapis error');
+
+      // Get response body as text (for error debugging)
+      const responseText = await resp.text();
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        // If not JSON, treat as plain text
+        data = { error: responseText };
       }
 
+      if (!resp.ok) {
+        // Log the full error for debugging (server logs)
+        console.error('[Cryptoapis] Error response:', {
+          status: resp.status,
+          statusText: resp.statusText,
+          body: responseText
+        });
+        // Return a user-friendly error
+        const errorMsg = data.response?.message || data.error || responseText || 'Cryptoapis API error';
+        return res.status(resp.status).json({ error: `Cryptoapis error: ${errorMsg}` });
+      }
+
+      // If we got here, it's a successful response
       const txs = data.response?.data?.items || [];
       const from = parseInt(fromBlock, 10) || 0;
       const to   = toBlock === 'latest' ? Infinity : parseInt(toBlock, 10);
@@ -137,7 +157,6 @@ router.get('/eth-logs', async (req, res) => {
       return res.status(500).json({ error: err.message || 'Bitcoin fetch failed' });
     }
   }
-
   // ─── EVM branch (using a single Etherscan API key) ──────────────────
   const apiKey = process.env.ETHERSCAN_API_KEY;
   if (!apiKey) {
