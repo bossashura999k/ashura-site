@@ -1,12 +1,13 @@
-// ─── Supported EVM networks (Etherscan‑family) ────────────────────────────
 const router = require('express').Router();
-const NETWORKS = {
-  ethereum: { apiBase: 'https://api.etherscan.io/api' },
-  celo:     { apiBase: 'https://api.celoscan.io/api' },
-  polygon:  { apiBase: 'https://api.polygonscan.com/api' },
-  bsc:      { apiBase: 'https://api.bscscan.com/api' },
-  arbitrum: { apiBase: 'https://api.arbiscan.io/api' },
-  base:     { apiBase: 'https://api.basescan.org/api' },
+
+// ─── Chain ID mapping for Etherscan API V2 ──────────────────────────────
+const CHAIN_IDS = {
+  ethereum: 1,
+  celo: 42220,
+  polygon: 137,
+  bsc: 56,
+  arbitrum: 42161,
+  base: 8453,
 };
 
 // ─── Cryptoapis (for Bitcoin) ──────────────────────────────────────────────
@@ -40,11 +41,6 @@ router.get('/eth-logs', async (req, res) => {
   } = req.query;
 
   const isBitcoin = network === 'bitcoin';
-  const evmNet = NETWORKS[network];
-
-  if (!isBitcoin && !evmNet) {
-    return res.status(400).json({ error: `Unknown network: "${network}".` });
-  }
 
   // ─── Validate wallet ──────────────────────────────────────────────────
   if (isBitcoin) {
@@ -54,6 +50,9 @@ router.get('/eth-logs', async (req, res) => {
   } else {
     if (!walletAddress || !/^0x[0-9a-fA-F]{40}$/i.test(walletAddress)) {
       return res.status(400).json({ error: 'Invalid or missing EVM wallet address.' });
+    }
+    if (!CHAIN_IDS[network]) {
+      return res.status(400).json({ error: `Unsupported EVM network: "${network}".` });
     }
   }
 
@@ -126,14 +125,18 @@ router.get('/eth-logs', async (req, res) => {
     }
   }
 
-  // ─── EVM branch (using a single Etherscan API key) ──────────────────
+  // ─── EVM branch – Etherscan API V2 ──────────────────────────────────
   const apiKey = process.env.ETHERSCAN_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'ETHERSCAN_API_KEY is not set.' });
   }
 
+  const chainId = CHAIN_IDS[network];
+  const V2_BASE = 'https://api.etherscan.io/v2/api';
+
   const buildUrl = (topic1, topic2) => {
     const p = new URLSearchParams({
+      chainid:   chainId.toString(),
       module:    'logs',
       action:    'getLogs',
       fromBlock,
@@ -146,14 +149,19 @@ router.get('/eth-logs', async (req, res) => {
     }
     if (topic1) { p.set('topic1', topic1); p.set('topic0_1_opr', 'and'); }
     if (topic2) { p.set('topic2', topic2); p.set('topic0_2_opr', 'and'); }
-    return `${evmNet.apiBase}?${p.toString()}`;
+    return `${V2_BASE}?${p.toString()}`;
   };
 
   const fetchLogs = async (url) => {
     const resp = await fetch(url);
     if (!resp.ok) throw new Error(`Scanner HTTP ${resp.status}`);
     const data = await resp.json();
-    if (data.status === '0' && data.message !== 'No records found') {
+    // V2 returns status '0' with error message for failures
+    if (data.status === '0') {
+      // If it's just "No records found", return empty array
+      if (data.message === 'No records found') {
+        return [];
+      }
       throw new Error(data.result || data.message || 'Scanner API error');
     }
     return Array.isArray(data.result) ? data.result : [];
@@ -198,5 +206,6 @@ router.get('/eth-logs', async (req, res) => {
     console.error('[eth-logs]', err.message);
     res.status(500).json({ error: err.message || 'Internal server error' });
   }
-}); 
+});
+
 module.exports = router;
