@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ETH Log Explorer · Ashura</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+
+    <nav>
+    <a class="nav-brand" href="/">ashura.site</a>
+    <a class="nav-back" href="/">← Back to Portfolio</a>
+    </nav>
+
+    <main>
+    <div class="page-hd">
+        <h1>ETH Log Explorer <span class="net-pill" id="netPill">⬡ Ethereum</span></h1>
+        <p>Scan ERC-20 Transfer events for any wallet — across 6 networks.</p>
+    </div>
+
+    <div class="card">
+
+        <!-- Row 1: Wallet -->
+        <div class="row row-1" style="margin-bottom:0.75rem">
+        <div class="field">
+            <label for="walletAddr">Wallet Address *</label>
+            <input id="walletAddr" type="text" placeholder="0x71C7656EC7ab88b098defB751B7401B5f6d1476B" />
+        </div>
+        </div>
+
+        <!-- Row 2: Network pills -->
+        <div style="margin-bottom:0.75rem">
+        <span class="net-label">Network</span>
+        <div class="net-pills" id="netPills">
+            <!-- injected by JS -->
+        </div>
+        </div>
+
+        <!-- Row 3: Token dropdown + optional custom address -->
+        <div class="token-row" style="margin-bottom:0.75rem">
+        <div class="field">
+            <label for="tokenSelect">Token</label>
+            <select id="tokenSelect">
+            <!-- populated by JS -->
+            </select>
+        </div>
+        <div class="custom-field" id="customField">
+            <label for="contractAddr">Custom Contract Address</label>
+            <input id="contractAddr" type="text" placeholder="0x..." />
+        </div>
+        </div>
+
+        <!-- Row 4: Block range + direction + button -->
+        <div class="row row-4">
+        <div class="field">
+            <label for="fromBlock">From Block</label>
+            <input id="fromBlock" type="text" value="0" />
+        </div>
+        <div class="field">
+            <label for="toBlock">To Block</label>
+            <input id="toBlock" type="text" value="latest" />
+        </div>
+        <div class="field">
+            <label for="direction">Direction</label>
+            <select id="direction">
+            <option value="both">Both</option>
+            <option value="incoming">Incoming only</option>
+            <option value="outgoing">Outgoing only</option>
+            </select>
+        </div>
+        <button class="btn-scan" id="fetchBtn">
+            <span id="btnInner">⟳</span> Scan Logs
+        </button>
+        </div>
+
+    </div>
+
+    <div class="error-box hidden" id="errorBox"></div>
+
+    <div class="stats-bar hidden" id="statsBar">
+        <div class="stat"><span class="sdot" style="background:var(--text)"></span>Total: <strong id="statTotal">0</strong></div>
+        <div class="stat"><span class="sdot" style="background:var(--green)"></span>Incoming: <strong id="statIn">0</strong></div>
+        <div class="stat"><span class="sdot" style="background:var(--red)"></span>Outgoing: <strong id="statOut">0</strong></div>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+        <thead>
+            <tr>
+            <th>Dir</th>
+            <th>Block</th>
+            <th>Tx Hash</th>
+            <th>From</th>
+            <th>To</th>
+            <th title="Raw amount — divide by token decimals for human-readable value">Amount (raw) ⓘ</th>
+            <th>Contract</th>
+            </tr>
+        </thead>
+        <tbody id="logsBody">
+            <tr><td colspan="7">
+            <div class="msg">
+                <span class="icon">⬡</span>
+                Pick a network, choose a token, enter a wallet and click Scan Logs.
+            </div>
+            </td></tr>
+        </tbody>
+        </table>
+    </div>
+    </main>
+
+    <script src="script.js"></script>
+
+    </body>
+</html>
