@@ -1,4 +1,5 @@
 // ─── Supported EVM networks (Etherscan‑family) ────────────────────────────
+const router = require('express').Router();
 const NETWORKS = {
   ethereum: { apiBase: 'https://api.etherscan.io/api' },
   celo:     { apiBase: 'https://api.celoscan.io/api' },
@@ -28,7 +29,7 @@ function hexToDecimal(hex) {
 }
 
 // ─── Endpoint ──────────────────────────────────────────────────────────────
-app.get('/api/eth-logs', async (req, res) => {
+router.get('/api/eth-logs', async (req, res) => {
   const {
     walletAddress,
     contractAddress,
@@ -197,4 +198,5 @@ app.get('/api/eth-logs', async (req, res) => {
     console.error('[eth-logs]', err.message);
     res.status(500).json({ error: err.message || 'Internal server error' });
   }
-});
+}); 
+module.exports = router;

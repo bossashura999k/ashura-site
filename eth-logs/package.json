@@ -1,0 +1,12 @@
+{
+  "name": "eth-logs",
+  "version": "1.0.0",
+  "description": "Multi-chain log explorer",
+  "license": "ISC",
+  "author": "Ashura IZZI",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
