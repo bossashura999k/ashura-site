@@ -7,3 +7,6 @@ chess/node_modules
 chess/apps/web/dist
 chess/apps/server/dist
 .env
+eth-logs/node_modules
+eth-logs/dist
+eth-logs/.env
