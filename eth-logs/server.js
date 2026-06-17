@@ -3,16 +3,23 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ─── Import your route handler ──────────────────────────────────────────
+// Import the API route
 const ethLogsRoute = require('./api/eth-logs');
 
-// ─── Serve static files (HTML, CSS, JS) ────────────────────────────────
+// ─── Health check endpoint ────────────────────────────────────────────────
+app.get('/api/healthz', (req, res) => {
+  res.status(200).json({ 
+    status: 'ok', 
+    message: 'No worries Ashura, I\'m working 💪' 
+  });
+});
+
+// Serve static files (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)));
 
-// ─── Mount the API route ────────────────────────────────────────────────
-app.use('/api', ethLogsRoute);   // This makes /api/eth-logs available
+// Mount the main API
+app.use('/api', ethLogsRoute);
 
-// ─── Start server ──────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
