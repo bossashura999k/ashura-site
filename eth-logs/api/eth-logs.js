@@ -1,18 +1,29 @@
 const router = require('express').Router();
 
-// ─── Chain ID mapping for Etherscan API V2 ──────────────────────────────
-const CHAIN_IDS = {
-  ethereum: 1,
-  celo: 42220,
-  polygon: 137,
-  bsc: 56,
-  arbitrum: 42161,
-  base: 8453,
+// ─── Supported EVM networks (Etherscan‑family) ────────────────────────────
+const NETWORKS = {
+  ethereum: { apiBase: 'https://api.etherscan.io/api' },
+  celo:     { apiBase: 'https://api.celoscan.io/api' },
+  polygon:  { apiBase: 'https://api.polygonscan.com/api' },
+  bsc:      { apiBase: 'https://api.bscscan.com/api' },
+  arbitrum: { apiBase: 'https://api.arbiscan.io/api' },
+  base:     { apiBase: 'https://api.basescan.org/api' },
 };
 
 // ─── Cryptoapis (for Bitcoin) ──────────────────────────────────────────────
 const CRYPTOAPIS_BASE = 'https://rest.cryptoapis.io/v2';
 const CRYPTOAPIS_KEY  = process.env.CRYPTOAPIS_API_KEY;
+
+// ─── Bitcoin address validator ─────────────────────────────────────────────
+function isValidBitcoinAddress(address) {
+  // Legacy (P2PKH) – starts with '1', length 25-34
+  if (/^[1][a-km-zA-HJ-NP-Z0-9]{25,34}$/.test(address)) return true;
+  // P2SH – starts with '3', length 25-34
+  if (/^[3][a-km-zA-HJ-NP-Z0-9]{25,34}$/.test(address)) return true;
+  // Bech32 (SegWit) – starts with 'bc1', length 42-62 (typical)
+  if (/^bc1[a-zA-HJ-NP-Z0-9]{39,59}$/.test(address)) return true;
+  return false;
+}
 
 // ─── Shared helpers ──────────────────────────────────────────────────────
 const TRANSFER_TOPIC0 =
@@ -41,18 +52,20 @@ router.get('/eth-logs', async (req, res) => {
   } = req.query;
 
   const isBitcoin = network === 'bitcoin';
+  const evmNet = NETWORKS[network];
+
+  if (!isBitcoin && !evmNet) {
+    return res.status(400).json({ error: `Unknown network: "${network}".` });
+  }
 
   // ─── Validate wallet ──────────────────────────────────────────────────
   if (isBitcoin) {
-    if (!/^[13][a-km-zA-HJ-NP-Z0-9]{25,34}$/.test(walletAddress)) {
+    if (!walletAddress || !isValidBitcoinAddress(walletAddress)) {
       return res.status(400).json({ error: 'Invalid Bitcoin address.' });
     }
   } else {
     if (!walletAddress || !/^0x[0-9a-fA-F]{40}$/i.test(walletAddress)) {
       return res.status(400).json({ error: 'Invalid or missing EVM wallet address.' });
-    }
-    if (!CHAIN_IDS[network]) {
-      return res.status(400).json({ error: `Unsupported EVM network: "${network}".` });
     }
   }
 
@@ -125,18 +138,14 @@ router.get('/eth-logs', async (req, res) => {
     }
   }
 
-  // ─── EVM branch – Etherscan API V2 ──────────────────────────────────
+  // ─── EVM branch (using a single Etherscan API key) ──────────────────
   const apiKey = process.env.ETHERSCAN_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'ETHERSCAN_API_KEY is not set.' });
   }
 
-  const chainId = CHAIN_IDS[network];
-  const V2_BASE = 'https://api.etherscan.io/v2/api';
-
   const buildUrl = (topic1, topic2) => {
     const p = new URLSearchParams({
-      chainid:   chainId.toString(),
       module:    'logs',
       action:    'getLogs',
       fromBlock,
@@ -149,19 +158,14 @@ router.get('/eth-logs', async (req, res) => {
     }
     if (topic1) { p.set('topic1', topic1); p.set('topic0_1_opr', 'and'); }
     if (topic2) { p.set('topic2', topic2); p.set('topic0_2_opr', 'and'); }
-    return `${V2_BASE}?${p.toString()}`;
+    return `${evmNet.apiBase}?${p.toString()}`;
   };
 
   const fetchLogs = async (url) => {
     const resp = await fetch(url);
     if (!resp.ok) throw new Error(`Scanner HTTP ${resp.status}`);
     const data = await resp.json();
-    // V2 returns status '0' with error message for failures
-    if (data.status === '0') {
-      // If it's just "No records found", return empty array
-      if (data.message === 'No records found') {
-        return [];
-      }
+    if (data.status === '0' && data.message !== 'No records found') {
       throw new Error(data.result || data.message || 'Scanner API error');
     }
     return Array.isArray(data.result) ? data.result : [];
