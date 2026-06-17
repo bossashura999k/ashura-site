@@ -1,5 +1,5 @@
 // ── Change this to your Render backend URL ────────────────────────────────
-const BACKEND_URL = 'https://ashura-site.onrender.com/';   // empty = use same domain (works on Render)
+const BACKEND_URL = 'https://ashura-site.onrender.com';   // empty = use same domain (works on Render)
 
 // ── Network + token registry ──────────────────────────────────────────────
 // Explorer base URLs are for the "view on chain" links only (frontend)
