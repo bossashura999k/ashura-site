@@ -29,7 +29,7 @@ function hexToDecimal(hex) {
 }
 
 // ─── Endpoint ──────────────────────────────────────────────────────────────
-router.get('/api/eth-logs', async (req, res) => {
+router.get('/eth-logs', async (req, res) => {
   const {
     walletAddress,
     contractAddress,
