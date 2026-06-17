@@ -1,7 +1,4 @@
-// ── Change this to your Render backend URL ────────────────────────────────
-const BACKEND_URL = 'https://ashura-site.onrender.com';   // empty = same origin
-
-// ── Token decimals (hardcoded for known tokens) ──────────────────────────
+const BACKEND_URL = 'https://ashura-site.onrender.com';
 const TOKEN_DECIMALS = {
   // Ethereum
   '0xdAC17F958D2ee523a2206206994597C13D831ec7': 6,
