@@ -1,13 +1,19 @@
 const router = require('express').Router();
 
-// ─── Supported EVM networks (Etherscan‑family) ────────────────────────────
+// ─── Supported EVM networks (Etherscan API V2 — unified endpoint) ─────────
+// As of 2025-08-15 Etherscan deprecated the per-chain V1 endpoints
+// (api.etherscan.io/api, api.polygonscan.com/api, api.bscscan.com/api, ...).
+// V2 uses ONE base URL + a `chainid` param, and a SINGLE Etherscan API key
+// works across every supported chain — no more per-network keys needed.
+const ETHERSCAN_V2_BASE = 'https://api.etherscan.io/v2/api';
+
 const NETWORKS = {
-  ethereum: { apiBase: 'https://api.etherscan.io/api' },
-  celo:     { apiBase: 'https://api.celoscan.io/api' },
-  polygon:  { apiBase: 'https://api.polygonscan.com/api' },
-  bsc:      { apiBase: 'https://api.bscscan.com/api' },
-  arbitrum: { apiBase: 'https://api.arbiscan.io/api' },
-  base:     { apiBase: 'https://api.basescan.org/api' },
+  ethereum: { chainId: 1 },
+  celo:     { chainId: 42220 },
+  polygon:  { chainId: 137 },
+  bsc:      { chainId: 56 },
+  arbitrum: { chainId: 42161 },
+  base:     { chainId: 8453 },
 };
 
 // ─── Cryptoapis (for Bitcoin) ──────────────────────────────────────────────
@@ -40,6 +46,30 @@ function hexToDecimal(hex) {
   try { return BigInt(hex).toString(); } catch { return '0'; }
 }
 
+// ─── Tiny in-memory TTL cache ──────────────────────────────────────────────
+// Avoids re-hitting the scanner/Cryptoapis APIs for identical, repeated
+// queries (common when a user tweaks the UI and re-submits, or hits back).
+const CACHE_TTL_MS = 30 * 1000; // 30s — logs are near-real-time data
+const cache = new Map();
+
+function cacheGet(key) {
+  const hit = cache.get(key);
+  if (!hit) return null;
+  if (Date.now() - hit.time > CACHE_TTL_MS) {
+    cache.delete(key);
+    return null;
+  }
+  return hit.value;
+}
+function cacheSet(key, value) {
+  cache.set(key, { value, time: Date.now() });
+  // opportunistic cleanup so the Map doesn't grow unbounded
+  if (cache.size > 500) {
+    const cutoff = Date.now() - CACHE_TTL_MS;
+    for (const [k, v] of cache) if (v.time < cutoff) cache.delete(k);
+  }
+}
+
 // ─── Endpoint ──────────────────────────────────────────────────────────────
 router.get('/eth-logs', async (req, res) => {
   const {
@@ -49,6 +79,8 @@ router.get('/eth-logs', async (req, res) => {
     toBlock   = 'latest',
     direction = 'both',
     network   = 'ethereum',
+    page      = '1',
+    offset    = '1000', // Etherscan V2 getLogs max page size
   } = req.query;
 
   const isBitcoin = network === 'bitcoin';
@@ -69,6 +101,14 @@ router.get('/eth-logs', async (req, res) => {
     }
   }
 
+  const cacheKey = JSON.stringify({
+    walletAddress, contractAddress, fromBlock, toBlock, direction, network, page, offset,
+  });
+  const cached = cacheGet(cacheKey);
+  if (cached) {
+    return res.json({ ...cached, cached: true });
+  }
+
   // ─── Bitcoin branch ──────────────────────────────────────────────────
   if (isBitcoin) {
     if (!CRYPTOAPIS_KEY) {
@@ -78,7 +118,7 @@ router.get('/eth-logs', async (req, res) => {
     try {
       // Build URL with limit
       const url = `${CRYPTOAPIS_BASE}/blockchain-data/bitcoin/mainnet/addresses/${encodeURIComponent(walletAddress)}/transactions?limit=1000`;
-      
+
       const resp = await fetch(url, {
         headers: { 'X-API-Key': CRYPTOAPIS_KEY }
       });
@@ -150,14 +190,17 @@ router.get('/eth-logs', async (req, res) => {
       });
 
       logs.sort((a, b) => b.blockNumber - a.blockNumber);
-      return res.json({ success: true, count: logs.length, logs });
+      const payload = { success: true, count: logs.length, logs };
+      cacheSet(cacheKey, payload);
+      return res.json(payload);
 
     } catch (err) {
       console.error('[bitcoin]', err.message);
       return res.status(500).json({ error: err.message || 'Bitcoin fetch failed' });
     }
   }
-  // ─── EVM branch (using a single Etherscan API key) ──────────────────
+
+  // ─── EVM branch (Etherscan API V2 — single key, all chains) ──────────
   const apiKey = process.env.ETHERSCAN_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'ETHERSCAN_API_KEY is not set.' });
@@ -165,10 +208,13 @@ router.get('/eth-logs', async (req, res) => {
 
   const buildUrl = (topic1, topic2) => {
     const p = new URLSearchParams({
+      chainid:   String(evmNet.chainId),
       module:    'logs',
       action:    'getLogs',
       fromBlock,
       toBlock,
+      page,
+      offset,
       topic0:    TRANSFER_TOPIC0,
       apikey:    apiKey,
     });
@@ -177,13 +223,16 @@ router.get('/eth-logs', async (req, res) => {
     }
     if (topic1) { p.set('topic1', topic1); p.set('topic0_1_opr', 'and'); }
     if (topic2) { p.set('topic2', topic2); p.set('topic0_2_opr', 'and'); }
-    return `${evmNet.apiBase}?${p.toString()}`;
+    return `${ETHERSCAN_V2_BASE}?${p.toString()}`;
   };
 
   const fetchLogs = async (url) => {
     const resp = await fetch(url);
     if (!resp.ok) throw new Error(`Scanner HTTP ${resp.status}`);
     const data = await resp.json();
+    if (data.message === 'NOTOK' && /deprecated V1/i.test(data.result || '')) {
+      throw new Error('Scanner API rejected request: still pointed at deprecated V1 endpoint.');
+    }
     if (data.status === '0' && data.message !== 'No records found') {
       throw new Error(data.result || data.message || 'Scanner API error');
     }
@@ -192,18 +241,29 @@ router.get('/eth-logs', async (req, res) => {
 
   try {
     const paddedWallet = padAddress(walletAddress);
-    let raw = [];
 
+    // Fire incoming/outgoing requests concurrently instead of sequentially —
+    // halves wall-clock latency when direction === 'both'.
+    const requests = [];
     if (direction === 'incoming' || direction === 'both') {
-      const logs = await fetchLogs(buildUrl(null, paddedWallet));
-      logs.forEach(l => (l._dir = 'in'));
-      raw = raw.concat(logs);
+      requests.push(
+        fetchLogs(buildUrl(null, paddedWallet)).then(logs => {
+          logs.forEach(l => (l._dir = 'in'));
+          return logs;
+        })
+      );
     }
     if (direction === 'outgoing' || direction === 'both') {
-      const logs = await fetchLogs(buildUrl(paddedWallet, null));
-      logs.forEach(l => (l._dir = 'out'));
-      raw = raw.concat(logs);
+      requests.push(
+        fetchLogs(buildUrl(paddedWallet, null)).then(logs => {
+          logs.forEach(l => (l._dir = 'out'));
+          return logs;
+        })
+      );
     }
+
+    const results = await Promise.all(requests);
+    let raw = results.flat();
 
     const seen = new Set();
     raw = raw.filter(l => {
@@ -224,7 +284,20 @@ router.get('/eth-logs', async (req, res) => {
     }));
     logs.sort((a, b) => b.blockNumber - a.blockNumber);
 
-    res.json({ success: true, count: logs.length, logs });
+    // Signal to the client whether either leg returned a full page, meaning
+    // there may be more results available on the next page.
+    const pageSize = parseInt(offset, 10) || 1000;
+    const hasMore = results.some(r => r.length >= pageSize);
+
+    const payload = {
+      success: true,
+      count: logs.length,
+      logs,
+      page: parseInt(page, 10) || 1,
+      hasMore,
+    };
+    cacheSet(cacheKey, payload);
+    res.json(payload);
   } catch (err) {
     console.error('[eth-logs]', err.message);
     res.status(500).json({ error: err.message || 'Internal server error' });
