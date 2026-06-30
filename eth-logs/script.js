@@ -157,7 +157,39 @@ const NETWORKS = {
 
 // ── State ─────────────────────────────────────────────────────────────────
 let currentNetwork = 'ethereum';
+let currentPage = 1;
+let hasMorePages = false;
+
+// Price cache: { [network]: { [contractAddrLower]: { usd, time } } }
+// Avoids re-hitting CoinGecko for tokens we already priced this session.
+const PRICE_CACHE_TTL_MS = 60 * 1000; // 60s — prices move fast but this avoids burst duplicate calls
 let priceCache = {};
+
+function getCachedPrices(network, addrs) {
+  const netCache = priceCache[network] || {};
+  const fresh = {};
+  const stale = [];
+  const now = Date.now();
+  addrs.forEach(addr => {
+    const entry = netCache[addr];
+    if (entry && now - entry.time < PRICE_CACHE_TTL_MS) {
+      fresh[addr] = { usd: entry.usd };
+    } else {
+      stale.push(addr);
+    }
+  });
+  return { fresh, stale };
+}
+
+function setCachedPrices(network, priceData) {
+  if (!priceCache[network]) priceCache[network] = {};
+  const now = Date.now();
+  Object.entries(priceData).forEach(([addr, val]) => {
+    if (val && typeof val.usd === 'number') {
+      priceCache[network][addr.toLowerCase()] = { usd: val.usd, time: now };
+    }
+  });
+}
 
 // ── DOM refs ──────────────────────────────────────────────────────────────
 const walletInput   = document.getElementById('walletAddr');
@@ -174,6 +206,8 @@ const netPillsEl    = document.getElementById('netPills');
 const tokenSelect   = document.getElementById('tokenSelect');
 const customField   = document.getElementById('customField');
 const netPill       = document.getElementById('netPill');
+const loadMoreWrap  = document.getElementById('loadMoreWrap');
+const loadMoreBtn   = document.getElementById('loadMoreBtn');
 
 // ── Build network pills ───────────────────────────────────────────────────
 function buildNetPills() {
@@ -268,7 +302,7 @@ function setLoading(on) {
 function showError(msg) { errorBox.textContent = `⚠ ${msg}`; errorBox.classList.remove('hidden'); }
 function clearError()   { errorBox.textContent = ''; errorBox.classList.add('hidden'); }
 
-// ─── New: fetch token prices from CoinGecko ──────────────────────────────
+// ─── Fetch token prices from CoinGecko (cached) ──────────────────────────
 async function fetchPrices(tokens, network) {
   if (!tokens.length) return {};
   const platformMap = {
@@ -282,23 +316,31 @@ async function fetchPrices(tokens, network) {
   const platform = platformMap[network];
   if (!platform) return {};
 
-  const addresses = tokens.join(',');
+  const normalized = tokens.map(t => t.toLowerCase());
+  const { fresh, stale } = getCachedPrices(network, normalized);
+
+  if (!stale.length) return fresh; // everything was cached — no network call needed
+
+  const addresses = stale.join(',');
   const url = `https://api.coingecko.com/api/v3/simple/token_price/${platform}?contract_addresses=${addresses}&vs_currencies=usd`;
 
   try {
     const resp = await fetch(url);
     if (!resp.ok) throw new Error('Price fetch failed');
     const data = await resp.json();
-    return data;
+    setCachedPrices(network, data);
+    return { ...fresh, ...data };
   } catch (err) {
     console.warn('Could not fetch prices:', err);
-    return {};
+    return fresh; // fall back to whatever was cached
   }
 }
 
 // ── Render rows (updated with Amount and USD columns) ────────────────────
-function renderRows(logs, prices = {}) {
-  if (!logs.length) {
+function renderRows(logs, prices = {}, append = false) {
+  if (!append) logsBody.innerHTML = '';
+
+  if (!logs.length && !append) {
     logsBody.innerHTML = `<tr><td colspan="9">
       <div class="msg">
         <span class="icon">🔍</span>
@@ -309,7 +351,6 @@ function renderRows(logs, prices = {}) {
   }
 
   const ex = explorerLinks();
-  logsBody.innerHTML = '';
 
   logs.forEach((log, i) => {
     const tr = document.createElement('tr');
@@ -365,8 +406,10 @@ function renderRows(logs, prices = {}) {
   });
 }
 
-// ── Main fetch (updated to fetch prices) ────────────────────────────────
-async function fetchLogs() {
+// ── Main fetch (paginated, with price caching) ───────────────────────────
+let accumulatedLogs = [];
+
+async function fetchLogs({ append = false } = {}) {
   clearError();
 
   const wallet   = walletInput.value.trim();
@@ -385,8 +428,14 @@ async function fetchLogs() {
     return;
   }
 
+  if (!append) {
+    currentPage = 1;
+    accumulatedLogs = [];
+  }
+
   setLoading(true);
-  statsBar.classList.add('hidden');
+  if (!append) statsBar.classList.add('hidden');
+  loadMoreWrap.classList.add('hidden');
 
   try {
     const params = new URLSearchParams({
@@ -395,6 +444,8 @@ async function fetchLogs() {
       toBlock:       to,
       direction:     dir,
       network:       currentNetwork,
+      page:          String(currentPage),
+      offset:        '1000',
     });
     if (contract) params.set('contractAddress', contract);
 
@@ -403,21 +454,30 @@ async function fetchLogs() {
 
     if (!resp.ok || !data.success) throw new Error(data.error || 'Server error.');
 
-    const inCount  = data.logs.filter(l => l.direction === 'in').length;
-    const outCount = data.logs.filter(l => l.direction === 'out').length;
-    document.getElementById('statTotal').textContent = data.count;
+    accumulatedLogs = append ? accumulatedLogs.concat(data.logs) : data.logs;
+    hasMorePages = !!data.hasMore;
+
+    const inCount  = accumulatedLogs.filter(l => l.direction === 'in').length;
+    const outCount = accumulatedLogs.filter(l => l.direction === 'out').length;
+    document.getElementById('statTotal').textContent = accumulatedLogs.length;
     document.getElementById('statIn').textContent    = inCount;
     document.getElementById('statOut').textContent   = outCount;
     statsBar.classList.remove('hidden');
 
-    // Fetch prices for unique contract addresses
+    // Fetch prices for unique contract addresses (cached — only new tokens hit the network)
     const uniqueContracts = [...new Set(data.logs.map(l => l.contractAddress).filter(Boolean))];
     let prices = {};
     if (uniqueContracts.length && currentNetwork !== 'bitcoin') {
       prices = await fetchPrices(uniqueContracts, currentNetwork);
     }
 
-    renderRows(data.logs, prices);
+    renderRows(data.logs, prices, append);
+
+    if (hasMorePages) {
+      loadMoreWrap.classList.remove('hidden');
+    } else {
+      loadMoreWrap.classList.add('hidden');
+    }
   } catch (err) {
     showError(err.message || 'Fetch failed — check your backend URL.');
   } finally {
@@ -425,8 +485,12 @@ async function fetchLogs() {
   }
 }
 
-fetchBtn.addEventListener('click', fetchLogs);
-walletInput.addEventListener('keydown', e => { if (e.key === 'Enter') fetchLogs(); });
+fetchBtn.addEventListener('click', () => fetchLogs({ append: false }));
+walletInput.addEventListener('keydown', e => { if (e.key === 'Enter') fetchLogs({ append: false }); });
+loadMoreBtn.addEventListener('click', () => {
+  currentPage += 1;
+  fetchLogs({ append: true });
+});
 
 // ── Init ──────────────────────────────────────────────────────────────────
 buildNetPills();

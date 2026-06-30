@@ -1,4 +1,3 @@
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -180,6 +179,10 @@ transition: opacity 0.15s, transform 0.1s;
 .btn-scan:hover { opacity: 0.88; }
 .btn-scan:active { transform: scale(0.97); }
 .btn-scan:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.load-more-wrap { display: flex; justify-content: center; margin: 16px 0; }
+.load-more-wrap.hidden { display: none; }
+.load-more-wrap .btn-scan { padding: 8px 24px; }
 
 /* ── Stats bar ── */
 .stats-bar {
