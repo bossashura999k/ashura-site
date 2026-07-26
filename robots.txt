@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Keep crawlers out of source/build folders that aren't real pages
+Disallow: /react-chatbox/src/
+Disallow: /preview/js/
+Disallow: /preview/data/
+
+Sitemap: https://ashura.site/sitemap.xml
