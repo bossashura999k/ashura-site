@@ -3,25 +3,19 @@
   <!-- Main Core Pages -->
   <url>
     <loc>https://ashura.site/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ashura.site/cosmic-kitten</loc>
-    <lastmod>2026-05-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://ashura.site/learn-linux</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ashura.site/about/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -29,35 +23,27 @@
   <!-- Chatbox -->
   <url>
     <loc>https://ashura.site/chatbox/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ashura.site/chatbox/chat</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-
-  <!-- Chess Game -->
-  <url>
-    <loc>https://ashura.site/chess/chess-game-npm/apps/web/</loc>
-    <lastmod>2026-05-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
   </url>
 
   <!-- Apps & Donations -->
   <url>
     <loc>https://ashura.site/counter_app/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ashura.site/donate/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -65,51 +51,45 @@
   <!-- Occasions -->
   <url>
     <loc>https://ashura.site/occasions/occasion</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ashura.site/occasions/occasion1</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ashura.site/occasions/occasion2</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ashura.site/occasions/occasion3</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ashura.site/occasions/occasion4</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ashura.site/occasions/occasion5</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
-  <!-- Portfolio Services -->
-  <url>
-    <loc>https://ashura.site/portfolio/email-templates</loc>
-    <lastmod>2026-05-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- Portfolio -->
   <url>
     <loc>https://ashura.site/portfolio/services</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -117,36 +97,20 @@
   <!-- Preview Store -->
   <url>
     <loc>https://ashura.site/preview/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ashura.site/preview/bags</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ashura.site/preview/gadgets</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-
-  <!-- React Projects -->
-  <url>
-    <loc>https://ashura.site/react-chatbox/</loc>
-    <lastmod>2026-05-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Rhema -->
-  <url>
-    <loc>https://ashura.site/rhema/rhema</loc>
-    <lastmod>2026-05-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
 </urlset>
