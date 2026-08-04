@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Minimal Whiteboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Drawing Surface -->
+    <canvas id="whiteboard"></canvas>
+
+    <!-- Controls Menu -->
+    <div class="toolbar">
+        <div class="color-palette">
+            <div class="color-btn active" style="background: #000000;" data-color="#000000"></div>
+            <div class="color-btn" style="background: #ff4757;" data-color="#ff4757"></div>
+            <div class="color-btn" style="background: #2ed573;" data-color="#2ed573"></div>
+            <div class="color-btn" style="background: #1e90ff;" data-color="#1e90ff"></div>
+            <div class="color-btn" style="background: #ffa500;" data-color="#ffa500"></div>
+        </div>
+        <button class="clear-btn" id="clearBtn">Clear</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
