@@ -161,14 +161,14 @@ body {
 #copy  { font-size: 25px; }
 
 .c {
-  background-image: url("../Pics/bg(8).png");
+  background-image: url("../Pics/perfect_bg.png");
   background-size: cover;
   background-position: center;
   color: #ffffff;
 }
 
 .b {
-  background-image: url("../Pics/bg(11).png");
+  background-image: url("../Pics/perfect_bg.png");
   background-size: cover;
   background-position: center;
   color: var(--accent);
