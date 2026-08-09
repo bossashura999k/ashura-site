@@ -1,308 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Occasion — Video</title>
-<style>
-  :root{
-    --bg: #0a0e14;
-    --card-bg: #10161f;
-    --cyan: #22d3ee;
-    --cyan-dim: rgba(34, 211, 238, 0.35);
-    --text: #e6edf3;
-    --text-dim: #8b98a5;
-  }
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+      <title>Occasion — Video</title>
+      <link rel="stylesheet" href="../Styles/occ6.css">
+  </head>
+  <body>
 
-  * { box-sizing: border-box; }
+    <div class="card" id="card">
+      <div class="card-header">
+        <h1>A Small Moment of my Cute Daughter🙃</h1>
+        <p>36 seconds, worth the watch</p>
+      </div>
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background: var(--bg);
-    background-image:
-      radial-gradient(circle at 20% 10%, rgba(34,211,238,0.06), transparent 40%),
-      radial-gradient(circle at 80% 90%, rgba(34,211,238,0.05), transparent 40%);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 24px 16px;
-  }
+      <div class="video-stage" id="videoStage">
+        <video
+          id="clip"
+          playsinline
+          webkit-playsinline
+          preload="none"
+          poster="../Pics/occasion6-poster.jpg"
+          muted
+          loop
+        >
+          <source src="../Videos/occasion6-clip.mp4" type="video/mp4">
+          Your browser doesn't support video playback.
+        </video>
 
-  .card {
-    width: 100%;
-    max-width: 420px;
-    background: var(--card-bg);
-    border-radius: 20px;
-    border: 1px solid rgba(34, 211, 238, 0.25);
-    box-shadow: 0 0 0 1px rgba(34,211,238,0.05),
-                0 0 30px var(--cyan-dim),
-                0 10px 40px rgba(0,0,0,0.5);
-    overflow: hidden;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-  }
+        <div class="loading-spinner" id="spinner"><div></div></div>
 
-  .card:hover,
-  .card:active {
-    transform: translateY(-4px);
-    box-shadow: 0 0 0 1px rgba(34,211,238,0.15),
-                0 0 45px var(--cyan-dim),
-                0 16px 48px rgba(0,0,0,0.55);
-  }
+        <div class="play-overlay" id="playOverlay">
+          <div class="play-button">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      </div>
 
-  .card-header {
-    padding: 18px 20px 12px;
-    text-align: center;
-  }
-
-  .card-header h1 {
-    margin: 0;
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-  }
-
-  .card-header p {
-    margin: 4px 0 0;
-    font-size: 13px;
-    color: var(--text-dim);
-  }
-
-  /* Portrait video stage */
-  .video-stage {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 9 / 16;
-    background: #000;
-    overflow: hidden;
-  }
-
-  .video-stage video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    background: #000;
-  }
-
-  /* Tap-to-play overlay (avoids autoplay data usage on mobile) */
-  .play-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,0.25);
-    cursor: pointer;
-    transition: opacity 0.25s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .play-overlay.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .play-button {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: rgba(16, 22, 31, 0.85);
-    border: 1.5px solid var(--cyan);
-    box-shadow: 0 0 20px var(--cyan-dim);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .play-button svg {
-    width: 22px;
-    height: 22px;
-    fill: var(--cyan);
-    margin-left: 3px;
-  }
-
-  .loading-spinner {
-    position: absolute;
-    inset: 0;
-    display: none;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .loading-spinner.active { display: flex; }
-
-  .loading-spinner div {
-    width: 34px;
-    height: 34px;
-    border: 3px solid rgba(34,211,238,0.2);
-    border-top-color: var(--cyan);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .card-footer {
-    padding: 14px 20px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .duration-badge {
-    font-size: 12px;
-    color: var(--cyan);
-    background: rgba(34,211,238,0.08);
-    border: 1px solid rgba(34,211,238,0.25);
-    padding: 4px 10px;
-    border-radius: 999px;
-  }
-
-  .mute-btn {
-    background: none;
-    border: none;
-    color: var(--text-dim);
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    padding: 4px 8px;
-  }
-
-  .mute-btn svg {
-    width: 16px;
-    height: 16px;
-    fill: var(--text-dim);
-  }
-
-  .mute-btn.on svg,
-  .mute-btn.on { color: var(--cyan); }
-  .mute-btn.on svg { fill: var(--cyan); }
-</style>
-</head>
-<body>
-
-<div class="card" id="card">
-  <div class="card-header">
-    <h1>A Small Moment of my Daughter🙃</h1>
-    <p>36 seconds, worth the watch</p>
-  </div>
-
-  <div class="video-stage" id="videoStage">
-    <video
-      id="clip"
-      playsinline
-      webkit-playsinline
-      preload="none"
-      poster="../Pics/occasion6-poster.jpg"
-      muted
-      loop
-    >
-      <source src="../Videos/occasion6-clip.mp4" type="video/mp4">
-      Your browser doesn't support video playback.
-    </video>
-
-    <div class="loading-spinner" id="spinner"><div></div></div>
-
-    <div class="play-overlay" id="playOverlay">
-      <div class="play-button">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <div class="card-footer">
+        <span class="duration-badge">0:36</span>
+        <button class="mute-btn on" id="muteBtn">
+          <svg viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 8v8a4.47 4.47 0 0 0 2.5-4zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z"/></svg>
+          <span id="muteLabel">Sound off</span>
+        </button>
       </div>
     </div>
-  </div>
 
-  <div class="card-footer">
-    <span class="duration-badge">0:36</span>
-    <button class="mute-btn on" id="muteBtn">
-      <svg viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 8v8a4.47 4.47 0 0 0 2.5-4zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z"/></svg>
-      <span id="muteLabel">Sound off</span>
-    </button>
-  </div>
-</div>
+    <script>
+      const video = document.getElementById('clip');
+      const overlay = document.getElementById('playOverlay');
+      const spinner = document.getElementById('spinner');
+      const stage = document.getElementById('videoStage');
+      const muteBtn = document.getElementById('muteBtn');
+      const muteLabel = document.getElementById('muteLabel');
 
-<script>
-  const video = document.getElementById('clip');
-  const overlay = document.getElementById('playOverlay');
-  const spinner = document.getElementById('spinner');
-  const stage = document.getElementById('videoStage');
-  const muteBtn = document.getElementById('muteBtn');
-  const muteLabel = document.getElementById('muteLabel');
+      let sourceLoaded = false;
 
-  let sourceLoaded = false;
+      // Lazy-load the actual video only when it scrolls into view,
+      // so it doesn't eat crawl/data budget for people who never see it.
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !sourceLoaded) {
+            video.preload = 'metadata';
+            sourceLoaded = true;
+            io.disconnect();
+          }
+        });
+      }, { threshold: 0.25 });
+      io.observe(stage);
 
-  // Lazy-load the actual video only when it scrolls into view,
-  // so it doesn't eat crawl/data budget for people who never see it.
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !sourceLoaded) {
-        video.preload = 'metadata';
-        sourceLoaded = true;
-        io.disconnect();
+      function playClip() {
+        if (!sourceLoaded) {
+          video.preload = 'auto';
+          sourceLoaded = true;
+        }
+        spinner.classList.add('active');
+        video.play().then(() => {
+          overlay.classList.add('hidden');
+        }).catch(() => {
+          // Autoplay/permission issue — keep overlay visible so user can retry.
+          spinner.classList.remove('active');
+        });
       }
-    });
-  }, { threshold: 0.25 });
-  io.observe(stage);
 
-  function playClip() {
-    if (!sourceLoaded) {
-      video.preload = 'auto';
-      sourceLoaded = true;
-    }
-    spinner.classList.add('active');
-    video.play().then(() => {
-      overlay.classList.add('hidden');
-    }).catch(() => {
-      // Autoplay/permission issue — keep overlay visible so user can retry.
-      spinner.classList.remove('active');
-    });
-  }
+      video.addEventListener('playing', () => {
+        spinner.classList.remove('active');
+        overlay.classList.add('hidden');
+      });
 
-  video.addEventListener('playing', () => {
-    spinner.classList.remove('active');
-    overlay.classList.add('hidden');
-  });
+      video.addEventListener('waiting', () => spinner.classList.add('active'));
 
-  video.addEventListener('waiting', () => spinner.classList.add('active'));
+      overlay.addEventListener('click', playClip);
 
-  overlay.addEventListener('click', playClip);
+      // Tapping the video itself toggles play/pause after it's started.
+      video.addEventListener('click', () => {
+        if (video.paused) {
+          playClip();
+        } else {
+          video.pause();
+          overlay.classList.remove('hidden');
+        }
+      });
 
-  // Tapping the video itself toggles play/pause after it's started.
-  video.addEventListener('click', () => {
-    if (video.paused) {
-      playClip();
-    } else {
-      video.pause();
-      overlay.classList.remove('hidden');
-    }
-  });
+      muteBtn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        muteBtn.classList.toggle('on', video.muted === false ? false : video.muted);
+        if (video.muted) {
+          muteBtn.classList.add('on');
+          muteLabel.textContent = 'Sound off';
+        } else {
+          muteBtn.classList.remove('on');
+          muteLabel.textContent = 'Sound on';
+        }
+      });
 
-  muteBtn.addEventListener('click', () => {
-    video.muted = !video.muted;
-    muteBtn.classList.toggle('on', video.muted === false ? false : video.muted);
-    if (video.muted) {
-      muteBtn.classList.add('on');
-      muteLabel.textContent = 'Sound off';
-    } else {
-      muteBtn.classList.remove('on');
-      muteLabel.textContent = 'Sound on';
-    }
-  });
+      // Pause when scrolled out of view to save battery/data on long pages.
+      const pauseObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting && !video.paused) {
+            video.pause();
+            overlay.classList.remove('hidden');
+          }
+        });
+      }, { threshold: 0.1 });
+      pauseObserver.observe(stage);
+    </script>
 
-  // Pause when scrolled out of view to save battery/data on long pages.
-  const pauseObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting && !video.paused) {
-        video.pause();
-        overlay.classList.remove('hidden');
-      }
-    });
-  }, { threshold: 0.1 });
-  pauseObserver.observe(stage);
-</script>
-
-</body>
+  </body>
 </html>
