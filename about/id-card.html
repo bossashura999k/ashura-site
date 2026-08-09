@@ -1,251 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Ashura IZZI — ID Card</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#1B2A4A;
-    --gold:#E8A33D;
-    --paper:#F7F5F0;
-    --slate:#2A2E35;
-    --teal:#3E7C7C;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(160deg,#0F1B33,#1B2A4A 60%);
-    font-family:'Inter',sans-serif;
-    padding:32px 16px;
-  }
-  .stage{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:14px;
-  }
-  .zoom{
-    transform:scale(2.2);
-    transform-origin:center;
-    margin:38mm 60mm;
-  }
-  .card{
-    width:85.6mm;
-    height:54mm;
-    background:var(--paper);
-    border-radius:3mm;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
-    display:flex;
-    flex-direction:column;
-  }
-  .card-header{
-    background:var(--ink);
-    padding:2mm 3mm;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-  }
-  .org{
-    color:var(--paper);
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:2.6mm;
-    letter-spacing:0.2mm;
-  }
-  .org span{color:var(--gold);}
-  .badge-label{
-    color:rgba(247,245,240,0.6);
-    font-family:'JetBrains Mono',monospace;
-    font-size:1.6mm;
-    letter-spacing:0.3mm;
-    text-transform:uppercase;
-  }
-  .card-body{
-    flex:1;
-    display:flex;
-    align-items:center;
-    padding:1.5mm 3mm;
-    gap:4mm;
-    min-height:0;
-  }
-  .avatar{
-    width:24mm;
-    height:24mm;
-    border-radius:2.5mm;
-    background:linear-gradient(135deg,var(--teal),var(--ink));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--gold);
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:4.5mm;
-    flex-shrink:0;
-    position:relative;
-    overflow:hidden;
-  }
-  .avatar img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:2.5mm;
-  }
-  .avatar::after{
-    content:'';
-    position:absolute;
-    inset:0;
-    border-radius:2.5mm;
-    border:0.3mm solid rgba(232,163,61,0.5);
-  }
-  .id-info{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:1.2mm;
-    min-width:0;
-  }
-  .name{
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:5mm;
-    color:var(--slate);
-    line-height:1.1;
-  }
-  .fullname{
-    font-size:2.6mm;
-    color:#6b7280;
-    font-weight:500;
-  }
-  .role-tag{
-    margin-top:1.4mm;
-    display:inline-flex;
-    align-items:center;
-    gap:1mm;
-    font-family:'JetBrains Mono',monospace;
-    font-size:2.6mm;
-    color:var(--teal);
-  }
-  .role-tag::before{content:'//';color:var(--gold);}
-  .card-footer{
-    border-top:0.2mm dashed rgba(42,46,53,0.25);
-    padding:1.4mm 3mm 2mm;
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:2mm;
-  }
-  .meta{
-    display:flex;
-    flex-direction:column;
-    gap:0.4mm;
-    min-width:0;
-  }
-  .meta-row{
-    font-family:'JetBrains Mono',monospace;
-    font-size:1.55mm;
-    color:#6b7280;
-    letter-spacing:0.05mm;
-    white-space:nowrap;
-  }
-  .meta-row b{color:var(--slate);}
-  .code-bars{
-    display:flex;
-    align-items:flex-end;
-    gap:0.4mm;
-    height:5.5mm;
-    flex-shrink:0;
-  }
-  .code-bars div{
-    width:0.4mm;
-    background:var(--slate);
-  }
-  .stripe{
-    position:absolute;
-    top:0;right:0;bottom:0;
-    width:1.2mm;
-    background:linear-gradient(180deg,var(--gold),var(--teal));
-  }
-  .caption{
-    color:rgba(247,245,240,0.45);
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    letter-spacing:0.5px;
-  }
+  <head>
+    <meta charset="UTF-8">
+    <title>Ashura IZZI — ID Card</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/Styles/idCard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  </head>
 
-  @media print{
-    @page{
-      size:auto;
-      margin:0;
-    }
-    body{
-      background:#fff;
-      padding:0;
-      min-height:auto;
-      display:block;
-    }
-    .caption{display:none;}
-    .stage{
-      align-items:flex-start;
-    }
-    .zoom{
-      transform:none;
-      margin:0;
-    }
-    .card{
-      box-shadow:none;
-      -webkit-print-color-adjust:exact;
-      print-color-adjust:exact;
-    }
-  }
-</style>
-</head>
-<body>
-  <div class="stage">
-    <div class="zoom">
-      <div class="card" id="card">
-        <div class="stripe"></div>
-        <div class="card-header">
-          <div class="org">Identification<span>.</span></div>
-          <div class="badge-label">Personal ID</div>
-        </div>
-        <div class="card-body">
-          <div class="avatar"><img src="https://ashura.site/Pics/file.png" alt="Ashura Izzi"></div>
-          <div class="id-info">
-            <div class="name">Ashura IZZI</div>
-            <div class="fullname">Obire Oviemena Israel</div>
-            <div class="role-tag">backend.java.developer</div>
+
+    <body>
+    <div class="stage">
+      <div class="zoom">
+        <div class="card" id="card">
+          <div class="stripe"></div>
+          <div class="card-header">
+            <div class="org">Identification<span>.</span></div>
+            <div class="badge-label">Personal ID</div>
           </div>
-        </div>
-        <div class="card-footer">
-          <div class="meta">
-            <div class="meta-row">Job <b>Backend Java Intern</b></div>
-            <div class="meta-row">Job Location <b>FlexiSAF, Abuja</b></div>
-            <div class="meta-row">GitHub: <b>bossashura999k</b></div>
-            <div class="meta-row">Phone NO: <b>07081472383</b></div>
-            <div class="meta-row">Issued: <b>11 May 2026</b></div>
+          <div class="card-body">
+            <div class="avatar"><img src="https://ashura.site/Pics/file.png" alt="Ashura Izzi"></div>
+            <div class="id-info">
+              <div class="name">Ashura IZZI</div>
+              <div class="fullname">Obire Oviemena Israel</div>
+              <div class="role-tag">backend.java.developer</div>
+            </div>
           </div>
-          <div class="code-bars" id="bars"></div>
+          <div class="card-footer">
+            <div class="meta">
+              <div class="meta-row">Job <b>Backend Java Intern</b></div>
+              <div class="meta-row">Job Location <b>FlexiSAF, Abuja</b></div>
+              <div class="meta-row">GitHub: <b>bossashura999k</b></div>
+              <div class="meta-row">Phone NO: <b>07081472383</b></div>
+              <div class="meta-row">Issued: <b>11 May 2026</b></div>
+            </div>
+            <div class="code-bars" id="bars"></div>
+          </div>
         </div>
       </div>
+      <div class="caption">Actual print size: 85.6mm x 54mm (standard CR80 card)</div>
     </div>
-    <div class="caption">Actual print size: 85.6mm x 54mm (standard CR80 card)</div>
-  </div>
 
-<script>
-  const bars = document.getElementById('bars');
-  const heights = [1.6,3.6,2.4,4.8,2,4,2.8,5.2,1.8,3.2,4.4,2.2,3.8,5,2.6];
-  heights.forEach(h=>{
-    const d = document.createElement('div');
-    d.style.height = h+'mm';
-    bars.appendChild(d);
-  });
-</script>
-</body>
+  <script>
+    const bars = document.getElementById('bars');
+    const heights = [1.6,3.6,2.4,4.8,2,4,2.8,5.2,1.8,3.2,4.4,2.2,3.8,5,2.6];
+    heights.forEach(h=>{
+      const d = document.createElement('div');
+      d.style.height = h+'mm';
+      bars.appendChild(d);
+    });
+  </script>
+  </body>
 </html>
