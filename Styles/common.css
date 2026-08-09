@@ -254,3 +254,39 @@ h1 { font-size: 1.5rem; }
     padding: 2rem;
     color: var(--muted);
 }
+
+
+.hero-landing {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+.option-card {
+    background: var(--card-bg);
+    border-radius: 1rem;
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+}
+.option-header {
+    padding: 1.5rem;
+    text-align: center;
+    color: white;
+}
+.bags-header { background: linear-gradient(135deg, #ff7e5f, #feb47b); }
+.gadgets-header { background: linear-gradient(135deg, #4776E6, #8E54E9); }
+.option-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+.option-content { padding: 1.5rem; }
+.btn { display: inline-block; margin-top: 1rem; }
+.countdown { margin-top: 2rem; font-size: 0.9rem; color: var(--muted); }
