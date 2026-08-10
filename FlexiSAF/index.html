@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Applicant Intake CLI — Demo</title>
+        <link rel="stylesheet" href="../Styles/flexisaf.css">
+    </head>
+    <body>
+        <div class="frame">
+        <div class="terminal">
+            <div class="titlebar">
+            <div class="dots">
+                <div class="dot red" data-label="REJECTED"></div>
+                <div class="dot amber" data-label="PENDING"></div>
+                <div class="dot green" data-label="ACCEPTED"></div>
+            </div>
+            <div class="path"><b>ashura㉿IZZI</b>:~/FlexiSAF/applicantintake$ ./demo</div>
+            </div>
+
+            <div class="screen">
+            <!-- Replace src below with your actual hosted video file -->
+            <video controls preload="metadata">
+                <source src="../Videos/flexisaf.mp4" type="video/mp4">
+            </video>
+            <!-- Fallback shown only if the video above fails to load -->
+            </div>
+
+            <div class="caption">
+            <div class="prompt">
+                <span class="user">ashura</span><span class="at">㉿</span><span class="host">IZZI</span><span class="sep">:~/FlexiSAF$</span>
+                <span class="line" id="typedLine"></span><span class="cursor"></span>
+            </div>
+            <div class="meta">
+                <span><b>Project</b> — Applicant Intake CLI</span>
+                <span><b>Stack</b> — Java, CSV storage</span>
+                <span><b>Track</b> — FIP T2 2026, Backend (Beginner)</span>
+            </div>
+            </div>
+        </div>
+        </div>
+        <script src="../script/flexisaf.js"></script>
+    </body>
+</html>
