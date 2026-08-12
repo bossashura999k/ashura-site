@@ -5,7 +5,7 @@
 // YOUR PERSONAL INFORMATION - UPDATED!
 const YOUR_CONFIG = {
     phone: '2347081472383',
-    email: 'bossashura999k@gmail.com',
+    email: 'obireoviemenaisrael@gmail.com',
     portfolioUrl: 'https://tinyurl.com/Bossashura999k',
     brandName: 'Ashura',
     whatsappMessage: 'Hi%20Ashura,%20I%27m%20interested%20in%20your%20web%20development%20services'
