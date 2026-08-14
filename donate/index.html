@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data: https:;
+    font-src 'self' data:;
+    connect-src 'self' https://www.google-analytics.com https://analytics.google.com;
+    frame-ancestors 'self';
+    base-uri 'self';
+    form-action 'self';
+  ">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="talentapp:project_verification" content="da84a007b57cd80013ce026f4f96d65f89f89dab43ea9d60cc483511200ecd5d4e4d21b51ad10ed52d70e732a71a6ca3c3c9304af75e2be12d3e1aa82269e567">
