@@ -78,11 +78,11 @@ This site has gone through a full security hardening pass:
 
 ## 📬 Contact
 
-Built and maintained by **Ashura IZZI**
+Built and maintained by **Ashura IZZI(AKA Obire Oviemena Israel)**
 
 - 🌐 Website: [ashura.site](https://ashura.site)
 - 🐙 GitHub: [@bossashura999k](https://github.com/bossashura999k)
-
+- 📩 Email: [Here](mailto:obireoviemenaisrael@gmail.com)
 ---
 
 ## 📄 License
