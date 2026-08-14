@@ -25,7 +25,18 @@
     <meta property="og:image" content="https://ashura.site/Pics/webDev.png" />
     <meta property="og:image:alt" content="Ashura IZZI logo animation - web developer" />
     <meta property="og:site_name" content="Ashura IZZI Portfolio" />
-    
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: https:;
+      font-src 'self' data:;
+      connect-src 'self' https://www.google-analytics.com https://analytics.google.com;
+      frame-ancestors 'self';
+      base-uri 'self';
+      form-action 'self';
+    ">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Ashura IZZI | Web Dev Portfolio & Projects" />
     <meta name="twitter:description" content="Web developer portfolio: Kali Linux, web services, interactive apps, and donations." />

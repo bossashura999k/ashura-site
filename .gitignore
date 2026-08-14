@@ -12,3 +12,4 @@ eth-logs/dist
 eth-logs/.envnode_modules/
 **/node_modules/
 *.pdf
+*.py
