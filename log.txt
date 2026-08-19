@@ -1,0 +1,280 @@
+What is the trivial name of CH2=CHCl?
+Answer: Vinyl chloride
+Explanation: CH2=CHCl is commonly known as vinyl chloride (IUPAC: chloroethene).
+---
+What is the exact number of molecules of oxygen required to combust 2-methylbutane to CO2 and H2O?
+Answer: 8
+Explanation: C5H12 + 8O2 → 5CO2 + 6H2O. 2-Methylbutane (C5H12) requires 8 O2 molecules for complete combustion.
+---
+Wurtz reaction is the reaction of:
+Answer: Sodium and alkyl halide
+Explanation: The Wurtz reaction involves treating alkyl halides with sodium metal to form higher alkanes.
+---
+The general formula for alkenes is:
+Answer: CnH2n
+Explanation: Alkenes (one double bond) have the general formula CnH2n.
+---
+The process: CH3(CH2)5CH3 → CH3(CH2)3CH(CH3)2 under Pt/Heat is called:
+Answer: Isomerisation
+Explanation: Converting a straight-chain alkane to a branched-chain isomer under heat and catalyst is isomerisation.
+---
+What is the name of the compound C6H5-CO-CH3?
+Answer: Acetophenone
+Explanation: C6H5COCH3 is acetophenone (methyl phenyl ketone), the simplest aromatic ketone.
+---
+Propene can be made to yield propan-1-ol by reaction with:
+Answer: BH3; NaOH
+Explanation: Hydroboration-oxidation (BH3 then H2O2/NaOH) gives anti-Markovnikov addition, yielding propan-1-ol from propene.
+---
+Give the name of the following compound: a benzene ring with OH and Cl substituents where Cl is at position 3 relative to OH.
+Answer: m-chlorophenol
+Explanation: A benzene ring with OH and Cl in the meta position is named m-chlorophenol (3-chlorophenol).
+---
+The initiation step in free radical chlorination of alkanes is:
+Answer: Cl2 → 2Cl* (hv)
+Explanation: The initiation step involves homolytic cleavage of Cl2 by UV light to generate chlorine radicals.
+---
+1-chloropropane is converted to propene by reacting with:
+Answer: NaOH/alcohol
+Explanation: Alcoholic NaOH promotes elimination (E2) of HCl from 1-chloropropane to form propene.
+---
+Give the IUPAC name of the compound 4,8-dibromo-3,3-diethyl-6-ethyl-9-propyl-5-undecenoic acid (structure given).
+Answer: 4,8-dibromo-3,3-diethyl-6-ethyl-9-propyl-5-undecenoic acid
+Explanation: Systematic IUPAC naming follows the longest chain with correct numbering of substituents and functional groups.
+---
+Give the IUPAC name of CH3CH2CHCH2CHOHCH3 with a branch CH2CH2CH2CH2CH(CH3)2.
+Answer: 4-ethyl-9-methyl-2-decanol
+Explanation: Systematic naming of the complex branched alcohol gives 4-ethyl-9-methyl-2-decanol.
+---
+Which of the following is the major product when ethanol is heated with concentrated sulphuric acid at 170°C?
+Answer: Ethene
+Explanation: At 170°C, ethanol undergoes elimination with conc H2SO4 to produce ethene (dehydration).
+---
+Which of the following statements about alcohols is correct?
+Answer: Primary alcohols are oxidized to carboxylic acids under strong oxidation conditions
+Explanation: Primary alcohols are oxidized to aldehydes under mild conditions and further to carboxylic acids under strong oxidation.
+---
+Which of the following alcohols reacts fastest with Lucas reagent (HCl/ZnCl2)?
+Answer: 2-Methyl-2-propanol
+Explanation: Tertiary alcohols react fastest with Lucas reagent; 2-methyl-2-propanol is a tertiary alcohol.
+---
+The dehydration of alcohols generally proceeds via which type of mechanism?
+Answer: E1
+Explanation: Acid-catalyzed dehydration of alcohols proceeds via an E1 mechanism through a carbocation intermediate.
+---
+Which of the following is a primary amine?
+Answer: Aniline
+Explanation: Aniline (C6H5NH2) is a primary amine as it has one alkyl/aryl group attached to the nitrogen.
+---
+Which of the following reactions is used to prepare primary amines?
+Answer: Gabriel phthalimide synthesis
+Explanation: Gabriel phthalimide synthesis is a method to prepare pure primary amines.
+---
+What happens when a primary amine reacts with nitrous acid?
+Answer: It forms a diazonium salt
+Explanation: Primary amines react with nitrous acid (HNO2) to form diazonium salts.
+---
+Alcohols can be classified into primary, secondary, and tertiary depending on the number of:
+Answer: Alkyl groups attached to the carbon bonded to –OH
+Explanation: The classification is based on how many alkyl groups are attached to the carbon bearing the OH group.
+---
+The process of converting sugars into alcohol is called:
+Answer: Fermentation
+Explanation: Fermentation is the anaerobic process by which yeast converts sugars into ethanol and CO2.
+---
+Which of the following is not an alcohol?
+Answer: Phenol
+Explanation: Phenol (C6H5OH) has a hydroxyl group attached to an aromatic ring, so it is classified as a phenol, not an alcohol.
+---
+Which alcohol is known to cause blindness if ingested?
+Answer: Methanol
+Explanation: Methanol (wood alcohol) is toxic and can cause blindness or death if ingested.
+---
+What type of reaction is the conversion of alcohol to alkene?
+Answer: Elimination
+Explanation: Dehydration of alcohols to alkenes is an elimination reaction (loss of water).
+---
+Ethers are generally prepared by the reaction of alcohols with:
+Answer: Alkyl halides
+Explanation: Ethers can be prepared via Williamson synthesis: reaction of an alkoxide with an alkyl halide.
+---
+In Williamson ether synthesis, the reaction typically involves an alkoxide ion and a:
+Answer: Alkyl halide
+Explanation: Williamson synthesis: R-O⁻ + R'-X → R-O-R' + X⁻. An alkoxide reacts with an alkyl halide via SN2.
+---
+Which of the following is an example of a primary amine?
+Answer: CH3CH2-NH2
+Explanation: CH3CH2NH2 (ethylamine) is a primary amine — nitrogen bonded to one carbon group.
+---
+Which is the correct IUPAC name for the compound CH3CH2NH2?
+Answer: Ethanamine
+Explanation: The IUPAC name for CH3CH2NH2 is ethanamine.
+---
+The dipole-dipole interaction in aldehyde and ketones is due to:
+Answer: The presence of carbonyl bond
+Explanation: The polar C=O (carbonyl) bond creates a dipole moment responsible for dipole-dipole interactions.
+---
+Between alkanals and alkanones of similar molecular weights, which is more reactive and why?
+Answer: Alkanals are more reactive because of the absence of hydrogen bond
+Explanation: Aldehydes are more reactive than ketones towards nucleophilic addition due to less steric hindrance and greater electrophilicity of the carbonyl carbon.
+---
+Which reagent is used to reduce aldehydes and ketones to alcohols?
+Answer: NaBH4
+Explanation: Sodium borohydride (NaBH4) is a mild reducing agent used to reduce aldehydes and ketones to alcohols.
+---
+Which reaction can be used to distinguish between an aldehyde and a ketone?
+Answer: Oxidation reaction
+Explanation: Aldehydes are oxidized (e.g., by Tollens' reagent or Fehling's solution) while ketones are not, so oxidation can distinguish them.
+---
+What is the IUPAC name for the nitrile derived from propanoic acid?
+Answer: Propanenitrile
+Explanation: The nitrile derived from propanoic acid (CH3CH2COOH) is CH3CH2CN, named propanenitrile.
+---
+Which of the following is a common method for synthesizing nitriles?
+Answer: Reaction of alkyl halides with sodium cyanide
+Explanation: Nitriles are commonly synthesized by reaction of alkyl halides with sodium cyanide (NaCN) via SN2.
+---
+Nitriles can be hydrolyzed to form which of the following compounds?
+Answer: Carboxylic acids
+Explanation: Hydrolysis of nitriles (R-CN) with water/acid or base yields carboxylic acids (R-COOH).
+---
+Which reagent is commonly used to oxidize aldehydes to carboxylic acids?
+Answer: Potassium permanganate
+Explanation: KMnO4 (potassium permanganate) is a strong oxidizing agent that converts aldehydes to carboxylic acids.
+---
+Markovnikov's rule deals with the reaction of unsymmetrical reagent with _______ alkene.
+Answer: Unsymmetrical
+Explanation: Markovnikov's rule applies to the addition of unsymmetrical reagents to unsymmetrical (asymmetric) alkenes.
+---
+What is the general functional group of carboxylic acids?
+Answer: -COOH
+Explanation: The functional group of carboxylic acids is the carboxyl group (-COOH).
+---
+Carbon nanotubes are composed of:
+Answer: Layers of graphene rolled into tubes
+Explanation: Carbon nanotubes are cylindrical structures made of rolled graphene sheets.
+---
+Which property makes carbon nanotubes suitable for nanotechnology applications?
+Answer: High tensile strength
+Explanation: Carbon nanotubes have exceptionally high tensile strength, making them ideal for nanotechnology.
+---
+Which of the following describes the bonding in carbon nanotubes?
+Answer: sp2 hybridization
+Explanation: Carbon atoms in nanotubes are sp2 hybridized, similar to graphene.
+---
+In a covalent bond, electrons are:
+Answer: Shared
+Explanation: Covalent bonds involve sharing of electrons between atoms.
+---
+A pi (π) bond is formed by:
+Answer: Side-to-side overlap of p orbitals
+Explanation: Pi bonds result from lateral (side-to-side) overlap of p orbitals.
+---
+Which of the following compounds exhibits sp2 hybridization?
+Answer: C2H4
+Explanation: Ethene (C2H4) contains a double bond and sp2 hybridized carbons.
+---
+Which molecule contains only sigma bonds?
+Answer: CH4
+Explanation: Methane (CH4) has only single (sigma) bonds with sp3 hybridized carbon.
+---
+Who was one of the key scientists involved in the discovery of fullerenes?
+Answer: Richard Smalley
+Explanation: Richard Smalley, along with Harry Kroto and Robert Curl, discovered fullerenes (C60).
+---
+Inductive effect is due to difference in:
+Answer: Electronegativity
+Explanation: The inductive effect arises from differences in electronegativity of atoms in a molecule.
+---
+To detect nitrogen, the filtered aqueous alkaline solution obtained by sodium fusion is heated with:
+Answer: Iron (II) sulphate
+Explanation: In the sodium fusion test, iron (II) sulphate is used to detect nitrogen via Prussian blue formation.
+---
+Which is a method useful to determine conjugated systems?
+Answer: UV Spectroscopy
+Explanation: UV Spectroscopy is particularly useful for detecting conjugated systems due to π→π* transitions.
+---
+The term 'organic' was originally given because organic compounds were believed to be produced only by:
+Answer: Living organisms
+Explanation: Organic chemistry originally referred to compounds produced by living organisms (vitalism theory).
+---
+One of the following is not a reason why carbon forms such a large number of compounds compared to other elements:
+Answer: Crystallization
+Explanation: Crystallization is a physical process, not a reason for carbon's ability to form many compounds.
+---
+Organic compounds are classified into the following major groups except:
+Answer: Amorphous
+Explanation: Amorphous refers to a physical state (lack of crystalline structure), not a class of organic compounds.
+---
+One of the following is not a method of isolating and purifying organic compounds:
+Answer: Atomization
+Explanation: Atomization is not a purification method; sublimation, distillation, and chromatography are.
+---
+The method of separation that involves stationary and mobile phase is called:
+Answer: Chromatography
+Explanation: Chromatography separates compounds using a stationary phase and a mobile phase.
+---
+One of the following is not a physical property:
+Answer: Xylene
+Explanation: Xylene is a chemical compound, not a physical property.
+---
+The simplest relative number of each kind of atom in the molecule is called:
+Answer: Empirical formula
+Explanation: The empirical formula gives the simplest whole-number ratio of atoms in a compound.
+---
+In the process of determining sulphur content in a sodium fusion sample, it is recommended to acidify the sample with acetic acid in order to:
+Answer: Remove interference, adjust the pH, and optimize PbS precipitation
+Explanation: Acidifying with acetic acid removes interference and adjusts pH to optimize PbS precipitation in sulphur detection.
+---
+Which of the following distillation methods is not used to separate azeotropic mixtures?
+Answer: Destructive distillation
+Explanation: Destructive distillation decomposes a material at high temperature; it is not used to separate azeotropic mixtures.
+---
+How many signals are expected in the proton NMR of pentyl chloride?
+Answer: 5
+Explanation: Pentyl chloride (1-chloropentane) has 5 sets of chemically distinct protons, giving 5 NMR signals.
+---
+A compound with chiral atoms and a plane of symmetry is called a:
+Answer: Mesoform
+Explanation: A meso compound has chiral centres but an internal plane of symmetry making it achiral overall.
+---
+The reagent typically used to detect halogens in the sodium fusion test is:
+Answer: Silver nitrate
+Explanation: Silver nitrate (AgNO3) is used to detect halides released during the sodium fusion test.
+---
+The primary purpose of IR spectroscopy is to:
+Answer: Identify functional groups in a molecule
+Explanation: IR spectroscopy is primarily used to identify functional groups based on characteristic absorption frequencies.
+---
+Isomerism is the:
+Answer: Existence of compounds with the same molecular formula but different structures
+Explanation: Isomerism is the phenomenon where compounds share the same molecular formula but differ in structure or arrangement.
+---
+Which type of isomerism involves different spatial arrangements of atoms in a molecule?
+Answer: Geometric isomerism
+Explanation: Geometric (cis-trans) isomerism involves different spatial arrangements around a double bond or ring.
+---
+Which of the following is true of the percentage composition of element in the compound C8H16?
+Answer: H = 14.28%
+Explanation: C8H16 MW = 112. H% = (16×1/112)×100 = 14.28%.
+---
+1g of a compound X containing C, H and O gave 2.442g of CO2 and 1.00g of H2O. If the molecular weight of the compound is 72, calculate the molecular formula.
+Answer: C4H8O
+Explanation: From combustion analysis: C=66.7%, H=11.1%, O=22.2%. Empirical formula C4H8O, MW=72 matches molecular formula C4H8O.
+---
+Which compound is commonly referred to as MARSH gas?
+Answer: Methane
+Explanation: Methane (CH4) is commonly called marsh gas because it is produced in swamps and marshes.
+---
+(CH3)2C=CHCH2CH3 + O3 → A + B (Zn/H-). A and B in the above reaction are:
+Answer: (CH3)2CO + CH3CH2CHO
+Explanation: Ozonolysis of (CH3)2C=CHCH2CH3 with reductive workup (Zn/H2O) cleaves the double bond to give acetone (CH3)2CO and propanal CH3CH2CHO.
+---
+The reaction CaC2 + H2O → ? gives:
+Answer: Ethyne
+Explanation: Calcium carbide reacts with water to produce ethyne (acetylene): CaC2 + 2H2O → Ca(OH)2 + C2H2.
+---
+Give one reagent that can differentiate 2-butyne from 1-butyne.
+Answer: AgNO3/NH4OH
+Explanation: AgNO3/NH4OH reacts with terminal alkynes (like 1-butyne) to form a white precipitate; internal alkynes (2-butyne) do not react.
+---
