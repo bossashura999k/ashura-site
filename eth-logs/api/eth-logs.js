@@ -121,7 +121,12 @@ router.get('/eth-logs', async (req, res) => {
       // transactions. For full history back to genesis, Cryptoapis requires
       // a separate "Sync Address" call first, then querying the
       // addresses-historical/... endpoint — a bigger change than this fix.
-      const url = `${CRYPTOAPIS_BASE}/addresses-latest/utxo/bitcoin/mainnet/${encodeURIComponent(walletAddress)}/transactions?limit=1000`;
+      // This endpoint also caps limit at 50 (unlike the EVM/Etherscan side,
+      // which allows up to 1000), and pages via a cursor (startingAfter)
+      // rather than the page-number param the EVM branch uses.
+      const startingAfter = req.query.startingAfter;
+      const cursorParam = startingAfter ? `&startingAfter=${encodeURIComponent(startingAfter)}` : '';
+      const url = `${CRYPTOAPIS_BASE}/addresses-latest/utxo/bitcoin/mainnet/${encodeURIComponent(walletAddress)}/transactions?limit=50${cursorParam}`;
 
       const resp = await fetch(url, {
         headers: { 'X-API-Key': CRYPTOAPIS_KEY }
