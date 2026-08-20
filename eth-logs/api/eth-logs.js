@@ -17,7 +17,7 @@ const NETWORKS = {
 };
 
 // ─── Cryptoapis (for Bitcoin) ──────────────────────────────────────────────
-const CRYPTOAPIS_BASE = 'https://rest.cryptoapis.io/v2';
+const CRYPTOAPIS_BASE = 'https://rest.cryptoapis.io';
 const CRYPTOAPIS_KEY  = process.env.CRYPTOAPIS_API_KEY;
 
 // ─── Bitcoin address validator ─────────────────────────────────────────────
@@ -117,7 +117,11 @@ router.get('/eth-logs', async (req, res) => {
 
     try {
       // Build URL with limit
-      const url = `${CRYPTOAPIS_BASE}/blockchain-data/bitcoin/mainnet/addresses/${encodeURIComponent(walletAddress)}/transactions?limit=1000`;
+      // NOTE: "Address Latest" only returns the most recent 14 days of
+      // transactions. For full history back to genesis, Cryptoapis requires
+      // a separate "Sync Address" call first, then querying the
+      // addresses-historical/... endpoint — a bigger change than this fix.
+      const url = `${CRYPTOAPIS_BASE}/addresses-latest/utxo/bitcoin/mainnet/${encodeURIComponent(walletAddress)}/transactions?limit=1000`;
 
       const resp = await fetch(url, {
         headers: { 'X-API-Key': CRYPTOAPIS_KEY }
@@ -157,7 +161,7 @@ router.get('/eth-logs', async (req, res) => {
       }
 
       // If we got here, it's a successful response
-      const txs = data.response?.data?.items || [];
+      const txs = data.data?.items || [];
       const from = parseInt(fromBlock, 10) || 0;
       const to   = toBlock === 'latest' ? Infinity : parseInt(toBlock, 10);
       const logs = [];
