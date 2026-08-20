@@ -216,7 +216,7 @@ router.get('/eth-logs', async (req, res) => {
         logs.push({
           direction: isOut ? 'out' : 'in',
           blockNumber: blockHeight,
-          transactionHash: tx.transactionId,
+          transactionHash: tx.transactionId || tx.hash || tx.id,
           contractAddress: null,
           from: fromAddr,
           to: toAddr,

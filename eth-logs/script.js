@@ -368,7 +368,7 @@ function renderRows(logs, prices = {}, append = false) {
     tr.style.animationDelay = `${i * 25}ms`;
 
     const contractLower = log.contractAddress ? log.contractAddress.toLowerCase() : '';
-    const decimals = TOKEN_DECIMALS[contractLower] || 18;
+    const decimals = currentNetwork === 'bitcoin' ? 8 : (TOKEN_DECIMALS[contractLower] || 18);
     const raw = BigInt(log.rawAmount);
     const divisor = 10 ** decimals;
     const integer = raw / BigInt(divisor);
