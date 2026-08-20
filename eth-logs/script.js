@@ -45,6 +45,17 @@ const TOKEN_DECIMALS = {
   '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA': 6,
 };
 
+// Keys above are checksummed (mixed-case) for readability, but lookups use
+// lowercase addresses — normalize once here so `TOKEN_DECIMALS[addr.toLowerCase()]`
+// actually matches instead of silently falling through to the `|| 18` default.
+Object.keys(TOKEN_DECIMALS).forEach(key => {
+  const lower = key.toLowerCase();
+  if (lower !== key) {
+    TOKEN_DECIMALS[lower] = TOKEN_DECIMALS[key];
+    delete TOKEN_DECIMALS[key];
+  }
+});
+
 // ── Network + token registry ──────────────────────────────────────────────
 const NETWORKS = {
   ethereum: {
