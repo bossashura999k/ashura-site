@@ -141,7 +141,18 @@ router.get('/eth-logs', async (req, res) => {
           body: responseText
         });
         // Return a user-friendly error
-        const errorMsg = data.response?.message || data.error || responseText || 'Cryptoapis API error';
+        // Return a user-friendly error
+        const extractMsg = (val) => {
+          if (!val) return null;
+          if (typeof val === 'string') return val;
+          if (typeof val === 'object') return val.message || val.error || JSON.stringify(val);
+          return String(val);
+        };
+        const errorMsg =
+          extractMsg(data.response?.message) ||
+          extractMsg(data.error) ||
+          responseText ||
+          'Cryptoapis API error';
         return res.status(resp.status).json({ error: `Cryptoapis error: ${errorMsg}` });
       }
 
