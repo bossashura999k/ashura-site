@@ -167,6 +167,13 @@ router.get('/eth-logs', async (req, res) => {
 
       // If we got here, it's a successful response
       const txs = data.data?.items || [];
+      // TEMP DIAGNOSTIC — remove once field mapping below is confirmed correct.
+      console.log('[Cryptoapis] txs.length:', txs.length);
+      if (txs.length) {
+        console.log('[Cryptoapis] first item:', JSON.stringify(txs[0], null, 2));
+      } else {
+        console.log('[Cryptoapis] raw data.data:', JSON.stringify(data.data, null, 2));
+      }
       const from = parseInt(fromBlock, 10) || 0;
       const to   = toBlock === 'latest' ? Infinity : parseInt(toBlock, 10);
       const logs = [];
