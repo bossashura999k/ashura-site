@@ -167,42 +167,50 @@ router.get('/eth-logs', async (req, res) => {
 
       // If we got here, it's a successful response
       const txs = data.data?.items || [];
-      // TEMP DIAGNOSTIC — remove once field mapping below is confirmed correct.
-      console.log('[Cryptoapis] txs.length:', txs.length);
-      if (txs.length) {
-        console.log('[Cryptoapis] first item:', JSON.stringify(txs[0], null, 2));
-      } else {
-        console.log('[Cryptoapis] raw data.data:', JSON.stringify(data.data, null, 2));
-      }
       const from = parseInt(fromBlock, 10) || 0;
       const to   = toBlock === 'latest' ? Infinity : parseInt(toBlock, 10);
       const logs = [];
 
+      // Converts a decimal BTC amount string (e.g. "0.00026129") to an
+      // integer satoshi string, since rawAmount elsewhere in this API is
+      // always the smallest unit as an integer (matches ERC-20 rawAmount).
+      const btcToSats = (btcStr) => {
+        const n = parseFloat(btcStr);
+        if (!Number.isFinite(n)) return '0';
+        return Math.round(n * 1e8).toString();
+      };
+
       txs.forEach(tx => {
-        const blockHeight = tx.blockHeight;
+        const blockHeight = tx.minedInBlock?.height;
         if (blockHeight < from || blockHeight > to) return;
 
-        const isOut = tx.inputs?.some(inp => inp.address === walletAddress);
-        const isIn  = tx.outputs?.some(out => out.address === walletAddress);
+        const senders    = tx.senders    || [];
+        const recipients = tx.recipients || [];
+
+        const isOut = senders.some(s => s.address === walletAddress);
+        const isIn  = recipients.some(r => r.address === walletAddress);
 
         if (direction === 'incoming' && !isIn) return;
         if (direction === 'outgoing' && !isOut) return;
         if (direction === 'both' && !isIn && !isOut) return;
 
-        let fromAddr = null, toAddr = null, amount = '0';
+        let fromAddr = null, toAddr = null, amountBtc = '0';
 
         if (isOut) {
           fromAddr = walletAddress;
-          const out = tx.outputs?.find(o => o.address !== walletAddress);
-          if (out) { toAddr = out.address; amount = out.amount; }
+          // First recipient that isn't the wallet itself (i.e. not change).
+          const recip = recipients.find(r => r.address !== walletAddress);
+          if (recip) { toAddr = recip.address; amountBtc = recip.value?.amount ?? '0'; }
         } else if (isIn) {
           toAddr = walletAddress;
-          const inp = tx.inputs?.find(i => i.address !== walletAddress);
-          if (inp) fromAddr = inp.address;
-          const total = tx.outputs
-            ?.filter(o => o.address === walletAddress)
-            .reduce((sum, o) => sum + BigInt(o.amount), 0n) || 0n;
-          amount = total.toString();
+          const sender = senders.find(s => s.address !== walletAddress);
+          if (sender) fromAddr = sender.address;
+          // Sum all recipient entries paying the wallet (handles multiple
+          // outputs to the same address within one transaction).
+          const total = recipients
+            .filter(r => r.address === walletAddress)
+            .reduce((sum, r) => sum + (parseFloat(r.value?.amount) || 0), 0);
+          amountBtc = total.toString();
         }
 
         logs.push({
@@ -212,7 +220,7 @@ router.get('/eth-logs', async (req, res) => {
           contractAddress: null,
           from: fromAddr,
           to: toAddr,
-          rawAmount: amount,
+          rawAmount: btcToSats(amountBtc),
         });
       });
 
