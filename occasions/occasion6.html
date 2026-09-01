@@ -1,143 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Security-Policy" content="
-      default-src 'self';
-      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' data: https:;
-      font-src 'self' data:;
-      connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com;
-      frame-ancestors 'self';
-      base-uri 'self';
-      form-action 'self';
-    ">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-      <title>Occasion — Video</title>
-      <link rel="stylesheet" href="/Styles/occ6.css">
-      <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  </head>
-  <body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.google-analytics.com; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<title>HTB Academy: Linux Fundamentals — Ashura</title>
+<meta name="description" content="Completed the Linux Fundamentals module on Hack The Box Academy — 26/26 exercises.">
+<link rel="canonical" href="https://ashura.site/occasions/occasion7.html">
+<link rel="stylesheet" href="../Styles/occ6.css">
+</head>
+<body>
 
-    <div class="card" id="card">
-      <div class="card-header">
-        <h1>A Small Moment of my Cute Daughter🙃</h1>
-        <p>36 seconds, worth the watch</p>
-      </div>
+<main class="occasion-page">
+  <header class="occasion-header">
+    <a href="../about/" class="back-link">&larr; back</a>
+    <h1>Linux Fundamentals — done</h1>
+    <p class="occasion-date">01 Sep 2026</p>
+  </header>
 
-      <div class="video-stage" id="videoStage">
-        <video
-          id="clip"
-          playsinline
-          webkit-playsinline
-          preload="none"
-          poster="/Pics/occasion6-poster.jpg"
-          muted
-          loop
-        >
-          <source src="/Videos/occasion6-clip.mp4" type="video/mp4">
-          Your browser doesn't support video playback.
-        </video>
+  <section class="occasion-content">
+    <figure class="occasion-cert">
+      <img src="../certificates/htb-linux-fundamentals.png"
+           alt="HTB Academy completion certificate for Linux Fundamentals module, Ashura999k, 26/26 exercises completed"
+           loading="lazy">
+      <figcaption>HTB Academy — Linux Fundamentals (Fundamental difficulty)</figcaption>
+    </figure>
 
-        <div class="loading-spinner" id="spinner"><div></div></div>
-
-        <div class="play-overlay" id="playOverlay">
-          <div class="play-button">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-footer">
-        <span class="duration-badge">0:36</span>
-        <button class="mute-btn on" id="muteBtn">
-          <svg viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 8v8a4.47 4.47 0 0 0 2.5-4zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z"/></svg>
-          <span id="muteLabel">Sound off</span>
-        </button>
-      </div>
+    <div class="occasion-text">
+      <p>
+        Wrapped up <strong>Linux Fundamentals</strong> on Hack The Box Academy —
+        26/26 exercises, no shortcuts. It's the "Fundamental" tier so nothing
+        here was going to blow anyone's mind, but it's the module everything
+        else on the security side leans on: filesystem layout, permissions,
+        users and groups, processes, package management, the usual suspects.
+      </p>
+      <p>
+        Since I already live in Kali day to day, most of this was reinforcing
+        habits I'd half-picked-up by trial and error rather than learning from
+        scratch. Still worth doing properly — it's easy to know just enough
+        <code>chmod</code> and <code>grep</code> to get by without actually
+        understanding what's happening underneath.
+      </p>
+      <p>
+        Next up on HTB Academy: building on this toward the networking and
+        web fundamentals modules.
+      </p>
     </div>
+  </section>
+</main>
 
-    <script>
-      const video = document.getElementById('clip');
-      const overlay = document.getElementById('playOverlay');
-      const spinner = document.getElementById('spinner');
-      const stage = document.getElementById('videoStage');
-      const muteBtn = document.getElementById('muteBtn');
-      const muteLabel = document.getElementById('muteLabel');
-
-      let sourceLoaded = false;
-
-      // Lazy-load the actual video only when it scrolls into view,
-      // so it doesn't eat crawl/data budget for people who never see it.
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !sourceLoaded) {
-            video.preload = 'metadata';
-            sourceLoaded = true;
-            io.disconnect();
-          }
-        });
-      }, { threshold: 0.25 });
-      io.observe(stage);
-
-      function playClip() {
-        if (!sourceLoaded) {
-          video.preload = 'auto';
-          sourceLoaded = true;
-        }
-        spinner.classList.add('active');
-        video.play().then(() => {
-          overlay.classList.add('hidden');
-        }).catch(() => {
-          // Autoplay/permission issue — keep overlay visible so user can retry.
-          spinner.classList.remove('active');
-        });
-      }
-
-      video.addEventListener('playing', () => {
-        spinner.classList.remove('active');
-        overlay.classList.add('hidden');
-      });
-
-      video.addEventListener('waiting', () => spinner.classList.add('active'));
-
-      overlay.addEventListener('click', playClip);
-
-      // Tapping the video itself toggles play/pause after it's started.
-      video.addEventListener('click', () => {
-        if (video.paused) {
-          playClip();
-        } else {
-          video.pause();
-          overlay.classList.remove('hidden');
-        }
-      });
-
-      muteBtn.addEventListener('click', () => {
-        video.muted = !video.muted;
-        muteBtn.classList.toggle('on', video.muted === false ? false : video.muted);
-        if (video.muted) {
-          muteBtn.classList.add('on');
-          muteLabel.textContent = 'Sound off';
-        } else {
-          muteBtn.classList.remove('on');
-          muteLabel.textContent = 'Sound on';
-        }
-      });
-
-      // Pause when scrolled out of view to save battery/data on long pages.
-      const pauseObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting && !video.paused) {
-            video.pause();
-            overlay.classList.remove('hidden');
-          }
-        });
-      }, { threshold: 0.1 });
-      pauseObserver.observe(stage);
-    </script>
-
-  </body>
+</body>
 </html>
