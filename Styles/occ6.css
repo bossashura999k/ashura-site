@@ -132,6 +132,57 @@ body {
   font-size: 0.9em;
 }
 
+/* ---------- Badge entries (consolidated HTB page) ---------- */
+
+.badge-entry {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.badge-entry .occasion-cert {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.badge-entry .occasion-cert img {
+  border-radius: 8px;
+}
+
+.badge-meta h2 {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+  color: var(--text-primary);
+}
+
+.badge-date {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  margin: 0 0 12px;
+}
+
+.badge-meta p:not(.badge-date) {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.badge-meta code {
+  font-family: var(--font-mono);
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--accent-alt);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 600px) {
@@ -145,5 +196,9 @@ body {
 
   .occasion-text {
     padding: 20px;
+  }
+
+  .badge-entry {
+    grid-template-columns: 1fr;
   }
 }
