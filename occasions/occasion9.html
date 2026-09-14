@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Occasion 9 — Programmers Day</title>
+<style>
+  :root {
+    --bg-top: #081226;
+    --bg-bottom: #06304a;
+    --card: #10161f;
+    --cyan: #00d4ff;
+    --cyan-soft: #22d3ee;
+    --text: #dce8f0;
+    --text-dim: #7b93a3;
+    --mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+    color: var(--text);
+    font-family: var(--mono);
+    padding: 4rem 1.5rem 5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  main {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .byte {
+    font-size: clamp(2.4rem, 9vw, 3.6rem);
+    letter-spacing: 0.08em;
+    text-align: center;
+    color: var(--cyan);
+    text-shadow: 0 0 22px rgba(0, 212, 255, 0.35);
+  }
+
+  .byte span {
+    display: inline-block;
+    animation: flip 900ms ease-out both;
+  }
+
+  .byte span:nth-child(1) { animation-delay: 0ms; }
+  .byte span:nth-child(2) { animation-delay: 60ms; }
+  .byte span:nth-child(3) { animation-delay: 120ms; }
+  .byte span:nth-child(4) { animation-delay: 180ms; }
+  .byte span:nth-child(5) { animation-delay: 240ms; }
+  .byte span:nth-child(6) { animation-delay: 300ms; }
+  .byte span:nth-child(7) { animation-delay: 360ms; }
+  .byte span:nth-child(8) { animation-delay: 420ms; }
+
+  @keyframes flip {
+    0%   { transform: rotateX(90deg); opacity: 0; }
+    60%  { transform: rotateX(-12deg); opacity: 1; }
+    100% { transform: rotateX(0deg); opacity: 1; }
+  }
+
+  .equals {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin: 0.6rem 0 0.2rem;
+    opacity: 0;
+    animation: fadein 500ms ease-out 600ms forwards;
+  }
+
+  .value {
+    text-align: center;
+    font-size: clamp(3rem, 14vw, 5rem);
+    font-weight: 700;
+    color: var(--cyan-soft);
+    margin: 0;
+    opacity: 0;
+    animation: fadein 600ms ease-out 750ms forwards;
+  }
+
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .eyebrowless {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin: 3rem 0;
+  }
+
+  .note {
+    background: var(--card);
+    border: 1px solid rgba(0, 212, 255, 0.12);
+    border-radius: 10px;
+    padding: 1.6rem 1.8rem;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .note p { margin: 0 0 0.9rem; }
+  .note p:last-child { margin-bottom: 0; }
+  .note .sign {
+    color: var(--cyan);
+  }
+
+  .video-wrap {
+    margin-top: 2.5rem;
+  }
+
+  .video-wrap h2 {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-dim);
+    margin: 0 0 0.8rem;
+  }
+
+  .video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 212, 255, 0.15);
+  }
+
+  .video-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    margin-top: 3rem;
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="byte" aria-label="binary 10000000">
+    <span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span>
+  </div>
+  <p class="equals">2 to the power of 8</p>
+  <p class="value">256</p>
+  <p class="eyebrowless">every value a single byte can hold</p>
+
+  <hr>
+
+  <section class="note">
+    <p>September 13. Day 256 of the year, on a leap year — the one date that lines up with the number of values a byte can hold. That's the whole joke behind Programmers Day, and somehow it's stuck since 2009.</p>
+    <p>So, appreciation post: for everyone who's spent a night chasing a semicolon, a null that shouldn't be null, or a merge conflict that made no sense until it suddenly did — happy Programmers Day.</p>
+    <p class="sign">— Ashura</p>
+  </section>
+
+  <div class="video-wrap">
+    <h2>GitHub's Programmers Day post</h2>
+    <div class="video-frame">
+      <iframe
+        src="programmers-day.mp4"
+        title="GitHub Programmers Day video"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <footer>occasion 9 — ashura.site</footer>
+
+</main>
+</body>
+</html>
+
