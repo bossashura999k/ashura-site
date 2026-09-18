@@ -16,3 +16,4 @@ eth-logs/.envnode_modules/
 GitCommitTags.txt
 ./test/*
 *.mp4
+airmon-ng-guide.md
