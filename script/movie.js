@@ -3,7 +3,7 @@
   // src should be the public R2 (or wherever) URL to the file.
   const MOVIES = [
     { title: 'Final Destination (2000)', src: 'https://media.ashura.site/movie-with-subs.mp4' },
-    { title: 'Fast and Furious 7', src: 'https://media.ashura.site/movie2-with-subs.mp4' }
+    { title: 'Movie 2', src: 'https://media.ashura.site/movie2-with-subs.mp4' }
   ];
 
   const $ = id => document.getElementById(id);

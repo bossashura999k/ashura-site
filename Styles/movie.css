@@ -238,6 +238,29 @@ border-bottom: 1px solid var(--border);
 max-height: 220px;
 overflow-y: auto;
 }
+#player:fullscreen,
+#player:-webkit-full-screen{
+display: flex;
+flex-direction: column;
+height: 100vh;
+max-width: none;
+border: none;
+border-radius: 0;
+}
+#player:fullscreen .playlist,
+#player:-webkit-full-screen .playlist{
+display: none;
+}
+#player:fullscreen .stage,
+#player:-webkit-full-screen .stage{
+flex: 1;
+aspect-ratio: unset;
+height: auto;
+}
+#player:fullscreen video,
+#player:-webkit-full-screen video{
+object-fit: contain;
+}
 .playlist-item{
 display: flex;
 align-items: center;
