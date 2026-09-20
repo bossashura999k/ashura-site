@@ -99,6 +99,17 @@ animation: spin .8s linear infinite;
 background: var(--surface-2);
 padding: 10px 14px 12px;
 user-select: none;
+transition: opacity .25s ease, transform .25s ease;
+}
+#player:fullscreen.controls-hidden .controls,
+#player:-webkit-full-screen.controls-hidden .controls{
+opacity: 0;
+transform: translateY(100%);
+pointer-events: none;
+}
+#player:fullscreen.controls-hidden,
+#player:-webkit-full-screen.controls-hidden{
+cursor: none;
 }
 
 .scrub{

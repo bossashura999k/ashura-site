@@ -159,7 +159,29 @@
   });
   document.addEventListener('fullscreenchange', () => {
     fullBtn.innerHTML = document.fullscreenElement ? ICONS.fullClose : ICONS.fullOpen;
+    if (!document.fullscreenElement) {
+      player.classList.remove('controls-hidden');
+      clearTimeout(hideTimer);
+    }
   });
+
+  // Auto-hide controls after a few seconds of inactivity, fullscreen only.
+  let hideTimer = null;
+  function scheduleHide(){
+    clearTimeout(hideTimer);
+    if (!document.fullscreenElement) return;
+    hideTimer = setTimeout(() => {
+      if (!video.paused) player.classList.add('controls-hidden');
+    }, 2500);
+  }
+  function showControls(){
+    player.classList.remove('controls-hidden');
+    scheduleHide();
+  }
+  player.addEventListener('mousemove', showControls);
+  player.addEventListener('mousedown', showControls);
+  video.addEventListener('play', scheduleHide);
+  video.addEventListener('pause', () => { clearTimeout(hideTimer); player.classList.remove('controls-hidden'); });
 
   document.addEventListener('keydown', e => {
     if (!player.contains(document.activeElement) && document.activeElement !== document.body) return;
