@@ -9,11 +9,13 @@ chess/apps/server/dist
 .env
 eth-logs/node_modules
 eth-logs/dist
-eth-logs/.envnode_modules/
+eth-logs/.env
 **/node_modules/
 *.pdf
 *.py
 GitCommitTags.txt
-./test/*
-*.mp4
+test/*
+movie-with-subs.mp4
+movie2-with-subs.mp4
 airmon-ng-guide.md
+log.txt
