@@ -1,6 +1,12 @@
 (() => {
   // Add one entry per movie here. title is just display text;
   // src should be the public R2 (or wherever) URL to the file.
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(err =>
+      console.warn('Service worker registration failed:', err)
+    );
+  }
   const MOVIES = [
     { title: 'Final Destination (2000)', src: 'https://media.ashura.site/movie-with-subs.mp4' },
     { title: 'Furious 7', src: 'https://media.ashura.site/movie2-with-subs.mp4' }
