@@ -14,7 +14,7 @@ eth-logs/.env
 *.pdf
 *.py
 GitCommitTags.txt
-test/*
+tmp/*
 movie-with-subs.mp4
 movie2-with-subs.mp4
 airmon-ng-guide.md

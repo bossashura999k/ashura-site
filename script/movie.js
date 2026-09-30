@@ -9,7 +9,15 @@
   }
   const MOVIES = [
     { title: 'Final Destination (2000)', src: 'https://media.ashura.site/movie-with-subs.mp4' },
-    { title: 'Furious 7', src: 'https://media.ashura.site/movie2-with-subs.mp4' }
+    { title: 'Furious 7 (2015)', src: 'https://media.ashura.site/movie2-with-subs.mp4' },
+    { title: 'The Fate of The Furious (2017)', src: 'https://media.ashura.site/movie3-with-subs.mp4' },
+    { title: 'The Fast Saga (2021)', src: 'https://media.ashura.site/movie4-with-subs.mp4' },
+    { title: 'Fast X (2023)', src: 'https://media.ashura.site/movie5-with-subs.mp4' },
+    { title: 'Bloodshot', src: 'https://media.ashura.site/movie6-with-subs.mp4' },
+    { title: 'Shelter', src: 'https://media.ashura.site/movie7-with-subs.mp4'},
+    { title: 'Mechanic: Resurrection', src: 'https://media.ashura.site/movie8-with-subs.mp4'},
+    { title: 'Homefront', src: 'https://media.ashura.site/movie9-with-subs.mp4'},
+    { title: 'Wrath of Man', src: 'https://media.ashura.site/movie10-with-subs.mp4'}
   ];
 
   const $ = id => document.getElementById(id);
