@@ -22,7 +22,7 @@ ashura-site/
 ├── occasions/             # Milestone pages (certificates, internships, hackathons)
 ├── certificates/          # Certificate assets
 ├── Pics/                  # Images
-├── Videos/                # Video assets
+├── Videos/                # Video assets -- No longer needed though thanks to Cloudflare R2 Storage
 ├── Styles/                # Stylesheets
 ├── script/                # JavaScript
 └── sitemap.xml / robots.txt
