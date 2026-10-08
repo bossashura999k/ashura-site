@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta http-equiv="Content-Security-Policy" content="
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
       default-src 'self';
       script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
       style-src 'self' 'unsafe-inline';
@@ -11,25 +13,33 @@
       frame-ancestors 'self';
       base-uri 'self';
       form-action 'self';
-    ">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
+    "
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Occasion 5 — DevCareer x Nomba Hackathon 2026</title>
-    <meta name="description" content="Certificate of participation for Obire Oviemena Israel in the DevCareer x Nomba Hackathon 2026, building innovative payment solutions for Nigeria.">
-    <link rel="canonical" href="https://ashura.site/occasions/occasion5">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta
+      name="description"
+      content="Certificate of participation for Obire Oviemena Israel in the DevCareer x Nomba Hackathon 2026, building innovative payment solutions for Nigeria."
+    />
+    <link rel="canonical" href="https://ashura.site/occasions/occasion5" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZWHMD2C8S"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-ZZWHMD2C8S"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-ZZWHMD2C8S');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-ZZWHMD2C8S");
     </script>
-    <link rel="stylesheet" href="/Styles/occ5.css">
-
+    <link rel="stylesheet" href="/Styles/occ5.css" />
   </head>
 
   <body>
@@ -45,6 +55,122 @@
         building innovative payment solutions for Nigeria.
       </p>
     </div>
+
+    <!-- START OF CASE STUDY SECTION -->
+    <section
+      class="hackathon-case-study"
+      style="
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        font-family:
+          -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto,
+          sans-serif;
+        line-height: 1.6;
+        color: #333;
+        text-align: left;
+      "
+    >
+      <h2
+        style="
+          border-bottom: 2px solid #f2bc18;
+          padding-bottom: 8px;
+          color: #111;
+          font-size: 1.5rem;
+          margin-top: 0;
+        "
+      >
+        🏆 Project Case Study
+      </h2>
+      <p style="font-style: italic; color: #666; margin-bottom: 24px">
+        An intensive fintech engineering sprint focused on building highly
+        resilient digital payment infrastructure optimized for micro-merchants
+        in Nigeria.
+      </p>
+
+      <!-- Project Metadata Meta Grid -->
+      <div
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 20px;
+          margin-bottom: 30px;
+          background: #f9f9f9;
+          padding: 20px;
+          border-radius: 8px;
+          border-left: 4px solid #f2bc18;
+        "
+      >
+        <div>
+          <strong style="color: #111">Product Architecture:</strong>
+          <p style="margin: 4px 0 0 0; color: #555">
+            [Insert System/Product Name]
+          </p>
+        </div>
+        <div>
+          <strong style="color: #111">Primary Focus:</strong>
+          <p style="margin: 4px 0 0 0; color: #555">Backend Java Engineering</p>
+        </div>
+        <div>
+          <strong style="color: #111">Core Tech Stack:</strong>
+          <p style="margin: 4px 0 0 0; color: #555">
+            Java, Spring Boot, REST APIs, PostgreSQL
+          </p>
+        </div>
+      </div>
+
+      <!-- The Core Problem & Innovative Solution -->
+      <div style="margin-bottom: 25px">
+        <h3 style="color: #111; margin-bottom: 8px; font-size: 1.2rem">
+          📌 The Challenge
+        </h3>
+        <p style="margin: 0; color: #444">
+          Traditional payment processing paths in low-bandwidth ecosystems often
+          drop transaction states due to network volatility, leading to severe
+          reconciliation backlogs, ledger double-entry bugs, and delayed
+          processing windows for digital micro-merchants.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 25px">
+        <h3 style="color: #111; margin-bottom: 8px; font-size: 1.2rem">
+          💡 The Architectural Solution
+        </h3>
+        <p style="margin: 0; color: #444">
+          We engineered a resilient transaction queuing backend that implements
+          idempotent processing keys and immediate memory-state snapshots. This
+          decoupling pattern allows the platform to accept client traffic
+          seamlessly during unexpected down-stream processor timeouts and
+          accurately complete settlement paths.
+        </p>
+      </div>
+
+      <!-- Key Engineering Contributions -->
+      <div style="margin-bottom: 35px">
+        <h3 style="color: #111; margin-bottom: 12px; font-size: 1.2rem">
+          ⚙️ Technical Contributions
+        </h3>
+        <ul style="padding-left: 20px; margin: 0; color: #444">
+          <li style="margin-bottom: 10px">
+            Designed stateless **REST controllers** using Java/Spring Boot to
+            safely handle high-concurrency payloads under simulated peak
+            merchant traffic events.
+          </li>
+          <li style="margin-bottom: 10px">
+            Enforced absolute data integrity by utilizing database isolation
+            locks and database schemas to avoid overlapping ledger mutation
+            anomalies.
+          </li>
+          <li style="margin-bottom: 10px">
+            Integrated secure mock callback systems modeled directly against
+            modern payment processing patterns to reliably verify downstream
+            transaction logic.
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- END OF CASE STUDY SECTION -->
+
     <p class="back-link">Back to <a href="/">Homepage</a></p>
   </body>
 </html>
