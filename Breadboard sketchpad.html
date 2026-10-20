@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Breadboard sketchpad</title>
+<style>
+:root{--bg:#dde5e8;--fg:#14232b;--bd:#9fb1b8;--board:#f1efe6;--hole:#7d8a8f;--hl:#e8590c;--ui:#fff;--ac:#0a7f8c;--acf:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10181c;--fg:#e3ecef;--bd:#33454c;--board:#2a2f2e;--hole:#8a979a;--ui:#1a262b;--ac:#2fb5c4;--acf:#06222a}}
+:root[data-theme="dark"]{--bg:#10181c;--fg:#e3ecef;--bd:#33454c;--board:#2a2f2e;--hole:#8a979a;--ui:#1a262b;--ac:#2fb5c4;--acf:#06222a}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;font-size:14px}
+main{padding:10px;max-width:1200px;margin:0 auto}
+h1{font-size:18px;margin:0 0 6px}
+.bar{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0;align-items:center}
+button,select,input{font:inherit;color:var(--fg);background:var(--ui);border:1px solid var(--bd);border-radius:8px;padding:7px 10px;min-height:38px}
+button.on{background:var(--ac);color:var(--acf);border-color:var(--ac)}
+input{width:110px}
+#hint{min-height:20px;margin:4px 0;font-weight:bold}
+#wrap{overflow:auto;border:1px solid var(--bd);border-radius:10px;background:var(--board);touch-action:pan-x pan-y}
+svg{display:block}
+svg .items{pointer-events:none}
+textarea{width:100%;height:150px;background:var(--ui);color:var(--fg);border:1px solid var(--bd);border-radius:8px;padding:8px;font:12px/1.4 Consolas,monospace}
+small{opacity:.8}
+</style></head><body><main>
+<h1>Breadboard sketchpad</h1>
+<div class="bar" id="tools"></div>
+<div class="bar">
+<label>Value <input id="val" list="vals"></label><datalist id="vals"><option>330Ω<option>1k<option>47k<option>10M<option>104<option>103<option>102 2KV<option>10µF</datalist>
+<label>Wire <select id="col"><option value="#d62828">red<option value="#222222">black<option value="#1d4ed8">blue<option value="#15803d">green<option value="#eab308">yellow<option value="#f97316">orange<option value="#e5e7eb">white</select></label>
+<button id="undo">Undo</button><button id="clear">Clear</button><button id="zo">Zoom −</button><button id="zi">Zoom +</button>
+</div>
+<div id="hint"></div>
+<div id="wrap"><svg id="svg"></svg></div>
+<div class="bar"><button id="chk">Check 555 power</button><button id="desc">Write description</button></div>
+<textarea id="out" readonly placeholder="Press Write description or Check 555 power, then screenshot this page or copy the text and send it to Claude."></textarea>
+<small>Row A is at the top and row J at the bottom, with the middle gap between E and F. The chip sits with its notch on the left: pin 1 bottom-left, pin 8 top-left.</small>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const ROWS=['T+','T-','a','b','c','d','e','f','g','h','i','j','B+','B-'];
+const Y={'T+':20,'T-':38,a:74,b:92,c:110,d:128,e:146,f:182,g:200,h:218,i:236,j:254,'B+':290,'B-':308};
+const P=18,X0=36,N=60,W=X0*2+(N-1)*P,H=332;
+const xs=c=>X0+(c-1)*P;
+const parse=id=>{const m=id.match(/^(T\+|T-|B\+|B-|[a-j])(\d+)$/);return[m[1],+m[2]]};
+const pos=id=>{const[r,c]=parse(id);return[xs(c),Y[r]]};
+const key=id=>{const[r,c]=parse(id);return r.length==2?r:'c'+c+(r<'f'?'t':'b')};
+const nm=id=>{const[r,c]=parse(id);return r.length==2?(r[0]=='T'?'Top rail ':'Bottom rail ')+(r[1]=='+'?'+':'−')+c:r.toUpperCase()+c};
+const allIds=[];ROWS.forEach(r=>{for(let c=1;c<=N;c++)allIds.push(r+c)});
+const TOOLS=[['wire','Wire'],['res','Resistor'],['cap','Disc cap'],['ecap','Can cap'],['led','LED'],['diode','Diode'],['chip','555 chip'],['fet','MOSFET'],['npn','Transistor'],['pot','Pot'],['load','Fan/coil'],['sw','Switch'],['fuse','Fuse'],['bat','Battery'],['note','Label'],['trace','Trace'],['erase','Erase']];
+const DEF={res:'330Ω',cap:'104',ecap:'10µF',led:'LED',chip:'NE555',fet:'IRF540N',wire:'',bat:'',diode:'1N4007',load:'12V fan',sw:'Switch',fuse:'5A fuse',pot:'10k pot',npn:'2N2222A',note:'Note'};
+const HINT={wire:'Tap two holes to join them with a wire.',res:'Tap the hole for leg 1, then the hole for leg 2.',cap:'Tap the hole for leg 1, then leg 2.',ecap:'Tap the LONG (+) leg hole first, then the short leg.',led:'Tap the LONG (+) leg hole first, then the short leg.',bat:'Tap where battery + goes, then where battery − goes.',chip:'Tap any hole in the column of pin 1 (bottom-left, notch on the left).',fet:'Tap the hole for the Gate leg. Drain and Source go in the next two holes to the right, same row.',trace:'Tap any hole to light up everything it is connected to.',erase:'Tap a hole to remove the part plugged into it.',diode:'Tap the ANODE hole first, then the hole for the stripe (cathode) end.',load:'Fan, bulb or coil: tap one hole for each of its two wires.',sw:'Tap the hole for each of the switch’s two terminals.',fuse:'Tap the hole for each end of the fuse.',pot:'Tap the first hole. Its three legs go in the next two holes to the right, same row (leg 1, wiper, leg 2).',npn:'Tap the first hole. The three legs go in that hole and the next two (E, B, C as drawn: check your part’s pinout).',note:'Type the note in the Value box, then tap a hole to stick the label there.'};
+let items=[],tool='wire',pend=null,hl=new Set(),zoom=1.2;
+try{items=JSON.parse(localStorage.getItem('bb')||'[]')}catch(e){items=[]}
+const save=()=>{try{localStorage.setItem('bb',JSON.stringify(items))}catch(e){}};
+const legs=it=>it.t=='chip'?[0,1,2,3].flatMap(i=>['e'+(it.c+i),'f'+(it.c+i)]):['fet','pot','npn'].includes(it.t)?[0,1,2].map(i=>it.r+(it.c+i)):[it.a,it.b];
+function nets(){const p={};const f=k=>{if(p[k]===undefined)p[k]=k;return p[k]===k?k:(p[k]=f(p[k]))};
+items.filter(i=>i.t=='wire').forEach(i=>{p[f(key(i.a))]=f(key(i.b))});return h=>f(key(h))}
+function draw(){
+let s=`<rect x="6" y="4" width="${W-12}" height="${H-8}" rx="10" fill="var(--board)" stroke="var(--bd)"/><rect x="10" y="${Y.e+14}" width="${W-20}" height="${Y.f-Y.e-28}" rx="3" fill="var(--bg)" opacity=".7"/>`;
+for(const r of 'abcdefghij')s+=`<text x="14" y="${Y[r]+3}" font-size="9" fill="var(--hole)">${r.toUpperCase()}</text>`;
+['T+','T-','B+','B-'].forEach(r=>s+=`<text x="14" y="${Y[r]+4}" font-size="11" fill="${r[1]=='+'?'#d62828':'#2563eb'}">${r[1]=='+'?'+':'−'}</text>`);
+for(let c=1;c<=N;c++)s+=`<text x="${xs(c)}" y="${Y.a-14}" font-size="7" text-anchor="middle" fill="var(--hole)">${c}</text>`;
+for(const r of ROWS)for(let c=1;c<=N;c++){const id=r+c,on=hl.has(id),pd=pend==id;
+s+=`<circle data-id="${id}" cx="${xs(c)}" cy="${Y[r]}" r="${on?5.5:4}" fill="${on?'var(--hl)':r=='T+'||r=='B+'?'#d9776a':r.length==2?'#6c8fd6':'var(--hole)'}" stroke="${pd?'var(--hl)':'transparent'}" stroke-width="${pd?3:8}" pointer-events="all"/>`}
+s+='<g class="items">';
+for(const it of items){
+if(it.t=='chip'){const x1=xs(it.c)-10,x2=xs(it.c+3)+10,y1=Y.e-10,y2=Y.f+10,cy=(Y.e+Y.f)/2;
+s+=`<rect x="${x1}" y="${y1}" width="${x2-x1}" height="${y2-y1}" rx="3" fill="#2b2f33" stroke="#000"/><path d="M${x1} ${cy-6}a6 6 0 0 1 0 12" fill="var(--board)"/><text x="${(x1+x2)/2+4}" y="${cy+3}" font-size="9" fill="#fff" text-anchor="middle">${it.v}</text>`;
+for(let i=0;i<4;i++)s+=`<text x="${xs(it.c+i)}" y="${Y.e+3}" font-size="8" fill="#fff" text-anchor="middle">${8-i}</text><text x="${xs(it.c+i)}" y="${Y.f+3}" font-size="8" fill="#fff" text-anchor="middle">${i+1}</text>`}
+else if(['fet','pot','npn'].includes(it.t)){const x1=xs(it.c)-9,x2=xs(it.c+2)+9,y=Y[it.r];
+s+=`<rect x="${x1}" y="${y-32}" width="${x2-x1}" height="24" rx="3" fill="#2b2f33" stroke="#000"/><text x="${(x1+x2)/2}" y="${y-22}" font-size="7" fill="#fff" text-anchor="middle">${it.v}</text>`;
+({pot:['1','W','2'],npn:['E','B','C']}[it.t]||['G','D','S']).forEach((l,i)=>s+=`<text x="${xs(it.c+i)}" y="${y-12}" font-size="8" fill="#ffd166" text-anchor="middle">${l}</text>`)}
+else if(it.t=='note'){const p=pos(it.a);s+=`<text x="${p[0]}" y="${p[1]-12}" font-size="10" font-weight="bold" text-anchor="middle" fill="var(--hl)">${it.v}</text>`}
+else{const a=pos(it.a),b=pos(it.b),mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,d=Math.hypot(b[0]-a[0],b[1]-a[1])||1,ang=Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI;
+const pl=`<text x="${a[0]+(b[0]-a[0])/d*10-3}" y="${a[1]+(b[1]-a[1])/d*10+3}" font-size="10" font-weight="bold" fill="#fff">+</text>`;
+const lab=`<text x="${mx}" y="${my-11}" font-size="8" text-anchor="middle" fill="var(--fg)">${it.v||''}</text>`;
+if(it.t=='wire')s+=`<path d="M${a} Q${mx-(b[1]-a[1])*.2} ${my+(b[0]-a[0])*.2} ${b}" fill="none" stroke="${it.col}" stroke-width="3.5" stroke-linecap="round"/>`;
+else if(it.t=='bat')s+=`<circle cx="${a[0]}" cy="${a[1]}" r="7" fill="#d62828"/><text x="${a[0]}" y="${a[1]+3}" font-size="9" fill="#fff" text-anchor="middle">+</text><circle cx="${b[0]}" cy="${b[1]}" r="7" fill="#111"/><text x="${b[0]}" y="${b[1]+3}" font-size="9" fill="#fff" text-anchor="middle">−</text><text x="${a[0]}" y="${a[1]-10}" font-size="8" text-anchor="middle" fill="var(--fg)">BAT+</text><text x="${b[0]}" y="${b[1]-10}" font-size="8" text-anchor="middle" fill="var(--fg)">BAT−</text>`;
+else{s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#777" stroke-width="2"/>`;
+if(it.t=='res')s+=`<g transform="translate(${mx} ${my}) rotate(${ang})"><rect x="${-Math.min(17,d*.35)}" y="-4.5" width="${Math.min(34,d*.7)}" height="9" rx="3" fill="#d8b98a" stroke="#8a6d3b"/></g>`+lab;
+if(it.t=='cap')s+=`<circle cx="${mx}" cy="${my}" r="7" fill="#e8892b" stroke="#8a4b10"/>`+lab;
+if(it.t=='ecap')s+=`<g transform="translate(${mx} ${my}) rotate(${ang})"><rect x="-9" y="-6" width="18" height="12" rx="2" fill="#2a5bb5"/></g>`+pl+lab;
+if(it.t=='led')s+=`<circle cx="${mx}" cy="${my}" r="7" fill="#e63946" stroke="#7a1017"/>`+pl+lab;
+if(it.t=='diode')s+=`<g transform="translate(${mx} ${my}) rotate(${ang})"><path d="M-6 -6L6 0L-6 6Z" fill="#555" stroke="#111"/><line x1="7" y1="-6" x2="7" y2="6" stroke="#fff" stroke-width="2.5"/></g>`+lab;
+if(it.t=='load')s+=`<circle cx="${mx}" cy="${my}" r="9" fill="#3a9d6d" stroke="#14532d"/><text x="${mx}" y="${my+3}" font-size="10" fill="#fff" text-anchor="middle">M</text>`+lab;
+if(it.t=='sw')s+=`<g transform="translate(${mx} ${my}) rotate(${ang})"><rect x="-9" y="-5" width="18" height="10" rx="2" fill="#5c6b73"/><rect x="-3" y="-3" width="6" height="6" fill="#fff"/></g>`+lab;
+if(it.t=='fuse')s+=`<g transform="translate(${mx} ${my}) rotate(${ang})"><rect x="-12" y="-4" width="24" height="8" rx="4" fill="#cfd8dc" stroke="#607d8b"/><line x1="-8" y1="0" x2="8" y2="0" stroke="#d32f2f"/></g>`+lab}}}
+s+='</g>';
+$('#svg').innerHTML=s;$('#svg').setAttribute('viewBox',`0 0 ${W} ${H}`);$('#svg').style.width=W*zoom+'px';$('#svg').style.height=H*zoom+'px'}
+function setTool(t){tool=t;pend=null;if(t in DEF)$('#val').value=DEF[t];$('#hint').textContent=HINT[t];
+$('#tools').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));draw()}
+TOOLS.forEach(([k,l])=>{const b=document.createElement('button');b.textContent=l;b.dataset.t=k;b.onclick=()=>setTool(k);$('#tools').append(b)});
+$('#svg').onclick=e=>{const id=e.target.dataset&&e.target.dataset.id;if(!id)return;const[r,c]=parse(id);
+if(tool=='trace'){const n=nets();hl=new Set(allIds.filter(h=>n(h)==n(id)));$('#hint').textContent=hl.size+' holes are connected to '+nm(id)+'.'}
+else if(tool=='erase'){let k=-1;items.forEach((it,i)=>{if(legs(it).includes(id))k=i});if(k>-1){items.splice(k,1);save()}}
+else if(tool=='chip'){if(r.length==2)return;items.push({t:'chip',c:Math.min(c,57),v:$('#val').value});save()}
+else if(['fet','pot','npn'].includes(tool)){if(r.length==2)return;items.push({t:tool,r,c:Math.min(c,58),v:$('#val').value});save()}
+else if(tool=='note'){items.push({t:'note',a:id,v:$('#val').value});save()}
+else if(!pend)pend=id;
+else if(pend!=id){items.push({t:tool,a:pend,b:id,v:$('#val').value,col:$('#col').value});pend=null;save()}
+else pend=null;
+draw()};
+$('#undo').onclick=()=>{items.pop();save();hl=new Set();draw()};
+$('#clear').onclick=()=>{if(items.length&&!confirm('Remove everything from the board?'))return;items=[];save();hl=new Set();draw()};
+$('#zi').onclick=()=>{zoom=Math.min(3,zoom+.3);draw()};
+$('#zo').onclick=()=>{zoom=Math.max(.5,zoom-.3);draw()};
+$('#chk').onclick=()=>{const n=nets(),b=items.find(i=>i.t=='bat'),o=[];
+if(!b)o.push('Add a battery first (Battery tool): tap the + end, then the − end.');
+else{const Pn=n(b.a),Mn=n(b.b);
+items.filter(i=>i.t=='chip').forEach(ch=>{const c=ch.c;o.push(`Chip at column ${c}: pin 8 `+(n('e'+c)==Pn?'is on battery +. OK':'is NOT connected to battery +')+'; pin 4 '+(n('f'+(c+3))==Pn?'is on battery +. OK':'is NOT connected to battery +')+'; pin 1 '+(n('f'+c)==Mn?'is on battery −. OK':'is NOT connected to battery −')+'.')});
+if(!items.some(i=>i.t=='chip'))o.push('No chip placed yet.');
+o.push(Pn==Mn?'WARNING: battery + and − are joined, which is a short circuit.':'Battery + and − are not shorted.')}
+$('#out').value=o.join('\n')};
+$('#desc').onclick=()=>{const L=items.map(i=>{const R=i.r?i.r.toUpperCase():'';
+if(i.t=='chip')return`${i.v} chip, notch left: pin 1 at F${i.c}, pin 8 at E${i.c} (pins 1-4 along row F, pins 5-8 along row E)`;
+if(i.t=='fet')return`${i.v}: Gate ${R}${i.c}, Drain ${R}${i.c+1}, Source ${R}${i.c+2}`;
+if(i.t=='pot')return`${i.v}: leg 1 ${R}${i.c}, wiper ${R}${i.c+1}, leg 2 ${R}${i.c+2}`;
+if(i.t=='npn')return`${i.v}: Emitter ${R}${i.c}, Base ${R}${i.c+1}, Collector ${R}${i.c+2} (as drawn, check the part’s real pinout)`;
+if(i.t=='note')return`Label “${i.v}” at ${nm(i.a)}`;
+if(i.t=='wire')return`Jumper (${$('#col').querySelector('[value="'+i.col+'"]').textContent}): ${nm(i.a)} to ${nm(i.b)}`;
+if(i.t=='bat')return`Battery +: ${nm(i.a)}, battery −: ${nm(i.b)}`;
+const T={res:'Resistor',cap:'Disc cap',ecap:'Can cap',led:'LED',diode:'Diode',load:'Load',sw:'Switch',fuse:'Fuse'}[i.t];
+return`${T} ${i.v}: ${nm(i.a)} to ${nm(i.b)}`+(i.t=='led'||i.t=='ecap'?' (first hole = long/+ leg)':i.t=='diode'?' (first hole = anode, second = stripe/cathode end)':'')});
+$('#out').value=L.length?L.join('\n'):'Nothing placed yet.'};
+setTool('wire');
+</script></body></html>
