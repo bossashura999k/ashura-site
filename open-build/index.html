@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>CourseMate Demo — Team Ashura (OPEN//BUILD 2026)</title>
+		<meta name="description" content="Live demo of CourseMate: a course-scoped AI study assistant that answers only from your pasted material.">
+		<meta property="og:title" content="CourseMate Demo — Team Ashura">
+		<meta property="og:description" content="Grounded Q&A from your own course material, powered by open-weight Phi-3 Mini via Ollama.">
+		<meta property="og:type" content="video.other">
+		<meta name="robots" content="noindex">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&display=swap" rel="stylesheet">
+		<style>
+		:root {
+		--ink:#10221a; --muted:#52645a; --paper:#fbfaf5; --sheet:#ffffff;
+		--line:#dfe5df; --green:#0d5c3a; --green-d:#08402a; --pencil:#f4c430;
+		--ok:#0d7a44; --bad:#b3261e;
+		--font:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+		--radius-sm:10px; --radius-lg:20px;
+		--shadow:0 20px 60px rgba(16,34,26,.15);
+		}
+		@media (prefers-color-scheme:dark) {
+		:root {
+			--ink:#eef3ee; --muted:#a3b3a9; --paper:#0d1a13; --sheet:#142419;
+			--line:#1f3326; --green:#4fbb8a; --green-d:#3aa577; --ok:#4fbb8a; --bad:#ff8b85;
+		}
+		}
+		* { box-sizing: border-box; }
+		html, body { margin: 0; padding: 0; }
+		body {
+		font-family: var(--font); background: var(--paper); color: var(--ink);
+		line-height: 1.55; -webkit-font-smoothing: antialiased; min-height: 100vh;
+		}
+		a { color: var(--green); text-decoration: none; }
+		a:hover { text-decoration: underline; }
+		button { font-family: inherit; cursor: pointer; }
+
+		header { border-bottom: 1px solid var(--line); padding: 16px 24px; }
+		.nav { max-width: 1120px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+		.brand { font-weight: 700; font-size: 1.1rem; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+		.brand-dot { color: var(--pencil); font-size: 1.4rem; }
+		.nav-link { color: var(--muted); font-weight: 500; }
+		.nav-link:hover { color: var(--green); text-decoration: none; }
+
+		main { max-width: 1120px; margin: 0 auto; padding: 40px 24px 80px; }
+		.hero { text-align: center; margin-bottom: 32px; }
+		.hero h1 { font-size: clamp(1.6rem,1.2rem + 1.6vw,2.4rem); margin: 0 0 10px; letter-spacing: -.02em; }
+		.hero p { color: var(--muted); font-size: 1.05rem; margin: 0 auto; max-width: 720px; }
+
+		.player-wrap {
+		background: #000; border-radius: var(--radius-lg); overflow: hidden;
+		box-shadow: var(--shadow); aspect-ratio: 16/9; position: relative; margin-bottom: 20px;
+		}
+		.player-wrap video { width: 100%; height: 100%; display: block; background: #000; }
+		.player-wrap .notice {
+		position: absolute; inset: 0; display: none;
+		align-items: center; justify-content: center; padding: 32px;
+		color: #fff; text-align: center; background: rgba(0,0,0,.85);
+		}
+		.player-wrap .notice.show { display: flex; }
+		.player-wrap .notice h3 { margin: 0 0 8px; font-size: 1.1rem; }
+		.player-wrap .notice p { margin: 0; color: #b9c6bd; font-size: .92rem; }
+		.player-wrap .notice code { background: rgba(255,255,255,.1); padding: 2px 6px; border-radius: 4px; font-size: .88em; }
+
+		.controls-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
+		.speed-btn {
+		background: var(--sheet); border: 1px solid var(--line); color: var(--ink);
+		padding: 8px 14px; border-radius: var(--radius-sm);
+		font-size: .88rem; font-weight: 500; transition: background .15s, border-color .15s;
+		}
+		.speed-btn:hover { background: var(--paper); border-color: var(--muted); }
+		.speed-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
+
+		.info { background: var(--sheet); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 24px; }
+		.info h2 { margin: 0 0 12px; font-size: 1.1rem; }
+		.info ul { margin: 0; padding-left: 20px; color: var(--muted); }
+		.info li { margin-bottom: 6px; }
+
+		.links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+		.btn {
+		display: inline-flex; align-items: center; gap: 8px;
+		padding: 11px 20px; border-radius: var(--radius-sm);
+		border: 1px solid var(--green); background: var(--green); color: #fff;
+		font-weight: 600; font-size: .95rem; text-decoration: none;
+		transition: background .15s, transform .05s;
+		}
+		.btn:hover { background: var(--green-d); text-decoration: none; }
+		.btn:active { transform: scale(.98); }
+		.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+		.btn.ghost:hover { background: var(--sheet); border-color: var(--muted); }
+		</style>
+	</head>
+	<body>
+		<header>
+		<nav class="nav">
+			<a class="brand" href="https://ashura.site"><span class="brand-dot">●</span>Ashura Study</a>
+			<a class="nav-link" href="https://github.com/bossashura999k/OSCA-OPEN-26" target="_blank" rel="noopener">GitHub →</a>
+		</nav>
+		</header>
+
+		<main>
+		<div class="hero">
+			<h1>CourseMate — Demo</h1>
+			<p>Course-scoped AI study assistant. Answers grounded only in the material you paste — built with open-weight Phi-3 Mini via Ollama.</p>
+		</div>
+
+		<div class="player-wrap">
+			<video id="player" controls preload="metadata" playsinline>
+			<source src="demo.mp4" type="video/mp4">
+			Your browser doesn't support the video tag.
+			</video>
+			<div class="notice" id="notice">
+			<div>
+				<h3>Demo video not found</h3>
+				<p>Expected <code>demo.mp4</code> in the same folder as this page.</p>
+			</div>
+			</div>
+		</div>
+
+		<div class="controls-bar">
+			<span style="align-self:center;color:var(--muted);font-size:.88rem;margin-right:4px">Speed:</span>
+			<button class="speed-btn" data-speed="0.5">0.5×</button>
+			<button class="speed-btn active" data-speed="1">1×</button>
+			<button class="speed-btn" data-speed="1.5">1.5×</button>
+			<button class="speed-btn" data-speed="2">2×</button>
+		</div>
+
+		<div class="info">
+			<h2>What you'll see</h2>
+			<ul>
+			<li>Creating a course and pasting course material as text</li>
+			<li>Asking a grounded question → answer with a <strong style="color:var(--ok)">✓ Grounded</strong> badge</li>
+			<li>Asking an out-of-material question → explicit refusal with a <strong style="color:var(--bad)">⚠ Not covered</strong> badge</li>
+			<li>The whole stack running locally: Express API on :6691, Phi-3 Mini via Ollama</li>
+			</ul>
+		</div>
+
+		<div class="links">
+			<a class="btn" href="https://github.com/bossashura999k/OSCA-OPEN-26" target="_blank" rel="noopener">View on GitHub</a>
+			<a class="btn ghost" href="https://github.com/bossashura999k/OSCA-OPEN-26#readme" target="_blank" rel="noopener">README / setup</a>
+		</div>
+		</main>
+
+		<script>
+		(function(){
+		const video = document.getElementById('player');
+		const notice = document.getElementById('notice');
+		const speeds = document.querySelectorAll('.speed-btn');
+
+		function showNotice() { notice.classList.add('show'); }
+		video.addEventListener('error', showNotice, true);
+		video.querySelector('source').addEventListener('error', showNotice);
+		setTimeout(() => { if (video.readyState === 0) showNotice(); }, 3000);
+
+		speeds.forEach(btn => {
+			btn.addEventListener('click', () => {
+			video.playbackRate = parseFloat(btn.dataset.speed);
+			speeds.forEach(b => b.classList.remove('active'));
+			btn.classList.add('active');
+			});
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (['INPUT','TEXTAREA'].includes(e.target.tagName)) return;
+			const k = e.key.toLowerCase();
+			if (k === ' ' || k === 'k') { e.preventDefault(); video.paused ? video.play() : video.pause(); }
+			else if (k === 'arrowright') video.currentTime = Math.min(video.currentTime + 5, video.duration || 0);
+			else if (k === 'arrowleft')  video.currentTime = Math.max(video.currentTime - 5, 0);
+			else if (k === 'm') video.muted = !video.muted;
+			else if (k === 'f') { document.fullscreenElement ? document.exitFullscreen() : video.requestFullscreen?.(); }
+		});
+		})();
+		</script>
+	</body>
+</html>
