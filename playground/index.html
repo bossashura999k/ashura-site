@@ -2,17 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      img-src 'self' data: https:;
+      font-src 'self' data: https://fonts.gstatic.com;
+      connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com;
+      base-uri 'self';
+      form-action 'self';
+    ">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>EE Playground</title>
-    <meta name="description" content="EE Playground — built on Replit. Update this description to reflect the app." />
+    <meta name="description" content="EE Playground by Ashura IZZI: an interactive electrical engineering lab for experimenting with circuits in the browser." />
     <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://ashura.site/playground/" />
     <meta property="og:title" content="EE Playground" />
-    <meta property="og:description" content="EE Playground — built on Replit. Update this description to reflect the app." />
+    <meta property="og:description" content="An interactive electrical engineering lab for experimenting with circuits in the browser." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ashura.site/playground/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="EE Playground" />
-    <meta name="twitter:description" content="EE Playground — built on Replit. Update this description to reflect the app." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="twitter:description" content="An interactive electrical engineering lab for experimenting with circuits in the browser." />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,17 +33,6 @@
     <link rel="stylesheet" crossorigin href="/Styles/playground.css">
   </head>
   <body>
-    <meta http-equiv="Content-Security-Policy" content="
-      default-src 'self';
-      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' data: https:;
-      font-src 'self' data:;
-      connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com;
-      frame-ancestors 'self';
-      base-uri 'self';
-      form-action 'self';
-    ">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <div id="root"></div>
   </body>
 </html>

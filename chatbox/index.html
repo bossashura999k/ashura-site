@@ -4,10 +4,10 @@
     <meta http-equiv="Content-Security-Policy" content="
       default-src 'self';
       script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
-      style-src 'self' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
       img-src 'self' data: https:;
-      font-src 'self' data:;
-      connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com;
+      font-src 'self' data: https://cdnjs.cloudflare.com;
+      connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com https://chatbox-backend-qi7x.onrender.com;
       frame-ancestors 'self';
       base-uri 'self';
       form-action 'self';
@@ -92,17 +92,8 @@
         const phone = '2347081472383';
         const message = 'Hello Ashura, I want to Create an Account';
         const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-        let countdown = 3;
-        const alertCountdown = () => {
-          alert(`Redirecting to WhatsApp in ${countdown} second${countdown !== 1 ? 's' : ''}...`);
-          countdown--;
-          if (countdown >= 0) {
-            setTimeout(alertCountdown, 1000);
-          } else {
-            window.location.href = url;
-          }
-        };
-        alertCountdown();
+        alert('Accounts are created by the admin. You will now be taken to WhatsApp to request one.');
+        window.location.href = url;
       });
     </script>
   </body>

@@ -4,9 +4,9 @@
         <meta http-equiv="Content-Security-Policy" content="
             default-src 'self';
             script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
-            style-src 'self' 'unsafe-inline';
+            style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
             img-src 'self' data: https:;
-            font-src 'self' data:;
+            font-src 'self' data: https://fonts.gstatic.com;
             connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com;
             frame-ancestors 'self';
             base-uri 'self';
@@ -17,10 +17,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Choose between premium bags and cutting-edge gadgets at Mrs Nathaniel's store.">
     <title>Mrs Nathaniel – Bags & Gadgets</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/Styles/common.css">
-    <meta name="description" content="Demo e‑commerce store for premium bags and gadgets. Built with HTML, CSS, JavaScript.">
     <link rel="canonical" href="https://ashura.site/preview/">
 </head>
 <body>
@@ -54,37 +53,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="countdown">
-            <p>You will be redirected to <strong>Bags Collection</strong> in <span id="countdown">10</span> seconds.</p>
-            <button id="cancelRedirect" class="btn btn-ghost" style="margin-top: 0.5rem;">Stay Here</button>
-        </div>
     </div>
-
-    <script>
-        let countdown = 10;
-        const countdownEl = document.getElementById('countdown');
-        const cancelBtn = document.getElementById('cancelRedirect');
-        let interval;
-
-        function startRedirect() {
-            interval = setInterval(() => {
-                countdown--;
-                countdownEl.textContent = countdown;
-                if (countdown <= 0) {
-                    clearInterval(interval);
-                    window.location.href = 'bags';
-                }
-            }, 1000);
-        }
-
-        cancelBtn.addEventListener('click', () => {
-            clearInterval(interval);
-            countdownEl.textContent = 'Redirect cancelled';
-            cancelBtn.disabled = true;
-        });
-
-        startRedirect();
-    </script>
 </body>
 </html>

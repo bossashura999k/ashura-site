@@ -8,9 +8,18 @@ let currentColor = '#000000';
 
 // 1. Resize canvas to perfectly fill the screen
 function resizeCanvas() {
+    // Changing canvas.width/height wipes the canvas, so keep a copy of the
+    // current drawing and paint it back (mobile address bars and rotation
+    // fire resize events mid-drawing).
+    const snapshot = document.createElement('canvas');
+    snapshot.width = canvas.width;
+    snapshot.height = canvas.height;
+    if (canvas.width && canvas.height) snapshot.getContext('2d').drawImage(canvas, 0, 0);
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    
+    ctx.drawImage(snapshot, 0, 0);
+
     // Set smooth drawing defaults
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';

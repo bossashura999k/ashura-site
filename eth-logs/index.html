@@ -7,7 +7,7 @@
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       img-src 'self' data: https:;
       font-src 'self' data: https://fonts.gstatic.com;
-      connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com https://ashura-site.onrender.com;
+      connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com https://ashura-site.onrender.com https://api.coingecko.com;
       base-uri 'self';
       form-action 'self';
     ">
@@ -33,7 +33,7 @@
     <main>
     <div class="page-hd">
         <h1>ETH Log Explorer <span class="net-pill" id="netPill">⬡ Ethereum</span></h1>
-        <p>Scan ERC-20 Transfer events for any wallet — across 6 networks.</p>
+        <p>Scan token transfers for any wallet — across 6 EVM networks plus Bitcoin.</p>
     </div>
 
     <div class="card">
@@ -116,7 +116,7 @@
             </tr>
             </thead>
         <tbody id="logsBody">
-            <tr><td colspan="7">
+            <tr><td colspan="8">
             <div class="msg">
                 <span class="icon">⬡</span>
                 Pick a network, choose a token, enter a wallet and click Scan Logs.

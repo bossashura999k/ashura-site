@@ -352,7 +352,7 @@ function renderRows(logs, prices = {}, append = false) {
   if (!append) logsBody.innerHTML = '';
 
   if (!logs.length && !append) {
-    logsBody.innerHTML = `<tr><td colspan="9">
+    logsBody.innerHTML = `<tr><td colspan="8">
       <div class="msg">
         <span class="icon">🔍</span>
         No Transfer events found for this address in the selected range.

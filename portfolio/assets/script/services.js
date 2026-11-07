@@ -6,7 +6,7 @@
 const YOUR_CONFIG = {
     phone: '2347081472383',
     email: 'obireoviemenaisrael@gmail.com',
-    portfolioUrl: 'https://tinyurl.com/Bossashura999k',
+    portfolioUrl: 'https://ashura.site/portfolio/services',
     brandName: 'Ashura',
     whatsappMessage: 'Hi%20Ashura,%20I%27m%20interested%20in%20your%20web%20development%20services'
 };
@@ -22,7 +22,7 @@ class WhatsAppBot {
             
             quote: `📋 To get a quote, I'll need:\n\n1. Your business name\n2. Type of website needed (e-commerce, business, portfolio)\n3. Your budget range\n4. Timeline\n\nPlease provide these details and I'll send you a custom quote within 24 hours!`,
             
-            portfolio: `🎨 My Portfolio:\n\n• E-commerce: ${YOUR_CONFIG.portfolioUrl}/bags.html\n• Business Site: ${YOUR_CONFIG.portfolioUrl}/gadgets.html\n• Portfolio: ${YOUR_CONFIG.portfolioUrl}/portfolio\n\nWould you like to see more examples or discuss a specific type of website?`,
+            portfolio: `🎨 My Portfolio:\n\n• E-commerce: https://ashura.site/preview/bags\n• Gadgets Store: https://ashura.site/preview/gadgets\n• Portfolio: https://ashura.site/about/\n\nWould you like to see more examples or discuss a specific type of website?`,
             
             pricing: `💰 Starting Prices:\n\n• Basic Business Website: ₦25,000\n• E-commerce Website: ₦45,000\n• Portfolio Website: ₦20,000\n\nThese are starting prices. Final quote depends on features needed.\n\nWant a detailed quote for your specific needs?`,
             
@@ -127,11 +127,7 @@ class LeadManager {
         
         this.saveLead(lead);
         this.showNotification('Thank you! We\'ll contact you soon.');
-        
-        // Send to WhatsApp (if it's the quote form)
-        if (form.id === 'leadForm') {
-            this.sendToWhatsApp(lead);
-        }
+        // WhatsApp is opened once by the leadForm submit handler below.
     }
     
     trackWhatsAppClick() {
@@ -166,19 +162,6 @@ class LeadManager {
         this.updateDashboard();
     }
     
-    sendToWhatsApp(lead) {
-        const phone = YOUR_CONFIG.phone;
-        const message = `New Website Lead from ${YOUR_CONFIG.brandName}!%0A%0A` +
-                       `Name: ${lead.data.name || 'Not provided'}%0A` +
-                       `Phone: ${lead.data.phone || 'Not provided'}%0A` +
-                       `Email: ${lead.data.email || 'Not provided'}%0A` +
-                       `Service: ${lead.data.service || 'Not specified'}%0A` +
-                       `Message: ${lead.data.message || 'No message'}`;
-        
-        setTimeout(() => {
-            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-        }, 500);
-    }
     
     getFollowUpDate(days) {
         const date = new Date();
@@ -349,15 +332,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             
-            const message = `New Lead from ${YOUR_CONFIG.brandName}'s Website!%0A%0A` +
-                           `Name: ${data.name}%0A` +
-                           `Phone: ${data.phone}%0A` +
-                           `Email: ${data.email || 'Not provided'}%0A` +
-                           `Business: ${data.business}%0A` +
-                           `Service: ${data.service}%0A` +
+            const message = `New Lead from ${YOUR_CONFIG.brandName}'s Website!\n\n` +
+                           `Name: ${data.name}\n` +
+                           `Phone: ${data.phone}\n` +
+                           `Email: ${data.email || 'Not provided'}\n` +
+                           `Business: ${data.business}\n` +
+                           `Service: ${data.service}\n` +
                            `Message: ${data.message || 'No additional details'}`;
-            
-            window.open(`https://wa.me/${YOUR_CONFIG.phone}?text=${message}`, '_blank');
+
+            // Encode the whole message so &, #, ? etc. in user input can't break the link
+            window.open(`https://wa.me/${YOUR_CONFIG.phone}?text=${encodeURIComponent(message)}`, '_blank');
             alert('Thank you! Opening WhatsApp to send your quote request...');
             this.reset();
         });

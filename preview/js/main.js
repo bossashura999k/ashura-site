@@ -1,14 +1,13 @@
 // js/main.js
 import { loadProducts } from './products.js';
-import { initCart, addToCart } from './cart.js';
+import { initCart, addToCart, getCart } from './cart.js';
 import { initModal, openModal } from './modal.js';
 import { showToast } from './toast.js';
 
-// Determine category from current page URL
-const path = window.location.pathname;
-let category = '';
-if (path.includes('bags.html')) category = 'bags';
-else if (path.includes('gadgets.html')) category = 'gadgets';
+// Determine category from current page URL. GitHub Pages serves these pages
+// both as /preview/bags and /preview/bags.html, so accept either form.
+const match = window.location.pathname.match(/\/(bags|gadgets)(\.html)?\/?$/);
+const category = match ? match[1] : '';
 
 if (!category) {
     // If not on a product page, maybe do nothing or show error
@@ -65,6 +64,21 @@ if (!category) {
     if (contactBtn) {
         contactBtn.addEventListener('click', () => {
             showToast('Contact Mr Izzi: +234 708 147 2383');
+        });
+    }
+
+    // Cart button: show what's in the cart and the running total
+    const cartBtn = document.getElementById('cartBtn');
+    if (cartBtn) {
+        cartBtn.addEventListener('click', () => {
+            const cart = getCart();
+            if (!cart.length) {
+                showToast('Your cart is empty');
+                return;
+            }
+            const lines = cart.map(item => `${item.quantity} × ${item.name}`).join(', ');
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            showToast(`${lines} · Total ₦${total.toLocaleString()}`, 4000);
         });
     }
 }

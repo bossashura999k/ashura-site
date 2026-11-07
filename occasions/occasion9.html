@@ -3,11 +3,11 @@
   <head>
     <meta http-equiv="Content-Security-Policy" content="
       default-src 'self';
+      media-src 'self' https://media.ashura.site;
       script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com;
       style-src 'self' 'unsafe-inline';
       img-src 'self' data: https:;
       font-src 'self' data:;
-      frame-src https://media.ashura.site;
       connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com https://cloudflareinsights.com;
       frame-ancestors 'self';
       base-uri 'self';
@@ -44,7 +44,7 @@
       <hr>
 
       <section class="note">
-        <p>September 13. Day 256 of the year, on a leap year — the one date that lines up with the number of values a byte can hold. That's the whole joke behind Programmers Day, and somehow it's stuck since 2009.</p>
+        <p>September 13 (September 12 in a leap year). Day 256 of the year — the one date that lines up with the number of values a byte can hold. That's the whole joke behind Programmers Day, and somehow it's stuck since 2009.</p>
         <p>So, appreciation post: for everyone who's spent a night chasing a semicolon, a null that shouldn't be null, or a merge conflict that made no sense until it suddenly did — happy Programmers Day.</p>
         <p class="sign">— Ashura</p>
       </section>
@@ -52,12 +52,9 @@
       <div class="video-wrap">
         <h2>GitHub's Programmers Day post</h2>
         <div class="video-frame">
-          <iframe
-            src="https://media.ashura.site/programmers-day.mp4"
-            title="GitHub Programmers Day video"
-            allow="autoplay; fullscreen"
-            allowfullscreen>
-          </iframe>
+          <video controls preload="metadata" playsinline title="GitHub Programmers Day video">
+            <source src="https://media.ashura.site/programmers-day.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
 
