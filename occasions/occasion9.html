@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com;
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: https:;
+      font-src 'self' data:;
+      frame-src https://media.ashura.site;
+      connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com https://cloudflareinsights.com;
+      frame-ancestors 'self';
+      base-uri 'self';
+      form-action 'self';
+    ">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Styles/occ9.css">
     <title>Occasion 9 — Programmers Day</title>
+    <meta name="description" content="Programmers Day (September 13, day 256 of the year) — a small appreciation post for everyone who debugs for a living.">
+    <link rel="canonical" href="https://ashura.site/occasions/occasion9">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/Styles/occ9.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZWHMD2C8S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-ZZWHMD2C8S");
+    </script>
   </head>
   <body>
     <main>
@@ -41,4 +66,3 @@
     </main>
   </body>
 </html>
-
