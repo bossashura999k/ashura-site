@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: https:;
+  font-src 'self' data:;
+  connect-src 'self' https://*.google-analytics.com https://www.google-analytics.com https://analytics.google.com https://cloudflareinsights.com;
+  frame-ancestors 'self';
+  base-uri 'self';
+  form-action 'self';
+">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hackathons — Ashura</title>
+<meta name="description" content="Hackathon certificates and case studies: OPEN//BUILD 2026 (OSCA Ile-Ife) and the DevCareer x Nomba Hackathon 2026.">
+<link rel="canonical" href="https://ashura.site/occasions/hackathons">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/Styles/occ6.css">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZWHMD2C8S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag("js", new Date());
+  gtag("config", "G-ZZWHMD2C8S");
+</script>
+</head>
+<body>
+
+<main class="occasion-page">
+  <header class="occasion-header">
+    <a href="/occasions/" class="back-link">&larr; back</a>
+    <h1>Hackathons</h1>
+    <p class="occasion-date">Newest first</p>
+  </header>
+
+  <section class="occasion-content">
+    <div class="occasion-text">
+      <p>One page for every hackathon I take part in. Newest first.</p>
+    </div>
+
+    <article class="badge-entry stack">
+      <figure class="occasion-cert">
+        <img src="/certificates/open-build-2026-certificate-obire-oviemena.jpg" alt="Certificate of Participation — OPEN//BUILD 2026, Open Source Community Africa Ile-Ife — Obire Oviemena" loading="lazy">
+        <figcaption>Certificate of Participation — OPEN//BUILD 2026</figcaption>
+      </figure>
+      <div class="badge-meta">
+        <h2>OPEN//BUILD 2026</h2>
+        <p class="badge-date">October 25–31, 2026</p>
+        <p>A five-day hackathon by Open Source Community Africa (OSCA), Ile-Ife Chapter, built around open-source AI.</p>
+      </div>
+    </article>
+    <article class="badge-entry stack">
+      <figure class="occasion-cert">
+        <img src="/certificates/nomba-hackathon-certificate-obire-oviemena-israel.png" alt="Certificate of Participation — DevCareer x Nomba Hackathon 2026 — Obire Oviemena Israel" loading="lazy">
+        <figcaption>Certificate of Participation — DevCareer × Nomba Hackathon 2026</figcaption>
+      </figure>
+      <div class="badge-meta">
+        <h2>DevCareer × Nomba Hackathon 2026</h2>
+        <p class="badge-date">2026</p>
+        <p>Building innovative payment solutions for Nigeria.</p>
+      </div>
+    </article>
+    <section class="case-study">
+      <h2>🏆 Nomba Hackathon — Project Case Study</h2>
+      <p class="lede">
+        An intensive fintech engineering sprint focused on building highly
+        resilient digital payment infrastructure optimized for micro-merchants
+        in Nigeria.
+      </p>
+      <div class="case-meta">
+        <div><strong>TEAM:</strong><p><span class="tbd">The POLYGON</span></p></div>
+        <div><strong>Primary Focus:</strong><p>Backend Java Engineering</p></div>
+        <div><strong>Core Tech Stack:</strong><p>Java, Spring Boot, REST APIs, PostgreSQL</p></div>
+      </div>
+      <h3>📌 The Challenge</h3>
+      <p>
+        Traditional payment processing paths in low-bandwidth ecosystems often
+        drop transaction states due to network volatility, leading to severe
+        reconciliation backlogs, ledger double-entry bugs, and delayed
+        processing windows for digital micro-merchants.
+      </p>
+      <h3>💡 The Architectural Solution</h3>
+      <p>
+        We engineered a resilient transaction queuing backend that implements
+        idempotent processing keys and immediate memory-state snapshots. This
+        decoupling pattern allows the platform to accept client traffic
+        seamlessly during unexpected down-stream processor timeouts and
+        accurately complete settlement paths.
+      </p>
+      <h3>⚙️ Technical Contributions</h3>
+      <ul>
+        <li>Designed stateless <strong>REST controllers</strong> using Java/Spring Boot to
+          safely handle high-concurrency payloads under simulated peak
+          merchant traffic events.</li>
+        <li>Enforced absolute data integrity by utilizing database isolation
+          locks and database schemas to avoid overlapping ledger mutation
+          anomalies.</li>
+        <li>Integrated secure mock callback systems modeled directly against
+          modern payment processing patterns to reliably verify downstream
+          transaction logic.</li>
+      </ul>
+    </section>
+
+  </section>
+</main>
+</body>
+</html>

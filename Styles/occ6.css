@@ -202,3 +202,61 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Grouped pages (FlexiSAF, hackathons) ---------- */
+
+.badge-entry.stack {
+  grid-template-columns: 1fr;
+}
+
+.badge-meta h2 a {
+  color: inherit;
+}
+
+.tbd {
+  color: #ffb454;
+  border-bottom: 1px dashed rgba(255, 180, 84, 0.6);
+}
+
+.case-study {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid #f2bc18;
+  border-radius: 12px;
+  padding: 24px 28px;
+}
+
+.case-study h2 {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+}
+
+.case-study h3 {
+  margin: 24px 0 8px;
+  font-size: 1.05rem;
+}
+
+.case-study p,
+.case-study li {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.case-study p { margin: 0; }
+.case-study ul { margin: 0; padding-left: 20px; }
+.case-study li { margin-bottom: 10px; }
+.case-study .lede { color: var(--text-muted); font-style: italic; }
+
+.case-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+}
+
+.case-meta strong { color: var(--accent); font-size: 0.85rem; }
+.case-meta p { margin-top: 4px; }
+
