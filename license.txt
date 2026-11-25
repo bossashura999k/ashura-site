@@ -1,1 +1,4 @@
-This is a ping
+Copyright (c) 2026 Obire Oviemena Israel (Ashura IZZI)
+
+All rights reserved. No permission is granted to copy, modify,
+distribute or reuse this code or content without written permission.
